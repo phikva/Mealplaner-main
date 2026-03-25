@@ -1,0 +1,77 @@
+{
+  "_type": "oppskrift",
+  "tittel": "Sunn Kyllingwok med Grønnsaker",
+  "ingrediens": [
+    {
+      "name": "Kyllingfilet",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 400
+      },
+      "mengde": "2 stk",
+      "kcal": 660,
+      "makros": {
+        "protein": 124,
+        "karbs": 0,
+        "fett": 14
+      }
+    },
+    {
+      "name": "Brokkoli",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 200
+      },
+      "mengde": "1 hode",
+      "kcal": 70,
+      "makros": {
+        "protein": 6,
+        "karbs": 14,
+        "fett": 0.8
+      }
+    },
+    {
+      "name": "Gulrot",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 150
+      },
+      "mengde": "2 stk",
+      "kcal": 60,
+      "makros": {
+        "protein": 1.4,
+        "karbs": 14,
+        "fett": 0.3
+      }
+    },
+    {
+      "name": "Soyasaus",
+      "measurement": {
+        "unit": "dl",
+        "unitQuantity": 0.5
+      },
+      "mengde": "0.5 dl",
+      "kcal": 45,
+      "makros": {
+        "protein": 3.5,
+        "karbs": 8,
+        "fett": 0
+      }
+    }
+  ],
+  "instruksjoner": [
+    "Kutt kyllingfilet i jevne biter på ca 2x2 cm.",
+    "Del brokkoli i små buketter og skjær gulrøtter i tynne skiver.",
+    "Stek kyllingen i en wok eller stor stekepanne på høy varme til den er gyllen.",
+    "Tilsett grønnsakene og stek i 3-4 minutter til de er møre men fortsatt sprø.",
+    "Hell over soyasaus og vend alt godt sammen.",
+    "Server umiddelbart mens retten er varm."
+  ],
+  "notater": "Denne retten er rik på protein og grønnsaker. Du kan gjerne servere den med ris eller nudler for å øke karbohydratinnholdet.",
+  "totalKcal": 835,
+  "totalMakros": {
+    "protein": 134.9,
+    "karbs": 36,
+    "fett": 15.1
+  }
+} 

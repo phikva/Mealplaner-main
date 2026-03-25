@@ -1,0 +1,41 @@
+# OS
+.DS_Store
+
+# IDE / editor
+.idea/
+.vscode/
+.cursor/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Node / package managers
+node_modules/
+.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# Build / cache outputs (workspace-wide)
+**/.next/
+**/out/
+**/dist/
+**/.sanity/
+**/.turbo/
+**/coverage/
+**/*.tsbuildinfo
+
+# Local backups/scripts output
+apps/studio/backups/

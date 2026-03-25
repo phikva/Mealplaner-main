@@ -1,0 +1,135 @@
+{
+  "_type": "oppskrift",
+  "tittel": "Frisk Laksesalat med Avokado",
+  "ingrediens": [
+    {
+      "name": "Laksefilet",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 300
+      },
+      "mengde": "2 fileter",
+      "kcal": 621,
+      "makros": {
+        "protein": 63,
+        "karbs": 0,
+        "fett": 42
+      }
+    },
+    {
+      "name": "Blandet Salat",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 150
+      },
+      "mengde": "1 pose",
+      "kcal": 25,
+      "makros": {
+        "protein": 2,
+        "karbs": 4.5,
+        "fett": 0.3
+      }
+    },
+    {
+      "name": "Avokado",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 150
+      },
+      "mengde": "1 stk",
+      "kcal": 240,
+      "makros": {
+        "protein": 3,
+        "karbs": 12,
+        "fett": 22
+      }
+    },
+    {
+      "name": "Agurk",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 100
+      },
+      "mengde": "0.5 stk",
+      "kcal": 15,
+      "makros": {
+        "protein": 0.7,
+        "karbs": 3.3,
+        "fett": 0.1
+      }
+    },
+    {
+      "name": "Cherrytomater",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 100
+      },
+      "mengde": "10 stk",
+      "kcal": 18,
+      "makros": {
+        "protein": 0.9,
+        "karbs": 3.9,
+        "fett": 0.2
+      }
+    },
+    {
+      "name": "Rødløk",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 50
+      },
+      "mengde": "0.5 stk",
+      "kcal": 20,
+      "makros": {
+        "protein": 1,
+        "karbs": 4.5,
+        "fett": 0.1
+      }
+    },
+    {
+      "name": "Olivenolje",
+      "measurement": {
+        "unit": "ss",
+        "unitQuantity": 1
+      },
+      "mengde": "1 ss",
+      "kcal": 120,
+      "makros": {
+        "protein": 0,
+        "karbs": 0,
+        "fett": 14
+      }
+    },
+    {
+      "name": "Sitronsaft",
+      "measurement": {
+        "unit": "ss",
+        "unitQuantity": 1
+      },
+      "mengde": "1 ss",
+      "kcal": 4,
+      "makros": {
+        "protein": 0.1,
+        "karbs": 1.3,
+        "fett": 0
+      }
+    }
+  ],
+  "instruksjoner": [
+    "Forvarm ovnen til 200°C.",
+    "Krydre laksefiletene med salt og pepper, og stek dem i ovnen i ca. 12-15 minutter.",
+    "Vask og tørk salaten, og fordel den i en stor bolle eller på tallerkener.",
+    "Skjær avokado, agurk, cherrytomater og rødløk i biter, og fordel over salaten.",
+    "Bland olivenolje og sitronsaft til en enkel dressing, og smak til med salt og pepper.",
+    "Når laksen er ferdig, la den hvile i et par minutter før du bryter den opp i mindre biter.",
+    "Fordel laksebiter over salaten, og hell dressingen over.",
+    "Server umiddelbart."
+  ],
+  "notater": "En sunn og proteinrik salat som er perfekt for lunsj eller en lett middag. Laksen kan også erstattes med annen fisk eller kylling om ønskelig. For en mer mettende versjon, tilsett kokt quinoa eller byggkorn.",
+  "totalKcal": 1063,
+  "totalMakros": {
+    "protein": 70.7,
+    "karbs": 29.5,
+    "fett": 78.7
+  }
+} 

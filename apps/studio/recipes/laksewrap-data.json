@@ -1,0 +1,92 @@
+{
+  "_type": "oppskrift",
+  "tittel": "Sunn Laksewrap med Avokado",
+  "ingrediens": [
+    {
+      "name": "Laksefilet",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 300
+      },
+      "mengde": "2 fileter",
+      "kcal": 621,
+      "makros": {
+        "protein": 63,
+        "karbs": 0,
+        "fett": 42
+      }
+    },
+    {
+      "name": "Fullkornstortilla",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 120
+      },
+      "mengde": "2 stk",
+      "kcal": 360,
+      "makros": {
+        "protein": 12,
+        "karbs": 56,
+        "fett": 8
+      }
+    },
+    {
+      "name": "Avokado",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 150
+      },
+      "mengde": "1 stor",
+      "kcal": 240,
+      "makros": {
+        "protein": 3,
+        "karbs": 12,
+        "fett": 22
+      }
+    },
+    {
+      "name": "Rødløk",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 50
+      },
+      "mengde": "0.5 stk",
+      "kcal": 20,
+      "makros": {
+        "protein": 1,
+        "karbs": 4.5,
+        "fett": 0.1
+      }
+    },
+    {
+      "name": "Spinat",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 50
+      },
+      "mengde": "2 håndfuller",
+      "kcal": 12,
+      "makros": {
+        "protein": 1.5,
+        "karbs": 1.8,
+        "fett": 0.2
+      }
+    }
+  ],
+  "instruksjoner": [
+    "Stek laksefiletene i ovnen på 200°C i ca. 12-15 minutter.",
+    "Mens laksen steker, skjær avokado og rødløk i tynne skiver.",
+    "Varm tortillaene lett i en tørr stekepanne.",
+    "Fordel spinat på tortillaene.",
+    "Del laksen i mindre biter og fordel på tortillaene.",
+    "Topp med avokado og rødløk.",
+    "Brett sammen og server umiddelbart."
+  ],
+  "notater": "En proteinrik og sunn wrap med gode fettsyrer fra både laks og avokado. Perfekt for lunsj eller en lett middag.",
+  "totalKcal": 1253,
+  "totalMakros": {
+    "protein": 80.5,
+    "karbs": 74.3,
+    "fett": 72.3
+  }
+} 

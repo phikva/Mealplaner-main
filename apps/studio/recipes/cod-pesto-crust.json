@@ -1,0 +1,9 @@
+{
+  "recipes": [
+    {
+      "title": "Torsk med Pesto og Parmesanskorpe",
+      "categories": ["høy protein", "lavkarbo", "glutenfritt"],
+      "dataFile": "cod-pesto-crust-data.json"
+    }
+  ]
+} 

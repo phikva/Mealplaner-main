@@ -1,0 +1,9 @@
+{
+  "recipes": [
+    {
+      "title": "Frisk Laksesalat med Avokado",
+      "categories": ["sunn", "fisk", "lavkarbo"],
+      "dataFile": "laksesalat-data.json"
+    }
+  ]
+} 

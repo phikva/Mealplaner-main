@@ -1,0 +1,9 @@
+{
+  "recipes": [
+    {
+      "title": "Vegetarisk Chili Sin Carne",
+      "categories": ["vegansk", "høy protein", "sunn", "glutenfritt", "meksikansk"],
+      "dataFile": "vegetar-chili-data.json"
+    }
+  ]
+} 

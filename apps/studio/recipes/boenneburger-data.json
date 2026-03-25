@@ -1,0 +1,135 @@
+{
+  "_type": "oppskrift",
+  "tittel": "Vegetarisk Bønneburger",
+  "ingrediens": [
+    {
+      "name": "Svarte Bønner (kokte)",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 400
+      },
+      "mengde": "1 boks",
+      "kcal": 440,
+      "makros": {
+        "protein": 28,
+        "karbs": 76,
+        "fett": 2
+      }
+    },
+    {
+      "name": "Havregryn",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 60
+      },
+      "mengde": "1.5 dl",
+      "kcal": 222,
+      "makros": {
+        "protein": 7.8,
+        "karbs": 37.8,
+        "fett": 4.2
+      }
+    },
+    {
+      "name": "Løk",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 100
+      },
+      "mengde": "1 stk",
+      "kcal": 40,
+      "makros": {
+        "protein": 2,
+        "karbs": 9,
+        "fett": 0.2
+      }
+    },
+    {
+      "name": "Hvitløk",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 9
+      },
+      "mengde": "3 fedd",
+      "kcal": 13,
+      "makros": {
+        "protein": 0.6,
+        "karbs": 3,
+        "fett": 0
+      }
+    },
+    {
+      "name": "Egg",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 60
+      },
+      "mengde": "1 stk",
+      "kcal": 84,
+      "makros": {
+        "protein": 7,
+        "karbs": 0,
+        "fett": 6
+      }
+    },
+    {
+      "name": "Fullkornsburgerbrød",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 240
+      },
+      "mengde": "4 stk",
+      "kcal": 600,
+      "makros": {
+        "protein": 24,
+        "karbs": 108,
+        "fett": 12
+      }
+    },
+    {
+      "name": "Avokado",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 150
+      },
+      "mengde": "1 stk",
+      "kcal": 240,
+      "makros": {
+        "protein": 3,
+        "karbs": 12,
+        "fett": 22
+      }
+    },
+    {
+      "name": "Tomat",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 200
+      },
+      "mengde": "2 stk",
+      "kcal": 36,
+      "makros": {
+        "protein": 1.8,
+        "karbs": 7.8,
+        "fett": 0.4
+      }
+    }
+  ],
+  "instruksjoner": [
+    "Skyll og avkjøl bønnene godt.",
+    "Finhakk løk og hvitløk og stek dem lett i en panne til de er myke.",
+    "Mos bønnene i en food processor eller med en gaffel til en grov masse.",
+    "Bland bønnemassen med stekt løk, hvitløk, havregryn og egg.",
+    "Form 4 like store burgere med hendene og la dem hvile i kjøleskapet i 30 minutter.",
+    "Stek burgerne i en panne med litt olje, ca. 4-5 minutter på hver side.",
+    "Varm burgerbrødene lett i ovnen eller i en brødrister.",
+    "Server burgerne i brødene med skiver av avokado og tomat."
+  ],
+  "notater": "En proteinrik vegetarisk burger som er enkel å lage. Du kan også tilsette krydder som spisskummen eller paprika for mer smak. Burgerne kan fryses ned etter steking og varmes opp senere.",
+  "totalKcal": 1675,
+  "totalMakros": {
+    "protein": 74.2,
+    "karbs": 253.6,
+    "fett": 46.8
+  }
+} 

@@ -1,0 +1,9 @@
+{
+  "recipes": [
+    {
+      "title": "Middelhavsinspirert Quinoasalat",
+      "categories": ["Vegansk", "Sunn", "Glutenfritt"],
+      "dataFile": "quinoa-salat-data.json"
+    }
+  ]
+} 

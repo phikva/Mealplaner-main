@@ -1,0 +1,165 @@
+{
+  "_type": "oppskrift",
+  "tittel": "Ovnsbakt Laks med Sitron og Urter",
+  "ingrediens": [
+    {
+      "name": "Laksefilet",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 500
+      },
+      "mengde": "4 fileter",
+      "kcal": 1035,
+      "makros": {
+        "protein": 110,
+        "karbs": 0,
+        "fett": 65
+      }
+    },
+    {
+      "name": "Sitron",
+      "measurement": {
+        "unit": "stk",
+        "unitQuantity": 1
+      },
+      "mengde": "1 stor",
+      "kcal": 20,
+      "makros": {
+        "protein": 0.6,
+        "karbs": 6,
+        "fett": 0.2
+      }
+    },
+    {
+      "name": "Dill",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 15
+      },
+      "mengde": "En håndfull",
+      "kcal": 4,
+      "makros": {
+        "protein": 0.3,
+        "karbs": 0.7,
+        "fett": 0.1
+      }
+    },
+    {
+      "name": "Persille",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 10
+      },
+      "mengde": "En håndfull",
+      "kcal": 4,
+      "makros": {
+        "protein": 0.3,
+        "karbs": 0.6,
+        "fett": 0.1
+      }
+    },
+    {
+      "name": "Hvitløk",
+      "measurement": {
+        "unit": "fedd",
+        "unitQuantity": 2
+      },
+      "mengde": "2 fedd",
+      "kcal": 8,
+      "makros": {
+        "protein": 0.4,
+        "karbs": 2,
+        "fett": 0
+      }
+    },
+    {
+      "name": "Olivenolje",
+      "measurement": {
+        "unit": "ss",
+        "unitQuantity": 2
+      },
+      "mengde": "2 ss",
+      "kcal": 240,
+      "makros": {
+        "protein": 0,
+        "karbs": 0,
+        "fett": 28
+      }
+    },
+    {
+      "name": "Salt",
+      "measurement": {
+        "unit": "ts",
+        "unitQuantity": 1
+      },
+      "mengde": "Etter smak",
+      "kcal": 0,
+      "makros": {
+        "protein": 0,
+        "karbs": 0,
+        "fett": 0
+      }
+    },
+    {
+      "name": "Pepper",
+      "measurement": {
+        "unit": "ts",
+        "unitQuantity": 0.5
+      },
+      "mengde": "Etter smak",
+      "kcal": 3,
+      "makros": {
+        "protein": 0.1,
+        "karbs": 0.8,
+        "fett": 0
+      }
+    },
+    {
+      "name": "Brokkoli",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 300
+      },
+      "mengde": "1 stk",
+      "kcal": 102,
+      "makros": {
+        "protein": 8.4,
+        "karbs": 20.4,
+        "fett": 1.2
+      }
+    },
+    {
+      "name": "Asparges",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 200
+      },
+      "mengde": "1 bunt",
+      "kcal": 40,
+      "makros": {
+        "protein": 4.6,
+        "karbs": 7.4,
+        "fett": 0.4
+      }
+    }
+  ],
+  "instruksjoner": [
+    "Forvarm ovnen til 200°C.",
+    "Legg laksefiletene i en ildfast form.",
+    "Bland finhakket hvitløk, hakket dill og persille med olivenolje i en liten bolle.",
+    "Skjær sitronen i tynne skiver, og legg noen skiver på toppen av laksen. Press saften fra resten av sitronen over fisken.",
+    "Fordel urte- og oljeblandingen over laksefiletene.",
+    "Krydre med salt og pepper.",
+    "Kutt brokkoli i buketter og asparges i passende lengder.",
+    "Legg grønnsakene rundt laksen i formen, og drypp litt olivenolje, salt og pepper over dem.",
+    "Bak i ovnen i 15-18 minutter, eller til laksen er gjennomstekt og lett flaker seg.",
+    "Server umiddelbart med sitronskiver som garnityr."
+  ],
+  "notater": "Denne enkle og smakfulle lakseretten er rik på omega-3 fettsyrer og protein. Urter og sitron gir en frisk smak som komplimenterer den milde laksen perfekt. Retten er rask å tilberede og passer godt til både hverdags og selskap. For variasjon kan du bruke andre ferske urter som timian eller basilikum.",
+  "totalKcal": 1456,
+  "totalMakros": {
+    "protein": 124.7,
+    "karbs": 37.9,
+    "fett": 95
+  }
+} 

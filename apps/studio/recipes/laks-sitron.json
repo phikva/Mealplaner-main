@@ -1,0 +1,9 @@
+{
+  "recipes": [
+    {
+      "title": "Ovnsbakt Laks med Sitron og Urter",
+      "categories": ["høy protein", "sunn", "glutenfritt", "lavkarbo"],
+      "dataFile": "laks-sitron-data.json"
+    }
+  ]
+} 

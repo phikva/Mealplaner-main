@@ -1,0 +1,9 @@
+{
+  "recipes": [
+    {
+      "title": "Thai-inspirert Kylling med Grønnsaker",
+      "categories": ["høy protein", "asiatisk", "sunn", "glutenfritt"],
+      "dataFile": "thai-kylling-data.json"
+    }
+  ]
+} 

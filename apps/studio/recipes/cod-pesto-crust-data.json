@@ -1,0 +1,204 @@
+{
+  "_type": "oppskrift",
+  "tittel": "Torsk med Pesto og Parmesanskorpe",
+  "porsjoner": 4,
+  "ingrediens": [
+    {
+      "name": "Torskefilet",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 600
+      },
+      "mengde": "4 fileter",
+      "kcal": 480,
+      "makros": {
+        "protein": 108,
+        "karbs": 0,
+        "fett": 4.8
+      }
+    },
+    {
+      "name": "Grønn pesto",
+      "measurement": {
+        "unit": "ss",
+        "unitQuantity": 4
+      },
+      "mengde": "4 ss",
+      "kcal": 280,
+      "makros": {
+        "protein": 6,
+        "karbs": 4,
+        "fett": 28
+      }
+    },
+    {
+      "name": "Parmesanost",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 50
+      },
+      "mengde": "1 dl revet",
+      "kcal": 215,
+      "makros": {
+        "protein": 19,
+        "karbs": 2,
+        "fett": 14
+      }
+    },
+    {
+      "name": "Grovt brødrasp",
+      "measurement": {
+        "unit": "dl",
+        "unitQuantity": 1
+      },
+      "mengde": "1 dl",
+      "kcal": 110,
+      "makros": {
+        "protein": 3.5,
+        "karbs": 22,
+        "fett": 0.5
+      }
+    },
+    {
+      "name": "Sitron",
+      "measurement": {
+        "unit": "stk",
+        "unitQuantity": 1
+      },
+      "mengde": "1 stk",
+      "kcal": 20,
+      "makros": {
+        "protein": 0.6,
+        "karbs": 6,
+        "fett": 0.2
+      }
+    },
+    {
+      "name": "Brokkoli",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 300
+      },
+      "mengde": "1 stk",
+      "kcal": 102,
+      "makros": {
+        "protein": 8.4,
+        "karbs": 20.4,
+        "fett": 1.2
+      }
+    },
+    {
+      "name": "Sukkererter",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 150
+      },
+      "mengde": "1 pose",
+      "kcal": 60,
+      "makros": {
+        "protein": 4.5,
+        "karbs": 10.5,
+        "fett": 0.3
+      }
+    },
+    {
+      "name": "Cherrytomater",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 200
+      },
+      "mengde": "1 pakke",
+      "kcal": 36,
+      "makros": {
+        "protein": 1.8,
+        "karbs": 7.8,
+        "fett": 0.4
+      }
+    },
+    {
+      "name": "Olivenolje",
+      "measurement": {
+        "unit": "ss",
+        "unitQuantity": 2
+      },
+      "mengde": "2 ss",
+      "kcal": 240,
+      "makros": {
+        "protein": 0,
+        "karbs": 0,
+        "fett": 28
+      }
+    },
+    {
+      "name": "Hvitløk",
+      "measurement": {
+        "unit": "fedd",
+        "unitQuantity": 2
+      },
+      "mengde": "2 fedd",
+      "kcal": 8,
+      "makros": {
+        "protein": 0.4,
+        "karbs": 2,
+        "fett": 0
+      }
+    },
+    {
+      "name": "Salt",
+      "measurement": {
+        "unit": "ts",
+        "unitQuantity": 1
+      },
+      "mengde": "Etter smak",
+      "kcal": 0,
+      "makros": {
+        "protein": 0,
+        "karbs": 0,
+        "fett": 0
+      }
+    },
+    {
+      "name": "Pepper",
+      "measurement": {
+        "unit": "ts",
+        "unitQuantity": 0.5
+      },
+      "mengde": "Etter smak",
+      "kcal": 3,
+      "makros": {
+        "protein": 0.1,
+        "karbs": 0.8,
+        "fett": 0
+      }
+    }
+  ],
+  "instruksjoner": [
+    "1. Forvarm ovnen til 200°C.",
+    "2. Tørk torskefiletene godt med kjøkkenpapir for å fjerne overflødig fuktighet.",
+    "3. Legg filetene på et bakepapirkledd stekebrett med skinnsiden ned (hvis de har skinn).",
+    "4. Krydre fisken lett med salt og pepper på begge sider.",
+    "5. I en liten bolle, bland sammen pesto, revet parmesan og brødrasp til en jevn blanding.",
+    "6. Fordel pestoblandingen jevnt over toppen av hver torskefilet, og press den lett ned slik at den fester seg godt.",
+    "7. Skjær sitronen i båter og legg dem rundt fisken på stekebrettet.",
+    "8. Sett fisken i ovnen og stek i 12-15 minutter, eller til fisken er gjennomstekt og skorpen er gyllen.",
+    "9. Mens fisken steker, forbered grønnsakene: Del brokkolien i små buketter og skjær stilken i tynne skiver.",
+    "10. Rens sukkerertene og del cherrytomatene i halve.",
+    "11. Finhakk hvitløken.",
+    "12. Varm olivenoljen i en stor stekepanne på middels varme.",
+    "13. Tilsett hvitløken og stek i 30 sekunder til den dufter.",
+    "14. Ha i brokkoli og sukkererter, og stek i 3-4 minutter mens du rører jevnlig.",
+    "15. Tilsett cherrytomatene og stek i ytterligere 2 minutter.",
+    "16. Krydre grønnsakene med salt og pepper etter smak.",
+    "17. Når fisken er ferdig, ta den forsiktig ut av ovnen og la den hvile i 2 minutter.",
+    "18. Anrett fisken på tallerkener med de stekte grønnsakene ved siden av.",
+    "19. Klem litt sitronsaft over fisken rett før servering for en frisk smak.",
+    "20. Server umiddelbart med sitronbåter på siden for ekstra friskhet."
+  ],
+  "notater": "Denne lette og smakfulle fiskeretten er rik på protein og omega-3 fettsyrer. Pestoskorpen gir en herlig smak og tekstur som komplimenterer den milde torsken perfekt. Retten er rask å tilberede og passer godt til både hverdags og helg. For en mer mettende måltid, server med kokte nypoteter eller fullkornsris. Du kan også bruke andre hvite fisketyper som sei eller hyse hvis torsk ikke er tilgjengelig.",
+  "totalKcal": 1554,
+  "totalMakros": {
+    "protein": 152.3,
+    "karbs": 75.5,
+    "fett": 77.4
+  }
+} 

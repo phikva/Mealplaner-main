@@ -1,0 +1,235 @@
+{
+  "_type": "oppskrift",
+  "tittel": "Vegetarisk Chili Sin Carne",
+  "ingrediens": [
+    {
+      "name": "Kidneybønner",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 400
+      },
+      "mengde": "1 boks",
+      "kcal": 440,
+      "makros": {
+        "protein": 26,
+        "karbs": 80,
+        "fett": 1.6
+      }
+    },
+    {
+      "name": "Svarte bønner",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 400
+      },
+      "mengde": "1 boks",
+      "kcal": 440,
+      "makros": {
+        "protein": 28,
+        "karbs": 76,
+        "fett": 2
+      }
+    },
+    {
+      "name": "Hakkede tomater",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 400
+      },
+      "mengde": "1 boks",
+      "kcal": 88,
+      "makros": {
+        "protein": 4,
+        "karbs": 16,
+        "fett": 0.8
+      }
+    },
+    {
+      "name": "Løk",
+      "measurement": {
+        "unit": "stk",
+        "unitQuantity": 1
+      },
+      "mengde": "1 stor",
+      "kcal": 44,
+      "makros": {
+        "protein": 1.2,
+        "karbs": 10,
+        "fett": 0.1
+      }
+    },
+    {
+      "name": "Rød paprika",
+      "measurement": {
+        "unit": "stk",
+        "unitQuantity": 1
+      },
+      "mengde": "1 stor",
+      "kcal": 40,
+      "makros": {
+        "protein": 1.3,
+        "karbs": 9.4,
+        "fett": 0.3
+      }
+    },
+    {
+      "name": "Gul paprika",
+      "measurement": {
+        "unit": "stk",
+        "unitQuantity": 1
+      },
+      "mengde": "1 stor",
+      "kcal": 40,
+      "makros": {
+        "protein": 1.3,
+        "karbs": 9.4,
+        "fett": 0.3
+      }
+    },
+    {
+      "name": "Hvitløk",
+      "measurement": {
+        "unit": "fedd",
+        "unitQuantity": 3
+      },
+      "mengde": "3 fedd",
+      "kcal": 13,
+      "makros": {
+        "protein": 0.6,
+        "karbs": 3,
+        "fett": 0
+      }
+    },
+    {
+      "name": "Mais",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 150
+      },
+      "mengde": "1 liten boks",
+      "kcal": 165,
+      "makros": {
+        "protein": 4.5,
+        "karbs": 33,
+        "fett": 1.5
+      }
+    },
+    {
+      "name": "Chilipulver",
+      "measurement": {
+        "unit": "ss",
+        "unitQuantity": 2
+      },
+      "mengde": "2 ss",
+      "kcal": 16,
+      "makros": {
+        "protein": 0.6,
+        "karbs": 2.8,
+        "fett": 0.8
+      }
+    },
+    {
+      "name": "Spisskummen",
+      "measurement": {
+        "unit": "ts",
+        "unitQuantity": 2
+      },
+      "mengde": "2 ts",
+      "kcal": 16,
+      "makros": {
+        "protein": 0.8,
+        "karbs": 1.9,
+        "fett": 1
+      }
+    },
+    {
+      "name": "Paprikapulver",
+      "measurement": {
+        "unit": "ts",
+        "unitQuantity": 1
+      },
+      "mengde": "1 ts",
+      "kcal": 6,
+      "makros": {
+        "protein": 0.3,
+        "karbs": 1.2,
+        "fett": 0.3
+      }
+    },
+    {
+      "name": "Grønnsaksbuljong",
+      "measurement": {
+        "unit": "dl",
+        "unitQuantity": 2
+      },
+      "mengde": "2 dl",
+      "kcal": 10,
+      "makros": {
+        "protein": 0.5,
+        "karbs": 2,
+        "fett": 0
+      }
+    },
+    {
+      "name": "Olivenolje",
+      "measurement": {
+        "unit": "ss",
+        "unitQuantity": 1
+      },
+      "mengde": "1 ss",
+      "kcal": 120,
+      "makros": {
+        "protein": 0,
+        "karbs": 0,
+        "fett": 14
+      }
+    },
+    {
+      "name": "Salt",
+      "measurement": {
+        "unit": "ts",
+        "unitQuantity": 1
+      },
+      "mengde": "Etter smak",
+      "kcal": 0,
+      "makros": {
+        "protein": 0,
+        "karbs": 0,
+        "fett": 0
+      }
+    },
+    {
+      "name": "Pepper",
+      "measurement": {
+        "unit": "ts",
+        "unitQuantity": 0.5
+      },
+      "mengde": "Etter smak",
+      "kcal": 3,
+      "makros": {
+        "protein": 0.1,
+        "karbs": 0.8,
+        "fett": 0
+      }
+    }
+  ],
+  "instruksjoner": [
+    "Varm olivenolje i en stor gryte på middels varme.",
+    "Tilsett hakket løk og stek til den er myk og gjennomsiktig, ca. 5 minutter.",
+    "Tilsett finhakket hvitløk og stek i 1 minutt til.",
+    "Ha i paprika skåret i terninger og stek i 3-4 minutter.",
+    "Tilsett chilipulver, spisskummen og paprikapulver. Rør godt og stek i 1 minutt til krydderet dufter.",
+    "Hell i hakkede tomater og grønnsaksbuljong. Rør godt.",
+    "Tilsett avskylte og avrente bønner og mais.",
+    "La det småkoke under lokk i 20-25 minutter. Rør av og til.",
+    "Smak til med salt og pepper.",
+    "Server gjerne med ris, nachos, avokado, rømme eller revet ost."
+  ],
+  "notater": "Denne vegetariske chilien er full av protein fra bønnene og er et næringsrikt og mettende måltid. Den kan gjerne lages dagen før servering, da smakene utvikler seg og blir enda bedre. Frys ned porsjoner for raske måltider senere. For en sterkere variant, tilsett hakket chili eller cayennepepper.",
+  "totalKcal": 1441,
+  "totalMakros": {
+    "protein": 69.2,
+    "karbs": 245.5,
+    "fett": 22.7
+  }
+} 

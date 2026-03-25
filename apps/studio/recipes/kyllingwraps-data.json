@@ -1,0 +1,151 @@
+{
+  "_type": "oppskrift",
+  "tittel": "Sunne Kyllingwraps med Avokado",
+  "ingrediens": [
+    {
+      "name": "Kyllingfilet",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 300
+      },
+      "mengde": "2 fileter",
+      "kcal": 330,
+      "makros": {
+        "protein": 62,
+        "karbs": 0,
+        "fett": 9
+      }
+    },
+    {
+      "name": "Fullkornstortilla",
+      "measurement": {
+        "unit": "stk",
+        "unitQuantity": 4
+      },
+      "mengde": "4 stk",
+      "kcal": 600,
+      "makros": {
+        "protein": 16,
+        "karbs": 100,
+        "fett": 16
+      }
+    },
+    {
+      "name": "Avokado",
+      "measurement": {
+        "unit": "stk",
+        "unitQuantity": 1
+      },
+      "mengde": "1 stk",
+      "kcal": 240,
+      "makros": {
+        "protein": 3,
+        "karbs": 12,
+        "fett": 22
+      }
+    },
+    {
+      "name": "Rødløk",
+      "measurement": {
+        "unit": "stk",
+        "unitQuantity": 1
+      },
+      "mengde": "1 stk",
+      "kcal": 40,
+      "makros": {
+        "protein": 1,
+        "karbs": 9,
+        "fett": 0.1
+      }
+    },
+    {
+      "name": "Paprika",
+      "measurement": {
+        "unit": "stk",
+        "unitQuantity": 1
+      },
+      "mengde": "1 stk",
+      "kcal": 30,
+      "makros": {
+        "protein": 1,
+        "karbs": 6,
+        "fett": 0.3
+      }
+    },
+    {
+      "name": "Salat",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 100
+      },
+      "mengde": "2 never",
+      "kcal": 15,
+      "makros": {
+        "protein": 1.5,
+        "karbs": 2.5,
+        "fett": 0.2
+      }
+    },
+    {
+      "name": "Lettrømme",
+      "measurement": {
+        "unit": "ss",
+        "unitQuantity": 4
+      },
+      "mengde": "4 ss",
+      "kcal": 120,
+      "makros": {
+        "protein": 4,
+        "karbs": 4,
+        "fett": 10
+      }
+    },
+    {
+      "name": "Lime",
+      "measurement": {
+        "unit": "stk",
+        "unitQuantity": 1
+      },
+      "mengde": "1 stk",
+      "kcal": 20,
+      "makros": {
+        "protein": 0.5,
+        "karbs": 7,
+        "fett": 0.1
+      }
+    },
+    {
+      "name": "Krydder (salt, pepper, paprika)",
+      "measurement": {
+        "unit": "ts",
+        "unitQuantity": 2
+      },
+      "mengde": "Etter smak",
+      "kcal": 5,
+      "makros": {
+        "protein": 0,
+        "karbs": 1,
+        "fett": 0
+      }
+    }
+  ],
+  "instruksjoner": [
+    "Krydre kyllingfiletene med salt, pepper og paprikakrydder.",
+    "Stek kyllingen i en panne med litt olje på middels varme i ca. 6-7 minutter på hver side, til den er gjennomstekt.",
+    "La kyllingen hvile i 5 minutter før du skjærer den i tynne skiver.",
+    "Skjær rødløk og paprika i tynne strimler.",
+    "Skjær avokadoen i skiver.",
+    "Bland lettrømme med limesaft, salt og pepper til en enkel dressing.",
+    "Varm tortillaene lett i en tørr panne eller i mikrobølgeovn.",
+    "Legg salat på hver tortilla, deretter kylling, avokado, rødløk og paprika.",
+    "Topp med dressingen og brett sammen til wraps.",
+    "Server umiddelbart."
+  ],
+  "notater": "Disse wrapsene er fulle av protein og sunne fettstoffer fra avokado. Du kan også tilsette andre grønnsaker etter ønske, som mais eller bønner for ekstra fiber. For en glutenfri versjon, bruk glutenfrie tortillas.",
+  "totalKcal": 1400,
+  "totalMakros": {
+    "protein": 89,
+    "karbs": 141.5,
+    "fett": 57.7
+  }
+} 

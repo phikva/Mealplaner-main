@@ -1,0 +1,9 @@
+{
+  "recipes": [
+    {
+      "title": "Gresk Yoghurt Snack med Bær og Honning",
+      "categories": ["høy protein", "snacks", "sunn", "glutenfritt"],
+      "dataFile": "gresk-yoghurt-snack-data.json"
+    }
+  ]
+} 

@@ -1,0 +1,231 @@
+{
+  "_type": "oppskrift",
+  "tittel": "Middelhavsinspirerte Fylte Paprika",
+  "porsjoner": 4,
+  "ingrediens": [
+    {
+      "name": "Rød paprika",
+      "measurement": {
+        "unit": "stk",
+        "unitQuantity": 4
+      },
+      "mengde": "4 store",
+      "kcal": 120,
+      "makros": {
+        "protein": 4,
+        "karbs": 28,
+        "fett": 0.8
+      }
+    },
+    {
+      "name": "Quinoa",
+      "measurement": {
+        "unit": "dl",
+        "unitQuantity": 2
+      },
+      "mengde": "2 dl tørr",
+      "kcal": 480,
+      "makros": {
+        "protein": 16,
+        "karbs": 84,
+        "fett": 8
+      }
+    },
+    {
+      "name": "Kikerter",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 400
+      },
+      "mengde": "1 boks, avrent",
+      "kcal": 480,
+      "makros": {
+        "protein": 32,
+        "karbs": 80,
+        "fett": 8
+      }
+    },
+    {
+      "name": "Rødløk",
+      "measurement": {
+        "unit": "stk",
+        "unitQuantity": 1
+      },
+      "mengde": "1 medium",
+      "kcal": 40,
+      "makros": {
+        "protein": 1.2,
+        "karbs": 9.6,
+        "fett": 0.2
+      }
+    },
+    {
+      "name": "Hvitløk",
+      "measurement": {
+        "unit": "fedd",
+        "unitQuantity": 3
+      },
+      "mengde": "3 fedd",
+      "kcal": 12,
+      "makros": {
+        "protein": 0.6,
+        "karbs": 3,
+        "fett": 0
+      }
+    },
+    {
+      "name": "Fetaost",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 100
+      },
+      "mengde": "100g",
+      "kcal": 264,
+      "makros": {
+        "protein": 14,
+        "karbs": 4,
+        "fett": 21
+      }
+    },
+    {
+      "name": "Oliven",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 50
+      },
+      "mengde": "ca 15 stk",
+      "kcal": 115,
+      "makros": {
+        "protein": 1,
+        "karbs": 3,
+        "fett": 11
+      }
+    },
+    {
+      "name": "Soltørkede tomater",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 50
+      },
+      "mengde": "ca 8 stk",
+      "kcal": 140,
+      "makros": {
+        "protein": 4,
+        "karbs": 12,
+        "fett": 9
+      }
+    },
+    {
+      "name": "Frisk spinat",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 60
+      },
+      "mengde": "2 håndfuller",
+      "kcal": 14,
+      "makros": {
+        "protein": 1.8,
+        "karbs": 2.2,
+        "fett": 0.2
+      }
+    },
+    {
+      "name": "Sitronjuice",
+      "measurement": {
+        "unit": "ss",
+        "unitQuantity": 2
+      },
+      "mengde": "1/2 sitron",
+      "kcal": 8,
+      "makros": {
+        "protein": 0.2,
+        "karbs": 2.6,
+        "fett": 0
+      }
+    },
+    {
+      "name": "Olivenolje",
+      "measurement": {
+        "unit": "ss",
+        "unitQuantity": 2
+      },
+      "mengde": "2 ss",
+      "kcal": 240,
+      "makros": {
+        "protein": 0,
+        "karbs": 0,
+        "fett": 28
+      }
+    },
+    {
+      "name": "Oregano",
+      "measurement": {
+        "unit": "ts",
+        "unitQuantity": 2
+      },
+      "mengde": "2 ts",
+      "kcal": 6,
+      "makros": {
+        "protein": 0.2,
+        "karbs": 1.2,
+        "fett": 0.2
+      }
+    },
+    {
+      "name": "Salt",
+      "measurement": {
+        "unit": "ts",
+        "unitQuantity": 1
+      },
+      "mengde": "Etter smak",
+      "kcal": 0,
+      "makros": {
+        "protein": 0,
+        "karbs": 0,
+        "fett": 0
+      }
+    },
+    {
+      "name": "Pepper",
+      "measurement": {
+        "unit": "ts",
+        "unitQuantity": 0.5
+      },
+      "mengde": "Etter smak",
+      "kcal": 3,
+      "makros": {
+        "protein": 0.1,
+        "karbs": 0.8,
+        "fett": 0
+      }
+    }
+  ],
+  "instruksjoner": [
+    "1. Forvarm ovnen til 190°C.",
+    "2. Skyll quinoa grundig under kaldt vann i en sil for å fjerne bitterhet.",
+    "3. Kok quinoa i 2 dl vann med litt salt i ca. 15 minutter, eller til all væsken er absorbert. La stå tildekket i 5 minutter.",
+    "4. Mens quinoaen koker, skjær toppen av paprikaene og fjern frø og skillevegger. Behold toppene til senere.",
+    "5. Pensle paprikaene lett med olivenolje både innvendig og utvendig.",
+    "6. Plasser paprikaene i en ildfast form med åpningen opp, og sett dem i ovnen i 10 minutter for å forsteke dem litt.",
+    "7. Finhakk rødløk og hvitløk. Varm 1 ss olivenolje i en stekepanne på middels varme.",
+    "8. Stek løk og hvitløk i 3-4 minutter til de er myke og duftende.",
+    "9. Skyll og avrent kikertene, og tilsett dem i pannen. Stek i ytterligere 3 minutter.",
+    "10. Hakk soltørkede tomater og oliven i små biter.",
+    "11. Tilsett spinat i pannen og stek til den faller sammen, ca. 1 minutt.",
+    "12. Ta pannen av varmen og tilsett den kokte quinoaen, hakkede soltørkede tomater, oliven, oregano, sitronjuice, salt og pepper. Bland godt.",
+    "13. Smuldre halvparten av fetaosten og bland den inn i fyllet.",
+    "14. Ta paprikaene ut av ovnen og fyll dem med quinoa-blandingen.",
+    "15. Smuldre resten av fetaosten over toppen av fyllet.",
+    "16. Sett paprikatoppene løst på toppen av fyllet.",
+    "17. Bak i ovnen i 20-25 minutter, eller til paprikaene er møre og toppen er gyllen.",
+    "18. La paprikaene hvile i 5 minutter før servering.",
+    "19. Server varme, gjerne med en enkel grønn salat ved siden av."
+  ],
+  "notater": "Denne fargerike og næringsrike retten er full av middelhavssmak. Quinoa og kikerter gir et høyt proteininnhold, noe som gjør dette til et utmerket vegetarisk hovedmåltid. Du kan variere fyllet etter sesong og smak - prøv med andre grønnsaker som squash eller aubergine, eller bytt ut fetaost med mozzarella for en annen smaksprofil. Retten kan også lages i forkant og varmes opp senere.",
+  "totalKcal": 1922,
+  "totalMakros": {
+    "protein": 75.1,
+    "karbs": 230.4,
+    "fett": 86.4
+  }
+} 

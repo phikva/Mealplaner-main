@@ -1,0 +1,209 @@
+{
+  "_type": "oppskrift",
+  "tittel": "Thai-inspirert Kylling med Grønnsaker",
+  "ingrediens": [
+    {
+      "name": "Kyllingfilet",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 400
+      },
+      "mengde": "2-3 fileter",
+      "kcal": 440,
+      "makros": {
+        "protein": 92,
+        "karbs": 0,
+        "fett": 10
+      }
+    },
+    {
+      "name": "Rød paprika",
+      "measurement": {
+        "unit": "stk",
+        "unitQuantity": 1
+      },
+      "mengde": "1 stor",
+      "kcal": 40,
+      "makros": {
+        "protein": 1.3,
+        "karbs": 9.4,
+        "fett": 0.3
+      }
+    },
+    {
+      "name": "Brokkoli",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 200
+      },
+      "mengde": "1 liten",
+      "kcal": 68,
+      "makros": {
+        "protein": 5.6,
+        "karbs": 13.6,
+        "fett": 0.8
+      }
+    },
+    {
+      "name": "Gulrot",
+      "measurement": {
+        "unit": "stk",
+        "unitQuantity": 2
+      },
+      "mengde": "2 middels",
+      "kcal": 50,
+      "makros": {
+        "protein": 1.2,
+        "karbs": 11.8,
+        "fett": 0.2
+      }
+    },
+    {
+      "name": "Vårløk",
+      "measurement": {
+        "unit": "stk",
+        "unitQuantity": 4
+      },
+      "mengde": "4 stk",
+      "kcal": 20,
+      "makros": {
+        "protein": 1.1,
+        "karbs": 4.6,
+        "fett": 0.1
+      }
+    },
+    {
+      "name": "Ingefær",
+      "measurement": {
+        "unit": "ss",
+        "unitQuantity": 1
+      },
+      "mengde": "1 ss revet",
+      "kcal": 4,
+      "makros": {
+        "protein": 0.1,
+        "karbs": 0.9,
+        "fett": 0
+      }
+    },
+    {
+      "name": "Hvitløk",
+      "measurement": {
+        "unit": "fedd",
+        "unitQuantity": 3
+      },
+      "mengde": "3 fedd",
+      "kcal": 13,
+      "makros": {
+        "protein": 0.6,
+        "karbs": 3,
+        "fett": 0
+      }
+    },
+    {
+      "name": "Kokosmjølk (lett)",
+      "measurement": {
+        "unit": "ml",
+        "unitQuantity": 200
+      },
+      "mengde": "2 dl",
+      "kcal": 150,
+      "makros": {
+        "protein": 2,
+        "karbs": 4,
+        "fett": 15
+      }
+    },
+    {
+      "name": "Soyasaus (redusert salt)",
+      "measurement": {
+        "unit": "ss",
+        "unitQuantity": 2
+      },
+      "mengde": "2 ss",
+      "kcal": 16,
+      "makros": {
+        "protein": 1.8,
+        "karbs": 2.2,
+        "fett": 0
+      }
+    },
+    {
+      "name": "Limesaft",
+      "measurement": {
+        "unit": "stk",
+        "unitQuantity": 1
+      },
+      "mengde": "1 lime",
+      "kcal": 20,
+      "makros": {
+        "protein": 0.5,
+        "karbs": 7,
+        "fett": 0.1
+      }
+    },
+    {
+      "name": "Rød chili",
+      "measurement": {
+        "unit": "stk",
+        "unitQuantity": 1
+      },
+      "mengde": "1 liten",
+      "kcal": 18,
+      "makros": {
+        "protein": 0.9,
+        "karbs": 3.9,
+        "fett": 0.2
+      }
+    },
+    {
+      "name": "Koriander",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 10
+      },
+      "mengde": "En håndfull",
+      "kcal": 2,
+      "makros": {
+        "protein": 0.2,
+        "karbs": 0.4,
+        "fett": 0
+      }
+    },
+    {
+      "name": "Rapsolje",
+      "measurement": {
+        "unit": "ss",
+        "unitQuantity": 1
+      },
+      "mengde": "1 ss",
+      "kcal": 120,
+      "makros": {
+        "protein": 0,
+        "karbs": 0,
+        "fett": 14
+      }
+    }
+  ],
+  "instruksjoner": [
+    "Skjær kyllingfiletene i strimler.",
+    "Kutt brokkoli i buketter, paprika i strimler, gulrøtter i tynne skiver og vårløk i biter.",
+    "Finhakk hvitløk, ingefær og chili.",
+    "Varm olje i en wok eller stor stekepanne på høy varme.",
+    "Stek kyllingen til den er gyllen, ca. 5-6 minutter. Ta den ut av pannen.",
+    "I samme panne, tilsett hvitløk, ingefær og chili. Stek i 30 sekunder.",
+    "Tilsett gulrøtter og brokkoli, og stek i 3-4 minutter.",
+    "Tilsett paprika og vårløk, og stek i ytterligere 2 minutter.",
+    "Ha kyllingen tilbake i pannen sammen med kokosmjølk og soyasaus.",
+    "La det småkoke i 3-4 minutter til sausen tykner litt.",
+    "Tilsett limesaft og rør godt.",
+    "Dryss over hakket koriander før servering."
+  ],
+  "notater": "Denne retten er inspirert av thailandsk mat med friske smaker av lime, koriander og chili. Kokosmjølken gir en kremet konsistens, mens grønnsakene bidrar med vitaminer og mineraler. Server gjerne med jasminris eller nudler for et komplett måltid. For en sterkere variant, bruk mer chili.",
+  "totalKcal": 961,
+  "totalMakros": {
+    "protein": 107.3,
+    "karbs": 60.8,
+    "fett": 40.7
+  }
+} 

@@ -1,0 +1,91 @@
+{
+  "_type": "oppskrift",
+  "tittel": "Proteinrike Havrepannekaker",
+  "ingrediens": [
+    {
+      "name": "Havregryn",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 100
+      },
+      "mengde": "2.5 dl",
+      "kcal": 370,
+      "makros": {
+        "protein": 13,
+        "karbs": 63,
+        "fett": 7
+      }
+    },
+    {
+      "name": "Egg",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 180
+      },
+      "mengde": "3 stk",
+      "kcal": 252,
+      "makros": {
+        "protein": 21,
+        "karbs": 0,
+        "fett": 18
+      }
+    },
+    {
+      "name": "Proteinpulver (vanilje)",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 30
+      },
+      "mengde": "1 skje",
+      "kcal": 120,
+      "makros": {
+        "protein": 24,
+        "karbs": 3,
+        "fett": 1.5
+      }
+    },
+    {
+      "name": "Melk",
+      "measurement": {
+        "unit": "dl",
+        "unitQuantity": 2
+      },
+      "mengde": "2 dl",
+      "kcal": 86,
+      "makros": {
+        "protein": 6.8,
+        "karbs": 9.6,
+        "fett": 3
+      }
+    },
+    {
+      "name": "Kanel",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 4
+      },
+      "mengde": "2 ts",
+      "kcal": 10,
+      "makros": {
+        "protein": 0.2,
+        "karbs": 2.2,
+        "fett": 0.1
+      }
+    }
+  ],
+  "instruksjoner": [
+    "Bland havregryn, proteinpulver og kanel i en bolle.",
+    "Visp sammen egg og melk i en annen bolle.",
+    "Bland de tørre og våte ingrediensene sammen til en jevn røre.",
+    "La røren svelle i 10 minutter.",
+    "Stek pannekakene på middels varme i en stekepanne.",
+    "Stek ca. 2-3 minutter på hver side til de er gyldenbrune."
+  ],
+  "notater": "Perfekte pannekaker for en proteinrik frokost. Server med bær, banan, eller lønnesirup for ekstra smak. Røren kan også lages kvelden før og oppbevares i kjøleskapet.",
+  "totalKcal": 838,
+  "totalMakros": {
+    "protein": 65,
+    "karbs": 77.8,
+    "fett": 29.6
+  }
+} 

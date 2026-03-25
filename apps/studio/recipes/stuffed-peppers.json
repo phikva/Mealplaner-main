@@ -1,0 +1,9 @@
+{
+  "recipes": [
+    {
+      "title": "Middelhavsinspirerte Fylte Paprika",
+      "categories": ["vegetarisk", "sunn", "høy protein"],
+      "dataFile": "stuffed-peppers-data.json"
+    }
+  ]
+} 

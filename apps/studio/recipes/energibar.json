@@ -1,0 +1,9 @@
+{
+  "recipes": [
+    {
+      "title": "Hjemmelaget Protein Energibar",
+      "categories": ["høy protein", "snacks", "sunn"],
+      "dataFile": "energibar-data.json"
+    }
+  ]
+} 

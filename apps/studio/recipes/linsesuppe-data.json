@@ -1,0 +1,149 @@
+{
+  "_type": "oppskrift",
+  "tittel": "Næringsrik Linsesuppe",
+  "ingrediens": [
+    {
+      "name": "Røde Linser",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 200
+      },
+      "mengde": "2 dl",
+      "kcal": 680,
+      "makros": {
+        "protein": 50,
+        "karbs": 120,
+        "fett": 2
+      }
+    },
+    {
+      "name": "Løk",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 150
+      },
+      "mengde": "1 stor",
+      "kcal": 60,
+      "makros": {
+        "protein": 3,
+        "karbs": 13.5,
+        "fett": 0.3
+      }
+    },
+    {
+      "name": "Gulrot",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 200
+      },
+      "mengde": "2 stk",
+      "kcal": 82,
+      "makros": {
+        "protein": 1.8,
+        "karbs": 19.2,
+        "fett": 0.4
+      }
+    },
+    {
+      "name": "Selleri",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 100
+      },
+      "mengde": "2 stilker",
+      "kcal": 16,
+      "makros": {
+        "protein": 0.7,
+        "karbs": 3,
+        "fett": 0.2
+      }
+    },
+    {
+      "name": "Hvitløk",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 12
+      },
+      "mengde": "4 fedd",
+      "kcal": 18,
+      "makros": {
+        "protein": 0.8,
+        "karbs": 4,
+        "fett": 0.1
+      }
+    },
+    {
+      "name": "Hakkede Tomater",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 400
+      },
+      "mengde": "1 boks",
+      "kcal": 88,
+      "makros": {
+        "protein": 4,
+        "karbs": 16,
+        "fett": 0.8
+      }
+    },
+    {
+      "name": "Grønnsaksbuljong",
+      "measurement": {
+        "unit": "liter",
+        "unitQuantity": 1
+      },
+      "mengde": "1 liter",
+      "kcal": 35,
+      "makros": {
+        "protein": 1,
+        "karbs": 7,
+        "fett": 1
+      }
+    },
+    {
+      "name": "Olivenolje",
+      "measurement": {
+        "unit": "ss",
+        "unitQuantity": 2
+      },
+      "mengde": "2 ss",
+      "kcal": 240,
+      "makros": {
+        "protein": 0,
+        "karbs": 0,
+        "fett": 28
+      }
+    },
+    {
+      "name": "Spisskummen",
+      "measurement": {
+        "unit": "ts",
+        "unitQuantity": 2
+      },
+      "mengde": "2 ts",
+      "kcal": 16,
+      "makros": {
+        "protein": 0.8,
+        "karbs": 1.9,
+        "fett": 1
+      }
+    }
+  ],
+  "instruksjoner": [
+    "Skyll linsene godt under kaldt vann.",
+    "Finhakk løk, gulrot, selleri og hvitløk.",
+    "Varm olivenoljen i en stor gryte og stek løk, gulrot og selleri på middels varme i 5 minutter til de er myke.",
+    "Tilsett hvitløk og spisskummen og stek i ytterligere 1 minutt.",
+    "Ha i linsene, hakkede tomater og grønnsaksbuljong.",
+    "Kok opp og la suppen småkoke under lokk i ca. 25-30 minutter til linsene er møre.",
+    "Smak til med salt og pepper.",
+    "Bruk en stavmikser til å blende suppen til ønsket konsistens (kan også serveres som den er)."
+  ],
+  "notater": "En proteinrik og mettende suppe som er perfekt for kalde dager. Kan fryses ned i porsjoner og varmes opp senere. Server gjerne med et dryss frisk persille og en skive grovbrød.",
+  "totalKcal": 1235,
+  "totalMakros": {
+    "protein": 62.1,
+    "karbs": 184.6,
+    "fett": 33.8
+  }
+} 

@@ -1,0 +1,13 @@
+{
+  "recipes": [
+    {
+      "title": "Sunn Laksewrap med Avokado",
+      "categories": [
+        "høy-protein",
+        "sunn",
+        "lavkarbo"
+      ],
+      "dataFile": "laksewrap-data.json"
+    }
+  ]
+}

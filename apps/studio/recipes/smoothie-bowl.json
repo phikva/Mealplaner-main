@@ -1,0 +1,9 @@
+{
+  "recipes": [
+    {
+      "title": "Bær Smoothie Bowl",
+      "categories": ["sunn", "snacks", "glutenfritt"],
+      "dataFile": "smoothie-bowl-data.json"
+    }
+  ]
+} 

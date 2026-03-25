@@ -1,0 +1,13 @@
+{
+  "recipes": [
+    {
+      "title": "Sunn Kyllingwok med Grønnsaker",
+      "categories": [
+        "høy-protein",
+        "sunn",
+        "asiatisk"
+      ],
+      "dataFile": "kyllingwok-data.json"
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "recipes": [
+    {
+      "title": "Sunn Pastasalat med Kylling",
+      "categories": ["sunn", "høy protein"],
+      "dataFile": "pastasalat-data.json"
+    }
+  ]
+} 

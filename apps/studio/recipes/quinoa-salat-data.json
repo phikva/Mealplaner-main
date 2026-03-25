@@ -1,0 +1,205 @@
+{
+  "_type": "oppskrift",
+  "tittel": "Middelhavsinspirert Quinoasalat",
+  "ingrediens": [
+    {
+      "name": "Quinoa",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 200
+      },
+      "mengde": "2 dl (tørr)",
+      "kcal": 680,
+      "makros": {
+        "protein": 24,
+        "karbs": 120,
+        "fett": 10
+      }
+    },
+    {
+      "name": "Agurk",
+      "measurement": {
+        "unit": "stk",
+        "unitQuantity": 0.5
+      },
+      "mengde": "0.5 stk",
+      "kcal": 8,
+      "makros": {
+        "protein": 0.3,
+        "karbs": 1.7,
+        "fett": 0.1
+      }
+    },
+    {
+      "name": "Cherrytomater",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 200
+      },
+      "mengde": "1 pakke",
+      "kcal": 36,
+      "makros": {
+        "protein": 1.8,
+        "karbs": 7.8,
+        "fett": 0.4
+      }
+    },
+    {
+      "name": "Rødløk",
+      "measurement": {
+        "unit": "stk",
+        "unitQuantity": 0.5
+      },
+      "mengde": "0.5 middels",
+      "kcal": 22,
+      "makros": {
+        "protein": 0.6,
+        "karbs": 5,
+        "fett": 0.1
+      }
+    },
+    {
+      "name": "Fetaost",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 100
+      },
+      "mengde": "100g",
+      "kcal": 264,
+      "makros": {
+        "protein": 14,
+        "karbs": 4,
+        "fett": 21
+      }
+    },
+    {
+      "name": "Kalamataoliven",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 50
+      },
+      "mengde": "ca. 15 stk",
+      "kcal": 120,
+      "makros": {
+        "protein": 1,
+        "karbs": 3,
+        "fett": 12
+      }
+    },
+    {
+      "name": "Persille",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 15
+      },
+      "mengde": "En håndfull",
+      "kcal": 6,
+      "makros": {
+        "protein": 0.5,
+        "karbs": 1,
+        "fett": 0.1
+      }
+    },
+    {
+      "name": "Mynte",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 10
+      },
+      "mengde": "En liten håndfull",
+      "kcal": 4,
+      "makros": {
+        "protein": 0.3,
+        "karbs": 0.7,
+        "fett": 0.1
+      }
+    },
+    {
+      "name": "Olivenolje",
+      "measurement": {
+        "unit": "ss",
+        "unitQuantity": 3
+      },
+      "mengde": "3 ss",
+      "kcal": 360,
+      "makros": {
+        "protein": 0,
+        "karbs": 0,
+        "fett": 42
+      }
+    },
+    {
+      "name": "Sitronsaft",
+      "measurement": {
+        "unit": "ss",
+        "unitQuantity": 2
+      },
+      "mengde": "2 ss",
+      "kcal": 8,
+      "makros": {
+        "protein": 0.2,
+        "karbs": 2.6,
+        "fett": 0
+      }
+    },
+    {
+      "name": "Hvitløk",
+      "measurement": {
+        "unit": "fedd",
+        "unitQuantity": 1
+      },
+      "mengde": "1 fedd",
+      "kcal": 4,
+      "makros": {
+        "protein": 0.2,
+        "karbs": 1,
+        "fett": 0
+      }
+    },
+    {
+      "name": "Salt",
+      "measurement": {
+        "unit": "ts",
+        "unitQuantity": 0.5
+      },
+      "mengde": "Etter smak",
+      "kcal": 0,
+      "makros": {
+        "protein": 0,
+        "karbs": 0,
+        "fett": 0
+      }
+    },
+    {
+      "name": "Pepper",
+      "measurement": {
+        "unit": "ts",
+        "unitQuantity": 0.25
+      },
+      "mengde": "Etter smak",
+      "kcal": 1,
+      "makros": {
+        "protein": 0,
+        "karbs": 0.3,
+        "fett": 0
+      }
+    }
+  ],
+  "instruksjoner": [
+    "Skyll quinoa grundig under kaldt vann.",
+    "Kok quinoa etter anvisning på pakken, vanligvis 15-20 minutter. La avkjøle.",
+    "Del cherrytomatene i halve, kutt agurken i terninger og finhakk rødløken.",
+    "Hakk persille og mynte fint.",
+    "Bland olivenolje, sitronsaft, presset hvitløk, salt og pepper til en dressing.",
+    "Bland den avkjølte quinoaen med tomater, agurk, rødløk, oliven og urter i en stor bolle.",
+    "Hell dressingen over og vend forsiktig.",
+    "Smuldre fetaosten over salaten rett før servering."
+  ],
+  "notater": "Denne friske og næringsrike salaten er perfekt som et lett måltid eller som tilbehør til grillet kjøtt eller fisk. Quinoa er en komplett proteinkilde som inneholder alle essensielle aminosyrer. Salaten kan lages på forhånd og oppbevares i kjøleskap i opptil 2 dager. For en vegansk versjon, utelat fetaosten eller erstatt den med avokado.",
+  "totalKcal": 1513,
+  "totalMakros": {
+    "protein": 42.9,
+    "karbs": 147.1,
+    "fett": 85.8
+  }
+} 

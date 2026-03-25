@@ -1,0 +1,300 @@
+{
+  "_type": "oppskrift",
+  "tittel": "Marokkansk Kikertgryte med Søtpotet",
+  "porsjoner": 4,
+  "ingrediens": [
+    {
+      "name": "Kikerter",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 400
+      },
+      "mengde": "1 boks, avrent",
+      "kcal": 480,
+      "makros": {
+        "protein": 32,
+        "karbs": 80,
+        "fett": 8
+      }
+    },
+    {
+      "name": "Søtpotet",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 400
+      },
+      "mengde": "2 medium",
+      "kcal": 344,
+      "makros": {
+        "protein": 8,
+        "karbs": 80,
+        "fett": 0.4
+      }
+    },
+    {
+      "name": "Løk",
+      "measurement": {
+        "unit": "stk",
+        "unitQuantity": 1
+      },
+      "mengde": "1 stor",
+      "kcal": 64,
+      "makros": {
+        "protein": 1.8,
+        "karbs": 14.4,
+        "fett": 0.2
+      }
+    },
+    {
+      "name": "Hvitløk",
+      "measurement": {
+        "unit": "fedd",
+        "unitQuantity": 4
+      },
+      "mengde": "4 fedd",
+      "kcal": 16,
+      "makros": {
+        "protein": 0.8,
+        "karbs": 4,
+        "fett": 0
+      }
+    },
+    {
+      "name": "Ingefær",
+      "measurement": {
+        "unit": "cm",
+        "unitQuantity": 3
+      },
+      "mengde": "3 cm bit",
+      "kcal": 15,
+      "makros": {
+        "protein": 0.4,
+        "karbs": 3.3,
+        "fett": 0.1
+      }
+    },
+    {
+      "name": "Hakkede tomater",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 400
+      },
+      "mengde": "1 boks",
+      "kcal": 88,
+      "makros": {
+        "protein": 4,
+        "karbs": 16,
+        "fett": 0.8
+      }
+    },
+    {
+      "name": "Grønnsakbuljong",
+      "measurement": {
+        "unit": "dl",
+        "unitQuantity": 5
+      },
+      "mengde": "5 dl",
+      "kcal": 25,
+      "makros": {
+        "protein": 1,
+        "karbs": 5,
+        "fett": 0.5
+      }
+    },
+    {
+      "name": "Spinat",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 100
+      },
+      "mengde": "3 håndfuller",
+      "kcal": 23,
+      "makros": {
+        "protein": 3,
+        "karbs": 3.6,
+        "fett": 0.4
+      }
+    },
+    {
+      "name": "Sitronsaft",
+      "measurement": {
+        "unit": "ss",
+        "unitQuantity": 2
+      },
+      "mengde": "1/2 sitron",
+      "kcal": 8,
+      "makros": {
+        "protein": 0.2,
+        "karbs": 2.6,
+        "fett": 0
+      }
+    },
+    {
+      "name": "Olivenolje",
+      "measurement": {
+        "unit": "ss",
+        "unitQuantity": 2
+      },
+      "mengde": "2 ss",
+      "kcal": 240,
+      "makros": {
+        "protein": 0,
+        "karbs": 0,
+        "fett": 28
+      }
+    },
+    {
+      "name": "Spisskummen",
+      "measurement": {
+        "unit": "ts",
+        "unitQuantity": 2
+      },
+      "mengde": "2 ts",
+      "kcal": 16,
+      "makros": {
+        "protein": 0.8,
+        "karbs": 1.8,
+        "fett": 1
+      }
+    },
+    {
+      "name": "Koriander, malt",
+      "measurement": {
+        "unit": "ts",
+        "unitQuantity": 1
+      },
+      "mengde": "1 ts",
+      "kcal": 5,
+      "makros": {
+        "protein": 0.2,
+        "karbs": 0.9,
+        "fett": 0.3
+      }
+    },
+    {
+      "name": "Kanel",
+      "measurement": {
+        "unit": "ts",
+        "unitQuantity": 0.5
+      },
+      "mengde": "1/2 ts",
+      "kcal": 3,
+      "makros": {
+        "protein": 0.1,
+        "karbs": 1,
+        "fett": 0
+      }
+    },
+    {
+      "name": "Paprikapulver",
+      "measurement": {
+        "unit": "ts",
+        "unitQuantity": 1
+      },
+      "mengde": "1 ts",
+      "kcal": 6,
+      "makros": {
+        "protein": 0.3,
+        "karbs": 1.2,
+        "fett": 0.3
+      }
+    },
+    {
+      "name": "Cayennepepper",
+      "measurement": {
+        "unit": "ts",
+        "unitQuantity": 0.25
+      },
+      "mengde": "1/4 ts",
+      "kcal": 1,
+      "makros": {
+        "protein": 0.1,
+        "karbs": 0.2,
+        "fett": 0
+      }
+    },
+    {
+      "name": "Salt",
+      "measurement": {
+        "unit": "ts",
+        "unitQuantity": 1
+      },
+      "mengde": "Etter smak",
+      "kcal": 0,
+      "makros": {
+        "protein": 0,
+        "karbs": 0,
+        "fett": 0
+      }
+    },
+    {
+      "name": "Pepper",
+      "measurement": {
+        "unit": "ts",
+        "unitQuantity": 0.5
+      },
+      "mengde": "Etter smak",
+      "kcal": 3,
+      "makros": {
+        "protein": 0.1,
+        "karbs": 0.8,
+        "fett": 0
+      }
+    },
+    {
+      "name": "Frisk koriander",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 20
+      },
+      "mengde": "1 håndfull",
+      "kcal": 5,
+      "makros": {
+        "protein": 0.4,
+        "karbs": 0.8,
+        "fett": 0.1
+      }
+    },
+    {
+      "name": "Gresk yoghurt",
+      "measurement": {
+        "unit": "dl",
+        "unitQuantity": 2
+      },
+      "mengde": "2 dl",
+      "kcal": 160,
+      "makros": {
+        "protein": 16,
+        "karbs": 8,
+        "fett": 8
+      }
+    }
+  ],
+  "instruksjoner": [
+    "1. Skrell og kutt søtpotetene i terninger på ca. 2x2 cm.",
+    "2. Finhakk løk, hvitløk og ingefær.",
+    "3. Varm olivenoljen i en stor gryte på middels varme.",
+    "4. Tilsett løk og stek i 3-4 minutter til den er myk og gjennomsiktig.",
+    "5. Tilsett hvitløk og ingefær, og stek i ytterligere 1 minutt til det dufter godt.",
+    "6. Tilsett alle krydder (spisskummen, malt koriander, kanel, paprikapulver og cayennepepper) og rør godt i ca. 30 sekunder for å aktivere smakene.",
+    "7. Ha i søtpotetterningene og rør godt slik at de blir dekket med krydder og olje.",
+    "8. Tilsett hakkede tomater og grønnsakbuljong. Rør godt og bring til koking.",
+    "9. Reduser varmen og la gryten småkoke under lokk i ca. 15 minutter, eller til søtpotetene begynner å bli møre.",
+    "10. Skyll og avrent kikertene grundig, og tilsett dem i gryten.",
+    "11. La gryten småkoke i ytterligere 10 minutter uten lokk, slik at sausen tykner litt.",
+    "12. Smak til med salt og pepper.",
+    "13. Tilsett spinat og rør til den faller sammen, ca. 1-2 minutter.",
+    "14. Ta gryten av varmen og tilsett sitronsaft. Rør godt.",
+    "15. La gryten hvile i 5 minutter før servering.",
+    "16. Server i dype tallerkener, toppet med en skje gresk yoghurt og hakket frisk koriander.",
+    "17. For ekstra smak, dryss litt ekstra spisskummen over yoghurten før servering.",
+    "18. Gryten kan serveres alene eller med fullkornscouscous eller brød ved siden av."
+  ],
+  "notater": "Denne varme og smaksrike gryten er inspirert av marokkanske smaker. Den er rik på protein og fiber fra kikertene, og søtpotetene gir en naturlig sødme som balanserer de aromatiske krydderne. Retten er helt vegetarisk og kan enkelt gjøres vegansk ved å utelate yoghurten eller erstatte den med en plantebasert variant. Gryten smaker enda bedre dagen etter tilberedning, så den er perfekt for matlaging på forhånd.",
+  "totalKcal": 1502,
+  "totalMakros": {
+    "protein": 69.1,
+    "karbs": 223.6,
+    "fett": 48.1
+  }
+} 

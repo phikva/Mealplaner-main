@@ -1,0 +1,150 @@
+{
+  "_type": "oppskrift",
+  "tittel": "Sunn Pastasalat med Kylling",
+  "ingrediens": [
+    {
+      "name": "Fullkornspasta",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 250
+      },
+      "mengde": "250g",
+      "kcal": 875,
+      "makros": {
+        "protein": 35,
+        "karbs": 175,
+        "fett": 5
+      }
+    },
+    {
+      "name": "Kyllingfilet",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 300
+      },
+      "mengde": "2 fileter",
+      "kcal": 330,
+      "makros": {
+        "protein": 62,
+        "karbs": 0,
+        "fett": 9
+      }
+    },
+    {
+      "name": "Cherrytomater",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 200
+      },
+      "mengde": "1 pakke",
+      "kcal": 36,
+      "makros": {
+        "protein": 1.8,
+        "karbs": 7.8,
+        "fett": 0.4
+      }
+    },
+    {
+      "name": "Agurk",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 150
+      },
+      "mengde": "0.5 stk",
+      "kcal": 22.5,
+      "makros": {
+        "protein": 1.05,
+        "karbs": 4.95,
+        "fett": 0.15
+      }
+    },
+    {
+      "name": "Rødløk",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 100
+      },
+      "mengde": "1 stk",
+      "kcal": 40,
+      "makros": {
+        "protein": 1,
+        "karbs": 9,
+        "fett": 0.1
+      }
+    },
+    {
+      "name": "Fetaost",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 100
+      },
+      "mengde": "100g",
+      "kcal": 264,
+      "makros": {
+        "protein": 14,
+        "karbs": 4,
+        "fett": 21
+      }
+    },
+    {
+      "name": "Olivenolje",
+      "measurement": {
+        "unit": "ss",
+        "unitQuantity": 2
+      },
+      "mengde": "2 ss",
+      "kcal": 240,
+      "makros": {
+        "protein": 0,
+        "karbs": 0,
+        "fett": 28
+      }
+    },
+    {
+      "name": "Sitronsaft",
+      "measurement": {
+        "unit": "ss",
+        "unitQuantity": 2
+      },
+      "mengde": "2 ss",
+      "kcal": 8,
+      "makros": {
+        "protein": 0.2,
+        "karbs": 2.6,
+        "fett": 0
+      }
+    },
+    {
+      "name": "Basilikum",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 10
+      },
+      "mengde": "En håndfull",
+      "kcal": 2,
+      "makros": {
+        "protein": 0.3,
+        "karbs": 0.4,
+        "fett": 0.1
+      }
+    }
+  ],
+  "instruksjoner": [
+    "Kok pastaen etter anvisning på pakken. Avkjøl under kaldt vann.",
+    "Krydre kyllingfiletene med salt og pepper, og stek dem i en panne til de er gjennomstekte.",
+    "La kyllingen hvile i 5 minutter før du skjærer den i biter.",
+    "Del cherrytomatene i halve, kutt agurken i terninger og finhakk rødløken.",
+    "Bland pasta, kylling, tomater, agurk og rødløk i en stor bolle.",
+    "Smuldre fetaosten over salaten.",
+    "Bland olivenolje, sitronsaft, salt og pepper til en dressing.",
+    "Hell dressingen over salaten og vend forsiktig.",
+    "Pynt med frisk basilikum før servering."
+  ],
+  "notater": "En næringsrik og mettende pastasalat som er perfekt for lunsj eller middag. Kan lages dagen før og oppbevares i kjøleskap. For en vegetarisk versjon, erstatt kyllingen med kikerter eller bønner.",
+  "totalKcal": 1817.5,
+  "totalMakros": {
+    "protein": 115.35,
+    "karbs": 203.75,
+    "fett": 63.85
+  }
+} 

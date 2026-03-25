@@ -1,0 +1,134 @@
+{
+  "_type": "oppskrift",
+  "tittel": "Middelhavsinspirert Kikertsalat",
+  "ingrediens": [
+    {
+      "name": "Kikerter (kokte)",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 400
+      },
+      "mengde": "1 boks",
+      "kcal": 480,
+      "makros": {
+        "protein": 28,
+        "karbs": 80,
+        "fett": 8
+      }
+    },
+    {
+      "name": "Agurk",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 200
+      },
+      "mengde": "1 stk",
+      "kcal": 30,
+      "makros": {
+        "protein": 1.3,
+        "karbs": 6.6,
+        "fett": 0.2
+      }
+    },
+    {
+      "name": "Rød Paprika",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 150
+      },
+      "mengde": "1 stk",
+      "kcal": 46,
+      "makros": {
+        "protein": 1.5,
+        "karbs": 9,
+        "fett": 0.5
+      }
+    },
+    {
+      "name": "Rødløk",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 100
+      },
+      "mengde": "1 stk",
+      "kcal": 40,
+      "makros": {
+        "protein": 2,
+        "karbs": 9,
+        "fett": 0.2
+      }
+    },
+    {
+      "name": "Fetaost",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 100
+      },
+      "mengde": "1 pakke",
+      "kcal": 264,
+      "makros": {
+        "protein": 14,
+        "karbs": 4,
+        "fett": 21
+      }
+    },
+    {
+      "name": "Oliven",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 50
+      },
+      "mengde": "15 stk",
+      "kcal": 115,
+      "makros": {
+        "protein": 1,
+        "karbs": 1,
+        "fett": 12
+      }
+    },
+    {
+      "name": "Olivenolje",
+      "measurement": {
+        "unit": "ss",
+        "unitQuantity": 2
+      },
+      "mengde": "2 ss",
+      "kcal": 240,
+      "makros": {
+        "protein": 0,
+        "karbs": 0,
+        "fett": 28
+      }
+    },
+    {
+      "name": "Sitronsaft",
+      "measurement": {
+        "unit": "ss",
+        "unitQuantity": 2
+      },
+      "mengde": "2 ss",
+      "kcal": 8,
+      "makros": {
+        "protein": 0.2,
+        "karbs": 2.6,
+        "fett": 0
+      }
+    }
+  ],
+  "instruksjoner": [
+    "Skyll og avkjøl kikertene godt.",
+    "Kutt agurk, paprika og rødløk i små terninger.",
+    "Del olivenene i halve.",
+    "Bland alle grønnsakene og kikertene i en stor bolle.",
+    "Bland olivenolje og sitronsaft med salt, pepper og eventuelt litt tørket oregano til en dressing.",
+    "Hell dressingen over salaten og bland godt.",
+    "Smuldre fetaosten over salaten rett før servering."
+  ],
+  "notater": "En næringsrik og mettende salat som er perfekt som lunsj eller lett middag. Rik på protein og fiber fra kikertene. Kan oppbevares i kjøleskap i opptil 3 dager (tilsett fetaost rett før servering).",
+  "totalKcal": 1223,
+  "totalMakros": {
+    "protein": 48,
+    "karbs": 112.2,
+    "fett": 69.9
+  }
+} 

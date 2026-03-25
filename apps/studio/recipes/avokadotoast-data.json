@@ -1,0 +1,136 @@
+{
+  "_type": "oppskrift",
+  "tittel": "Avokadotoast med Egg",
+  "ingrediens": [
+    {
+      "name": "Grovbrød",
+      "measurement": {
+        "unit": "skive",
+        "unitQuantity": 2
+      },
+      "mengde": "2 skiver",
+      "kcal": 160,
+      "makros": {
+        "protein": 6,
+        "karbs": 30,
+        "fett": 2
+      }
+    },
+    {
+      "name": "Avokado",
+      "measurement": {
+        "unit": "stk",
+        "unitQuantity": 1
+      },
+      "mengde": "1 moden",
+      "kcal": 240,
+      "makros": {
+        "protein": 3,
+        "karbs": 12,
+        "fett": 22
+      }
+    },
+    {
+      "name": "Egg",
+      "measurement": {
+        "unit": "stk",
+        "unitQuantity": 2
+      },
+      "mengde": "2 stk",
+      "kcal": 156,
+      "makros": {
+        "protein": 12,
+        "karbs": 1.2,
+        "fett": 11
+      }
+    },
+    {
+      "name": "Cherrytomater",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 100
+      },
+      "mengde": "8-10 stk",
+      "kcal": 18,
+      "makros": {
+        "protein": 0.9,
+        "karbs": 3.9,
+        "fett": 0.2
+      }
+    },
+    {
+      "name": "Rødløk",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 30
+      },
+      "mengde": "0.25 stk",
+      "kcal": 12,
+      "makros": {
+        "protein": 0.3,
+        "karbs": 2.7,
+        "fett": 0
+      }
+    },
+    {
+      "name": "Sitronsaft",
+      "measurement": {
+        "unit": "ts",
+        "unitQuantity": 1
+      },
+      "mengde": "1 ts",
+      "kcal": 1,
+      "makros": {
+        "protein": 0,
+        "karbs": 0.3,
+        "fett": 0
+      }
+    },
+    {
+      "name": "Chiliflak",
+      "measurement": {
+        "unit": "ts",
+        "unitQuantity": 0.5
+      },
+      "mengde": "0.5 ts",
+      "kcal": 3,
+      "makros": {
+        "protein": 0.1,
+        "karbs": 0.5,
+        "fett": 0.2
+      }
+    },
+    {
+      "name": "Salt og pepper",
+      "measurement": {
+        "unit": "ts",
+        "unitQuantity": 0.5
+      },
+      "mengde": "Etter smak",
+      "kcal": 0,
+      "makros": {
+        "protein": 0,
+        "karbs": 0,
+        "fett": 0
+      }
+    }
+  ],
+  "instruksjoner": [
+    "Rist brødskivene til de er gylne og sprø.",
+    "Kok eggene i 6-7 minutter for bløtkokte egg, eller etter ønske.",
+    "Del avokadoen i to, fjern steinen, og skrap ut innholdet i en bolle.",
+    "Tilsett sitronsaft, salt og pepper, og mos avokadoen med en gaffel.",
+    "Fordel avokadoen jevnt på de ristede brødskivene.",
+    "Del cherrytomatene i halve og finhakk rødløken.",
+    "Skrell eggene og del dem i skiver.",
+    "Legg eggskiver, tomater og rødløk på toppen av avokadoen.",
+    "Dryss over chiliflak og litt ekstra salt og pepper etter smak."
+  ],
+  "notater": "Avokadotoast er en næringsrik og mettende frokost eller lunsj. Avokado er rik på sunne fettsyrer, mens egg gir protein. Du kan variere toppingen etter ønske, for eksempel med fetaost, røkelaks eller kimchi for ekstra smak.",
+  "totalKcal": 590,
+  "totalMakros": {
+    "protein": 22.3,
+    "karbs": 50.6,
+    "fett": 35.4
+  }
+} 

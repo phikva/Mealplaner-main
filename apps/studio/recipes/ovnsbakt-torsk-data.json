@@ -1,0 +1,107 @@
+{
+  "_type": "oppskrift",
+  "tittel": "Ovnsbakt Torsk med Grønnsaker",
+  "ingrediens": [
+    {
+      "name": "Torskefilet",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 500
+      },
+      "mengde": "4 fileter",
+      "kcal": 415,
+      "makros": {
+        "protein": 90,
+        "karbs": 0,
+        "fett": 4.5
+      }
+    },
+    {
+      "name": "Søtpotet",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 400
+      },
+      "mengde": "2 stk",
+      "kcal": 344,
+      "makros": {
+        "protein": 4,
+        "karbs": 80,
+        "fett": 0.4
+      }
+    },
+    {
+      "name": "Brokkoli",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 250
+      },
+      "mengde": "1 hode",
+      "kcal": 85,
+      "makros": {
+        "protein": 7.5,
+        "karbs": 17.5,
+        "fett": 1
+      }
+    },
+    {
+      "name": "Sitron",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 60
+      },
+      "mengde": "1 stk",
+      "kcal": 17,
+      "makros": {
+        "protein": 0.6,
+        "karbs": 5.4,
+        "fett": 0.2
+      }
+    },
+    {
+      "name": "Olivenolje",
+      "measurement": {
+        "unit": "ss",
+        "unitQuantity": 2
+      },
+      "mengde": "2 ss",
+      "kcal": 240,
+      "makros": {
+        "protein": 0,
+        "karbs": 0,
+        "fett": 28
+      }
+    },
+    {
+      "name": "Hvitløk",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 9
+      },
+      "mengde": "3 fedd",
+      "kcal": 13,
+      "makros": {
+        "protein": 0.6,
+        "karbs": 3,
+        "fett": 0
+      }
+    }
+  ],
+  "instruksjoner": [
+    "Forvarm ovnen til 200°C.",
+    "Skjær søtpotetene i jevnstore biter og legg dem på et stekebrett.",
+    "Dryss over litt olivenolje, salt og pepper, og stek i 15 minutter.",
+    "Del brokkoli i buketter og legg dem på stekebrettet sammen med søtpotetene.",
+    "Legg torskefiletene på toppen av grønnsakene.",
+    "Press hvitløk over fisken og grønnsakene, og skjær sitronen i skiver som legges på toppen av fisken.",
+    "Drypp resten av olivenolien over og krydre med salt og pepper.",
+    "Stek i ytterligere 15-20 minutter til fisken er hvit og fast."
+  ],
+  "notater": "En enkel og sunn middagsrett som er rik på protein og fiber. Perfekt for hverdager når du ønsker noe raskt og næringsrikt. Kan også lages med andre hvite fisketyper som sei eller hyse.",
+  "totalKcal": 1114,
+  "totalMakros": {
+    "protein": 102.7,
+    "karbs": 105.9,
+    "fett": 34.1
+  }
+} 

@@ -1,0 +1,104 @@
+{
+  "_type": "oppskrift",
+  "tittel": "Gresk Yoghurt Snack med Bær og Honning",
+  "ingrediens": [
+    {
+      "name": "Gresk yoghurt",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 200
+      },
+      "mengde": "2 dl",
+      "kcal": 190,
+      "makros": {
+        "protein": 20,
+        "karbs": 8,
+        "fett": 10
+      }
+    },
+    {
+      "name": "Blåbær",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 50
+      },
+      "mengde": "0.5 dl",
+      "kcal": 29,
+      "makros": {
+        "protein": 0.7,
+        "karbs": 7.3,
+        "fett": 0.3
+      }
+    },
+    {
+      "name": "Jordbær",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 50
+      },
+      "mengde": "5-6 stk",
+      "kcal": 16,
+      "makros": {
+        "protein": 0.3,
+        "karbs": 3.8,
+        "fett": 0.2
+      }
+    },
+    {
+      "name": "Honning",
+      "measurement": {
+        "unit": "ts",
+        "unitQuantity": 2
+      },
+      "mengde": "2 ts",
+      "kcal": 43,
+      "makros": {
+        "protein": 0.1,
+        "karbs": 11.5,
+        "fett": 0
+      }
+    },
+    {
+      "name": "Valnøtter",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 15
+      },
+      "mengde": "1 ss",
+      "kcal": 98,
+      "makros": {
+        "protein": 2.3,
+        "karbs": 2.1,
+        "fett": 9.8
+      }
+    },
+    {
+      "name": "Kanel",
+      "measurement": {
+        "unit": "ts",
+        "unitQuantity": 0.5
+      },
+      "mengde": "0.5 ts",
+      "kcal": 3,
+      "makros": {
+        "protein": 0.1,
+        "karbs": 0.9,
+        "fett": 0
+      }
+    }
+  ],
+  "instruksjoner": [
+    "Ha gresk yoghurt i en bolle.",
+    "Vask og rens bærene, og fordel dem over yoghurten.",
+    "Dryss over hakkede valnøtter.",
+    "Drypp honning over det hele.",
+    "Avslutt med et dryss kanel på toppen."
+  ],
+  "notater": "Dette er en rask og enkel snack som er rik på protein og smaker deilig. Perfekt som et mellommåltid eller en lett frokost. Du kan variere med ulike typer bær og nøtter etter ønske. For en vegansk versjon, bytt ut gresk yoghurt med soyayoghurt og honning med lønnesirup.",
+  "totalKcal": 379,
+  "totalMakros": {
+    "protein": 23.5,
+    "karbs": 33.6,
+    "fett": 20.3
+  }
+} 

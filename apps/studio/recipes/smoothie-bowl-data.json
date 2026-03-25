@@ -1,0 +1,146 @@
+{
+  "_type": "oppskrift",
+  "tittel": "Bær Smoothie Bowl",
+  "ingrediens": [
+    {
+      "name": "Frosne blåbær",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 100
+      },
+      "mengde": "1 dl",
+      "kcal": 57,
+      "makros": {
+        "protein": 1.4,
+        "karbs": 14.5,
+        "fett": 0.6
+      }
+    },
+    {
+      "name": "Frosne jordbær",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 100
+      },
+      "mengde": "1 dl",
+      "kcal": 32,
+      "makros": {
+        "protein": 0.7,
+        "karbs": 7.7,
+        "fett": 0.3
+      }
+    },
+    {
+      "name": "Banan",
+      "measurement": {
+        "unit": "stk",
+        "unitQuantity": 1
+      },
+      "mengde": "1 moden",
+      "kcal": 105,
+      "makros": {
+        "protein": 1.3,
+        "karbs": 27,
+        "fett": 0.4
+      }
+    },
+    {
+      "name": "Gresk yoghurt",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 100
+      },
+      "mengde": "1 dl",
+      "kcal": 95,
+      "makros": {
+        "protein": 10,
+        "karbs": 4,
+        "fett": 5
+      }
+    },
+    {
+      "name": "Mandelmjølk",
+      "measurement": {
+        "unit": "dl",
+        "unitQuantity": 0.5
+      },
+      "mengde": "0.5 dl",
+      "kcal": 15,
+      "makros": {
+        "protein": 0.5,
+        "karbs": 0.3,
+        "fett": 1.3
+      }
+    },
+    {
+      "name": "Granola",
+      "measurement": {
+        "unit": "ss",
+        "unitQuantity": 2
+      },
+      "mengde": "2 ss",
+      "kcal": 70,
+      "makros": {
+        "protein": 2,
+        "karbs": 10,
+        "fett": 3
+      }
+    },
+    {
+      "name": "Chiafrø",
+      "measurement": {
+        "unit": "ts",
+        "unitQuantity": 1
+      },
+      "mengde": "1 ts",
+      "kcal": 60,
+      "makros": {
+        "protein": 2,
+        "karbs": 5,
+        "fett": 4
+      }
+    },
+    {
+      "name": "Honning",
+      "measurement": {
+        "unit": "ts",
+        "unitQuantity": 1
+      },
+      "mengde": "1 ts",
+      "kcal": 21,
+      "makros": {
+        "protein": 0,
+        "karbs": 5.8,
+        "fett": 0
+      }
+    },
+    {
+      "name": "Ferske bær til topping",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 30
+      },
+      "mengde": "Etter ønske",
+      "kcal": 15,
+      "makros": {
+        "protein": 0.3,
+        "karbs": 3.5,
+        "fett": 0.2
+      }
+    }
+  ],
+  "instruksjoner": [
+    "Legg frosne bær, banan, gresk yoghurt og mandelmjølk i en blender.",
+    "Blend til en tykk og jevn konsistens. Tilsett mer mandelmjølk om nødvendig, men hold konsistensen tykk.",
+    "Hell smoothien i en bolle.",
+    "Topp med granola, chiafrø, ferske bær og en dråpe honning.",
+    "Server umiddelbart."
+  ],
+  "notater": "Denne smoothie bowlen er et næringsrikt og forfriskende måltid som passer perfekt til frokost eller som en sunn snack. Du kan variere med ulike typer frosne bær og toppinger etter ønske. For en vegansk versjon, bytt ut gresk yoghurt med soyayoghurt eller kokosyoghurt.",
+  "totalKcal": 470,
+  "totalMakros": {
+    "protein": 18.2,
+    "karbs": 77.8,
+    "fett": 14.8
+  }
+} 

@@ -1,0 +1,9 @@
+{
+  "recipes": [
+    {
+      "title": "Sunne Kyllingwraps med Avokado",
+      "categories": ["sunn", "høy protein", "meksikansk"],
+      "dataFile": "kyllingwraps-data.json"
+    }
+  ]
+} 

@@ -1,0 +1,9 @@
+{
+  "recipes": [
+    {
+      "title": "Marokkansk Kikertgryte med Søtpotet",
+      "categories": ["vegetarisk", "sunn", "høy protein", "glutenfritt"],
+      "dataFile": "moroccan-chickpea-stew-data.json"
+    }
+  ]
+} 

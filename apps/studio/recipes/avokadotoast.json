@@ -1,0 +1,9 @@
+{
+  "recipes": [
+    {
+      "title": "Avokadotoast med Egg",
+      "categories": ["sunn", "høy protein"],
+      "dataFile": "avokadotoast-data.json"
+    }
+  ]
+} 

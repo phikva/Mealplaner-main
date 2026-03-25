@@ -1,0 +1,122 @@
+{
+  "_type": "oppskrift",
+  "tittel": "Hjemmelaget Protein Energibar",
+  "ingrediens": [
+    {
+      "name": "Havregryn",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 150
+      },
+      "mengde": "150g",
+      "kcal": 585,
+      "makros": {
+        "protein": 19.5,
+        "karbs": 97.5,
+        "fett": 10.5
+      }
+    },
+    {
+      "name": "Proteinpulver (vanilje)",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 60
+      },
+      "mengde": "2 skjeer",
+      "kcal": 240,
+      "makros": {
+        "protein": 48,
+        "karbs": 6,
+        "fett": 3
+      }
+    },
+    {
+      "name": "Peanøttsmør (naturell)",
+      "measurement": {
+        "unit": "ss",
+        "unitQuantity": 4
+      },
+      "mengde": "4 ss",
+      "kcal": 380,
+      "makros": {
+        "protein": 16,
+        "karbs": 12,
+        "fett": 32
+      }
+    },
+    {
+      "name": "Honning",
+      "measurement": {
+        "unit": "ss",
+        "unitQuantity": 3
+      },
+      "mengde": "3 ss",
+      "kcal": 192,
+      "makros": {
+        "protein": 0.3,
+        "karbs": 51.9,
+        "fett": 0
+      }
+    },
+    {
+      "name": "Mørk sjokolade (70%)",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 50
+      },
+      "mengde": "50g",
+      "kcal": 280,
+      "makros": {
+        "protein": 3.5,
+        "karbs": 22,
+        "fett": 20
+      }
+    },
+    {
+      "name": "Chiafrø",
+      "measurement": {
+        "unit": "ss",
+        "unitQuantity": 2
+      },
+      "mengde": "2 ss",
+      "kcal": 120,
+      "makros": {
+        "protein": 4,
+        "karbs": 10,
+        "fett": 8
+      }
+    },
+    {
+      "name": "Tørkede tranebær",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 30
+      },
+      "mengde": "30g",
+      "kcal": 93,
+      "makros": {
+        "protein": 0.3,
+        "karbs": 24.9,
+        "fett": 0.3
+      }
+    }
+  ],
+  "instruksjoner": [
+    "Forvarm ovnen til 160°C og kle et bakebrett med bakepapir.",
+    "Bland havregryn, proteinpulver og chiafrø i en stor bolle.",
+    "Smelt peanøttsmør og honning i en liten kjele på lav varme.",
+    "Hell den smeltede blandingen over de tørre ingrediensene og rør godt sammen.",
+    "Hakk sjokoladen og tranebærene grovt, og vend dem inn i blandingen.",
+    "Press blandingen jevnt ut i en firkantet form (ca. 20x20 cm) på bakepapiret.",
+    "Stek i 15-18 minutter til kantene er gyllenbrune.",
+    "La avkjøle helt før du skjærer i 12 like store barer.",
+    "Oppbevar i en lufttett beholder i kjøleskapet i opptil en uke."
+  ],
+  "notater": "Disse energibarene er perfekte som et næringsrikt mellommåltid eller snack før trening. De er rike på protein og gir langvarig energi. Du kan tilpasse oppskriften ved å bytte ut tranebær med andre tørkede frukter eller nøtter etter smak.",
+  "totalKcal": 1890,
+  "totalMakros": {
+    "protein": 91.6,
+    "karbs": 224.3,
+    "fett": 73.8
+  }
+} 

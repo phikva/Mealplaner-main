@@ -1,0 +1,122 @@
+{
+  "_type": "oppskrift",
+  "tittel": "Ovnsbakt Kylling med Søtpotet",
+  "ingrediens": [
+    {
+      "name": "Kyllingfilet",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 500
+      },
+      "mengde": "3 stk",
+      "kcal": 825,
+      "makros": {
+        "protein": 155,
+        "karbs": 0,
+        "fett": 17.5
+      }
+    },
+    {
+      "name": "Søtpotet",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 500
+      },
+      "mengde": "2 store",
+      "kcal": 430,
+      "makros": {
+        "protein": 5,
+        "karbs": 100,
+        "fett": 0.5
+      }
+    },
+    {
+      "name": "Paprika",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 200
+      },
+      "mengde": "2 stk",
+      "kcal": 62,
+      "makros": {
+        "protein": 2,
+        "karbs": 12,
+        "fett": 0.6
+      }
+    },
+    {
+      "name": "Rødløk",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 100
+      },
+      "mengde": "1 stk",
+      "kcal": 40,
+      "makros": {
+        "protein": 2,
+        "karbs": 9,
+        "fett": 0.2
+      }
+    },
+    {
+      "name": "Olivenolje",
+      "measurement": {
+        "unit": "ss",
+        "unitQuantity": 2
+      },
+      "mengde": "2 ss",
+      "kcal": 240,
+      "makros": {
+        "protein": 0,
+        "karbs": 0,
+        "fett": 28
+      }
+    },
+    {
+      "name": "Hvitløk",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 9
+      },
+      "mengde": "3 fedd",
+      "kcal": 13,
+      "makros": {
+        "protein": 0.6,
+        "karbs": 3,
+        "fett": 0
+      }
+    },
+    {
+      "name": "Rosmarin",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 5
+      },
+      "mengde": "2 kvister",
+      "kcal": 4,
+      "makros": {
+        "protein": 0.1,
+        "karbs": 0.8,
+        "fett": 0.2
+      }
+    }
+  ],
+  "instruksjoner": [
+    "Forvarm ovnen til 200°C.",
+    "Skjær søtpotetene i jevnstore biter på ca 2x2 cm.",
+    "Kutt paprika og rødløk i grove biter.",
+    "Legg søtpotetene på et stekebrett, drypp over halvparten av olivenolien og krydre med salt og pepper.",
+    "Stek søtpotetene i 15 minutter.",
+    "Skjær kyllingfiletene i jevnstore biter.",
+    "Bland kylling, paprika, rødløk, presset hvitløk og resten av olivenolien i en bolle.",
+    "Tilsett kyllingblandingen til stekebrettet med søtpotetene og legg rosmarinkvistene på toppen.",
+    "Stek i ytterligere 15-20 minutter til kyllingen er gjennomstekt og søtpotetene er møre."
+  ],
+  "notater": "En enkel og næringsrik middagsrett som er rik på protein og komplekse karbohydrater. Perfekt for aktive personer. Kan varieres med andre rotgrønnsaker som gulrøtter eller pastinakk.",
+  "totalKcal": 1614,
+  "totalMakros": {
+    "protein": 164.7,
+    "karbs": 124.8,
+    "fett": 47
+  }
+} 

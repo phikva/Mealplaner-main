@@ -1,0 +1,21 @@
+{
+  "name": "mealplaner",
+  "private": true,
+  "workspaces": [
+    "apps/*"
+  ],
+  "overrides": {
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "@types/react": "19.2.7",
+    "@types/react-dom": "19.2.3"
+  },
+  "scripts": {
+    "dev:web": "npm run dev -w web",
+    "dev:studio": "npm run dev -w studio",
+    "build:web": "npm run build -w web",
+    "build:studio": "npm run build -w studio",
+    "lint": "npm run lint -w web",
+    "build": "npm run build -w web"
+  }
+}

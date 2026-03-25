@@ -1,0 +1,92 @@
+{
+  "_type": "oppskrift",
+  "tittel": "Proteinrik Omelett med Grønnsaker",
+  "ingrediens": [
+    {
+      "name": "Egg",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 240
+      },
+      "mengde": "4 stk",
+      "kcal": 336,
+      "makros": {
+        "protein": 28,
+        "karbs": 0,
+        "fett": 24
+      }
+    },
+    {
+      "name": "Spinat",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 60
+      },
+      "mengde": "2 håndfuller",
+      "kcal": 14,
+      "makros": {
+        "protein": 1.8,
+        "karbs": 2.2,
+        "fett": 0.2
+      }
+    },
+    {
+      "name": "Paprika",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 100
+      },
+      "mengde": "1 stk",
+      "kcal": 31,
+      "makros": {
+        "protein": 1,
+        "karbs": 6,
+        "fett": 0.3
+      }
+    },
+    {
+      "name": "Cottage Cheese",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 100
+      },
+      "mengde": "1 dl",
+      "kcal": 98,
+      "makros": {
+        "protein": 11,
+        "karbs": 3.4,
+        "fett": 4.3
+      }
+    },
+    {
+      "name": "Vårløk",
+      "measurement": {
+        "unit": "gram",
+        "unitQuantity": 30
+      },
+      "mengde": "2 stk",
+      "kcal": 10,
+      "makros": {
+        "protein": 0.6,
+        "karbs": 2.2,
+        "fett": 0.1
+      }
+    }
+  ],
+  "instruksjoner": [
+    "Visp eggene sammen i en bolle og tilsett salt og pepper.",
+    "Hakk paprika og vårløk i små biter.",
+    "Varm en stekepanne med litt olje på middels varme.",
+    "Hell eggeblandingen i pannen og la den stivne litt i bunnen.",
+    "Fordel spinat, paprika, vårløk og cottage cheese over halve omeletten.",
+    "Brett den andre halvdelen over fyllet når eggeblandingen har stivnet.",
+    "La omeletten steke i ca. 1-2 minutter til før servering."
+  ],
+  "notater": "En proteinrik frokost eller lunsj som er rask å lage. Du kan variere med andre grønnsaker etter ønske, som sopp, tomat eller brokkoli.",
+  "totalKcal": 489,
+  "totalMakros": {
+    "protein": 42.4,
+    "karbs": 13.8,
+    "fett": 28.9
+  }
+} 
