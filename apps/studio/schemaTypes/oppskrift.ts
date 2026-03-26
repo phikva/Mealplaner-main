@@ -20,6 +20,19 @@ export default defineType({
       type: 'string',
       group: 'general',
       description: 'Navn på oppskrift',
+      validation: Rule => Rule.required().min(2),
+    }),
+    defineField({
+      name: 'slug',
+      title: 'Slug',
+      type: 'slug',
+      group: 'general',
+      options: {
+        source: 'tittel',
+        maxLength: 96,
+      },
+      description: 'Brukes i URL for oppskriftsiden.',
+      validation: Rule => Rule.required(),
     }),
     defineField({
       name: 'image',

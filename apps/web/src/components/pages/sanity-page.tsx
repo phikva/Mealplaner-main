@@ -8,7 +8,7 @@ type Props = {
 
 export const SanityPageView = ({ page, contentIndex }: Props) => {
   return (
-    <main className="mx-auto flex w-full max-w-6xl flex-1 flex-col gap-6 px-6 py-10">
+    <main className="mx-auto flex w-full max-w-6xl flex-1 flex-col gap-8 px-5 py-8 md:px-8 md:py-12">
       <PageBlockRenderer
         blocks={page.content}
         context={{ contentIndex }}

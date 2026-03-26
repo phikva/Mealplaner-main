@@ -56,6 +56,16 @@ export type HeroBlock = {
   _type: "heroBlock";
   title: string;
   subtitle?: PortableTextBlock[];
+  useCta?: boolean;
+  ctaCount?: "one" | "two";
+  primaryCta?: {
+    label?: string;
+    href?: string;
+  };
+  secondaryCta?: {
+    label?: string;
+    href?: string;
+  };
   mediaType?: "image" | "video";
   image?: SanityImage;
   videoUrl?: string;
@@ -76,6 +86,16 @@ export type RecipeGridBlock = {
   };
   layout?: "grid" | "carousel";
   maxItems?: number;
+  useCta?: boolean;
+  ctaCount?: "one" | "two";
+  primaryCta?: {
+    label?: string;
+    href?: string;
+  };
+  secondaryCta?: {
+    label?: string;
+    href?: string;
+  };
 };
 
 export type UnknownBlock = {
@@ -100,6 +120,8 @@ export type SanityPage = {
 export type SanityRecipe = {
   _id: string;
   tittel: string;
+  slug?: { current?: string };
+  path?: string;
   image?: SanityImage;
   categories?: SanityCategory[];
   categoryIds?: string[];
@@ -110,11 +132,25 @@ export type SanityRecipe = {
     karbs?: number;
     fett?: number;
   };
+  ingrediens?: Array<{
+    _key?: string;
+    name?: string;
+    measurement?: {
+      unit?: string;
+      unitQuantity?: number;
+    };
+    mengde?: string;
+    kommentar?: string;
+  }>;
+  instruksjoner?: string[];
+  notater?: string;
 };
 
 export type SanityCategory = {
   _id: string;
   name: string;
+  slug?: { current?: string };
+  path?: string;
 };
 
 export type SanityTier = {
@@ -149,9 +185,23 @@ export type SiteLink = {
   href: string;
 };
 
+export type SiteManagedLink = SiteLink & {
+  linkType?: "custom" | "page";
+  customHref?: string;
+  page?: {
+    _id?: string;
+    title?: string;
+    pageType?: PageType;
+    slug?: string;
+  };
+  showInHeader?: boolean;
+  showInFooter?: boolean;
+};
+
 export type SiteSettings = {
   siteName?: string;
   siteUrl?: string;
+  links?: SiteManagedLink[];
   header?: {
     navigation?: SiteLink[];
   };

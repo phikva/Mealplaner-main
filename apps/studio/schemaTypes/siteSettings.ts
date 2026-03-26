@@ -8,7 +8,7 @@ export const siteSettingsSchema = defineType({
   icon: CogIcon,
   groups: [
     {name: 'general', title: 'Generelt', default: true},
-    {name: 'header', title: 'Header'},
+    {name: 'links', title: 'Lenker'},
     {name: 'footer', title: 'Footer'},
     {name: 'seo', title: 'Global SEO'},
   ],
@@ -28,39 +28,102 @@ export const siteSettingsSchema = defineType({
       description: 'Full URL, f.eks. https://mealplaner.no',
     }),
     defineField({
-      name: 'header',
-      title: 'Header',
-      type: 'object',
-      group: 'header',
-      fields: [
-        defineField({
-          name: 'navigation',
-          title: 'Navigasjon',
-          type: 'array',
-          of: [
-            {
-              type: 'object',
-              fields: [
-                defineField({
-                  name: 'label',
-                  title: 'Label',
-                  type: 'string',
-                  validation: rule => rule.required(),
-                }),
-                defineField({
-                  name: 'href',
-                  title: 'Link',
-                  type: 'string',
-                  description: 'Bruk intern path som /oppskrifter eller full URL.',
-                  validation: rule => rule.required(),
-                }),
-              ],
-              preview: {
-                select: {title: 'label', subtitle: 'href'},
+      name: 'links',
+      title: 'Lenker',
+      type: 'array',
+      group: 'links',
+      description: 'Felles lenker som kan brukes i både header og footer.',
+      of: [
+        {
+          type: 'object',
+          fields: [
+            defineField({
+              name: 'label',
+              title: 'Label',
+              type: 'string',
+              description: 'Teksten som vises i menyen.',
+              validation: rule => rule.required(),
+            }),
+            defineField({
+              name: 'linkType',
+              title: 'Lenketype',
+              type: 'string',
+              initialValue: 'custom',
+              options: {
+                list: [
+                  {title: 'Custom link', value: 'custom'},
+                  {title: 'Referanse til side', value: 'page'},
+                ],
+                layout: 'radio',
+                direction: 'horizontal',
               },
-            },
+              validation: rule => rule.required(),
+            }),
+            defineField({
+              name: 'customHref',
+              title: 'Custom link',
+              type: 'string',
+              description: 'Bruk intern path som /oppskrifter eller full URL.',
+              hidden: ({parent}) => parent?.linkType !== 'custom',
+              validation: rule =>
+                rule.custom((value, context) => {
+                  if (context.parent?.linkType === 'custom' && !value) {
+                    return 'Custom link er påkrevd når lenketype er custom'
+                  }
+                  return true
+                }),
+            }),
+            defineField({
+              name: 'page',
+              title: 'Side',
+              type: 'reference',
+              to: [{type: 'page'}],
+              hidden: ({parent}) => parent?.linkType !== 'page',
+              options: {
+                filter: 'defined(slug.current) && isActive == true',
+              },
+              validation: rule =>
+                rule.custom((value, context) => {
+                  if (context.parent?.linkType === 'page' && !value) {
+                    return 'Side er påkrevd når lenketype er referanse'
+                  }
+                  return true
+                }),
+            }),
+            defineField({
+              name: 'showInHeader',
+              title: 'Vis i header',
+              type: 'boolean',
+              initialValue: true,
+            }),
+            defineField({
+              name: 'showInFooter',
+              title: 'Vis i footer',
+              type: 'boolean',
+              initialValue: false,
+            }),
           ],
-        }),
+          preview: {
+            select: {
+              title: 'label',
+              linkType: 'linkType',
+              customHref: 'customHref',
+              pageTitle: 'page.title',
+              pageSlug: 'page.slug.current',
+            },
+            prepare({title, linkType, customHref, pageTitle, pageSlug}) {
+              const subtitle =
+                linkType === 'custom'
+                  ? customHref ?? '(mangler custom link)'
+                  : pageSlug
+                    ? `/${pageSlug}`
+                    : pageTitle
+                      ? `Side: ${pageTitle}`
+                      : '(mangler side)'
+              return {title: title ?? 'Uten label', subtitle}
+            },
+          },
+        },
       ],
     }),
     defineField({
@@ -74,33 +137,6 @@ export const siteSettingsSchema = defineType({
           title: 'Footer tekst',
           type: 'text',
           rows: 2,
-        }),
-        defineField({
-          name: 'links',
-          title: 'Footer lenker',
-          type: 'array',
-          of: [
-            {
-              type: 'object',
-              fields: [
-                defineField({
-                  name: 'label',
-                  title: 'Label',
-                  type: 'string',
-                  validation: rule => rule.required(),
-                }),
-                defineField({
-                  name: 'href',
-                  title: 'Link',
-                  type: 'string',
-                  validation: rule => rule.required(),
-                }),
-              ],
-              preview: {
-                select: {title: 'label', subtitle: 'href'},
-              },
-            },
-          ],
         }),
       ],
     }),

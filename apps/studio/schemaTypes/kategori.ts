@@ -1,4 +1,5 @@
 import { defineField, defineType } from 'sanity'
+import { Rule } from 'sanity'
 import { CategoryIcon } from './icons'
 
 export default defineType({
@@ -12,6 +13,18 @@ export default defineType({
       title: 'Kategori Navn',
       type: 'string',
       description: 'Navn på kategorien',
+      validation: Rule => Rule.required().min(2),
+    }),
+    defineField({
+      name: 'slug',
+      title: 'Slug',
+      type: 'slug',
+      options: {
+        source: 'name',
+        maxLength: 96,
+      },
+      description: 'Brukes i URL for kategorisiden.',
+      validation: Rule => Rule.required(),
     }),
     defineField({
       name: 'image',
