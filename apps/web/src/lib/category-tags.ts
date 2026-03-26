@@ -1,4 +1,5 @@
 import type { SanityCategory } from "@/types/page";
+import { getCategoryPathFromFields } from "@/lib/sanity/category-path";
 
 export const getCategoryTagClassName = (categoryName: string) => {
   if (!categoryName) {
@@ -8,6 +9,6 @@ export const getCategoryTagClassName = (categoryName: string) => {
 };
 
 export const getCategoryHref = (category: SanityCategory) => {
-  const path = category.path || category.slug?.current || category._id;
-  return `/kategori/${path}`;
+  const path = getCategoryPathFromFields(category);
+  return path ? `/kategori/${path}` : "/kategori";
 };

@@ -3,7 +3,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRef } from "react";
+import { usePathname } from "next/navigation";
 import { getCategoryHref, getCategoryTagClassName } from "@/lib/category-tags";
+import { slugifyPathSegment } from "@/lib/path-utils";
 import { urlFor } from "@/lib/sanity/image";
 import type { RecipeGridBlock, SanityRecipe } from "@/types/page";
 
@@ -15,6 +17,12 @@ type Props = {
 export const RecipeGridBlockView = ({ block, recipes }: Props) => {
   const carouselRef = useRef<HTMLDivElement>(null);
   const categoryId = block.kategori?._ref || block.kategori?._id;
+  const categoryPath =
+    block.kategori?.slug?.current ||
+    (block.kategori?.name ? slugifyPathSegment(block.kategori.name) : undefined) ||
+    block.kategori?._id ||
+    block.kategori?._ref;
+  const categoryName = block.kategori?.name ?? "kategorien";
   const maxItems = block.maxItems ?? 8;
   const showTitle = block.showTitle ?? true;
   const showDescription = block.showDescription ?? true;
@@ -46,39 +54,48 @@ export const RecipeGridBlockView = ({ block, recipes }: Props) => {
 
   return (
     <section className="space-y-6 py-4 md:py-6">
-      {showTitle || (showDescription && block.description) ? (
-        <div className="space-y-2">
-          {showTitle ? (
-            <h2 className="text-3xl font-bold tracking-tight">{block.title}</h2>
-          ) : null}
-          {showDescription && block.description ? (
-            <p className="text-base text-muted-foreground">{block.description}</p>
-          ) : null}
-        </div>
-      ) : null}
-      {showPrimaryCta || showSecondaryCta ? (
-        <div className="flex flex-wrap items-center gap-3">
-          {showPrimaryCta ? (
-            <Link
-              href={block.primaryCta?.href || "/"}
-              className="inline-flex items-center justify-center rounded-full bg-primary px-7 py-3 text-base font-semibold tracking-[0.02em] text-primary-foreground transition-all hover:bg-primary/90"
-              target={block.primaryCta?.href && isExternalLink(block.primaryCta.href) ? "_blank" : undefined}
-              rel={block.primaryCta?.href && isExternalLink(block.primaryCta.href) ? "noreferrer noopener" : undefined}
-            >
-              {block.primaryCta?.label}
-            </Link>
-          ) : null}
-          {showSecondaryCta ? (
-            <Link
-              href={block.secondaryCta?.href || "/"}
-              className="group inline-flex items-center gap-2 rounded-full border border-foreground/35 px-7 py-3 text-base font-semibold tracking-[0.02em] text-foreground transition-all hover:border-foreground hover:gap-3"
-              target={block.secondaryCta?.href && isExternalLink(block.secondaryCta.href) ? "_blank" : undefined}
-              rel={block.secondaryCta?.href && isExternalLink(block.secondaryCta.href) ? "noreferrer noopener" : undefined}
-            >
-              {block.secondaryCta?.label}
-              <span aria-hidden>→</span>
-            </Link>
-          ) : null}
+      {showTitle || (showDescription && block.description) || showPrimaryCta || showSecondaryCta || categoryPath ? (
+        <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+          <div className="space-y-2">
+            {showTitle ? (
+              <h2 className="text-3xl font-bold tracking-tight">{block.title}</h2>
+            ) : null}
+            {showDescription && block.description ? (
+              <p className="text-base text-muted-foreground">{block.description}</p>
+            ) : null}
+          </div>
+          <div className="flex flex-wrap items-center gap-3">
+            {showPrimaryCta ? (
+              <Link
+                href={block.primaryCta?.href || "/"}
+                className="inline-flex items-center justify-center rounded-full bg-primary px-7 py-3 text-base font-semibold tracking-[0.02em] text-primary-foreground transition-all hover:bg-primary/90"
+                target={block.primaryCta?.href && isExternalLink(block.primaryCta.href) ? "_blank" : undefined}
+                rel={block.primaryCta?.href && isExternalLink(block.primaryCta.href) ? "noreferrer noopener" : undefined}
+              >
+                {block.primaryCta?.label}
+              </Link>
+            ) : null}
+            {showSecondaryCta ? (
+              <Link
+                href={block.secondaryCta?.href || "/"}
+                className="group inline-flex items-center gap-2 rounded-full border border-foreground/35 px-7 py-3 text-base font-semibold tracking-[0.02em] text-foreground transition-all hover:border-foreground hover:gap-3"
+                target={block.secondaryCta?.href && isExternalLink(block.secondaryCta.href) ? "_blank" : undefined}
+                rel={block.secondaryCta?.href && isExternalLink(block.secondaryCta.href) ? "noreferrer noopener" : undefined}
+              >
+                {block.secondaryCta?.label}
+                <span aria-hidden>→</span>
+              </Link>
+            ) : null}
+            {categoryPath ? (
+              <Link
+                href={`/kategori/${categoryPath}`}
+                className="inline-flex items-center gap-2 rounded-full border border-border/70 px-5 py-2.5 text-sm font-semibold tracking-[0.02em] text-foreground transition-colors hover:bg-muted/40"
+              >
+                Se alle {categoryName} oppskrifter
+                <span aria-hidden>→</span>
+              </Link>
+            ) : null}
+          </div>
         </div>
       ) : null}
 
@@ -92,7 +109,7 @@ export const RecipeGridBlockView = ({ block, recipes }: Props) => {
             <button
               type="button"
               onClick={() => scrollCarousel("left")}
-              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border/70 text-lg text-foreground transition-colors hover:bg-muted/50"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border/70 bg-white text-lg text-foreground transition-colors hover:bg-white/90"
               aria-label="Scroll karusell til venstre"
             >
               ←
@@ -100,7 +117,7 @@ export const RecipeGridBlockView = ({ block, recipes }: Props) => {
             <button
               type="button"
               onClick={() => scrollCarousel("right")}
-              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border/70 text-lg text-foreground transition-colors hover:bg-muted/50"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border/70 bg-white text-lg text-foreground transition-colors hover:bg-white/90"
               aria-label="Scroll karusell til høyre"
             >
               →
@@ -129,15 +146,27 @@ type RecipeCardProps = {
 };
 
 const RecipeCard = ({ recipe, className }: RecipeCardProps) => {
+  const pathname = usePathname();
   const imageUrl = recipe.image
     ? urlFor(recipe.image).width(800).height(500).fit("crop").url()
     : null;
   const recipePath = recipe.path || recipe.slug?.current || recipe._id;
+  const fromCategory = pathname?.startsWith("/kategori/") ? pathname.split("/")[2] : undefined;
+  const recipeHref = (() => {
+    if (!pathname) {
+      return `/oppskrift/${recipePath}`;
+    }
+    const params = new URLSearchParams({ from: pathname });
+    if (fromCategory) {
+      params.set("fromCategory", fromCategory);
+    }
+    return `/oppskrift/${recipePath}?${params.toString()}`;
+  })();
 
   return (
     <article className={`overflow-hidden bg-background/85 transition duration-300 hover:-translate-y-0.5 ${className || ""}`}>
-      <Link href={`/oppskrift/${recipePath}`} className="block">
-        <div className="aspect-video bg-muted/30">
+      <Link href={recipeHref} className="block">
+        <div className="relative aspect-video bg-muted/30">
           {imageUrl ? (
             <Image
               src={imageUrl}
@@ -151,10 +180,24 @@ const RecipeCard = ({ recipe, className }: RecipeCardProps) => {
               Ingen bilde
             </div>
           )}
+          {(typeof recipe.totalKcal === "number" || typeof recipe.porsjoner === "number") ? (
+            <div className="absolute left-3 top-3 z-10 flex flex-wrap gap-2">
+              {typeof recipe.totalKcal === "number" ? (
+                <span className="border border-border/70 bg-secondary px-2 py-0.5 font-sans text-[10px] font-semibold tracking-[0.02em]">
+                  {Math.round(recipe.totalKcal)} kcal
+                </span>
+              ) : null}
+              {typeof recipe.porsjoner === "number" ? (
+                <span className="border border-border/70 bg-secondary px-2 py-0.5 font-sans text-[10px] font-semibold tracking-[0.02em]">
+                  {recipe.porsjoner} porsjoner
+                </span>
+              ) : null}
+            </div>
+          ) : null}
         </div>
       </Link>
       <div className="space-y-2 p-4">
-        <Link href={`/oppskrift/${recipePath}`} className="block">
+        <Link href={recipeHref} className="block">
           <h3 className="line-clamp-2 text-lg font-bold leading-tight">{recipe.tittel}</h3>
         </Link>
         {recipe.categories && recipe.categories.length > 0 ? (
@@ -163,25 +206,13 @@ const RecipeCard = ({ recipe, className }: RecipeCardProps) => {
               <Link
                 key={`${recipe._id}-${category._id}`}
                 href={getCategoryHref(category)}
-                className={`rounded-full px-2.5 py-1 font-sans text-[11px] font-semibold tracking-[0.02em] hover:bg-muted/40 ${getCategoryTagClassName(category.name)}`}
+                className={`rounded-full px-2 py-0.5 font-sans text-[10px] font-semibold tracking-[0.02em] hover:bg-muted/40 ${getCategoryTagClassName(category.name)}`}
               >
                 {category.name}
               </Link>
             ))}
           </div>
         ) : null}
-        <div className="flex flex-wrap gap-2 text-xs text-muted-foreground">
-          {typeof recipe.totalKcal === "number" ? (
-            <span className="border border-border/70 bg-secondary px-2.5 py-1 font-sans text-[11px] font-semibold tracking-[0.02em]">
-              {Math.round(recipe.totalKcal)} kcal
-            </span>
-          ) : null}
-          {typeof recipe.porsjoner === "number" ? (
-            <span className="border border-border/70 bg-secondary px-2.5 py-1 font-sans text-[11px] font-semibold tracking-[0.02em]">
-              {recipe.porsjoner} porsjoner
-            </span>
-          ) : null}
-        </div>
       </div>
     </article>
   );

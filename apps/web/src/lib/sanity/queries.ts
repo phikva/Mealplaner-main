@@ -36,7 +36,8 @@ const pageProjection = `{
       ...,
       kategori->{
         _id,
-        name
+        name,
+        slug
       }
     }
   }
@@ -73,10 +74,7 @@ export const recipesQuery = groq`
       _id,
       name,
       slug,
-      "path": select(
-        defined(slug.current) => slug.current,
-        _id
-      )
+      "path": slug.current
     },
     "categoryIds": kategori[]._ref,
     porsjoner,
@@ -99,10 +97,11 @@ export const categoriesQuery = groq`
     _id,
     name,
     slug,
-    "path": select(
-      defined(slug.current) => slug.current,
-      _id
-    )
+    image{
+      ...,
+      asset
+    },
+    "path": slug.current
   }
 `;
 
@@ -199,10 +198,7 @@ export const recipeByPathQuery = groq`
       _id,
       name,
       slug,
-      "path": select(
-        defined(slug.current) => slug.current,
-        _id
-      )
+      "path": slug.current
     },
     "categoryIds": kategori[]._ref,
     porsjoner,
@@ -222,10 +218,9 @@ export const recipeByPathQuery = groq`
 
 export const recipePathsQuery = groq`
   *[_type == "oppskrift"]{
-    "path": select(
-      defined(slug.current) => slug.current,
-      _id
-    )
+    _id,
+    tittel,
+    slug
   }
 `;
 
@@ -237,19 +232,19 @@ export const categoryByPathQuery = groq`
     _id,
     name,
     slug,
-    "path": select(
-      defined(slug.current) => slug.current,
-      _id
-    )
+    image{
+      ...,
+      asset
+    },
+    "path": slug.current
   }
 `;
 
 export const categoryPathsQuery = groq`
   *[_type == "kategori"]{
-    "path": select(
-      defined(slug.current) => slug.current,
-      _id
-    )
+    _id,
+    name,
+    slug
   }
 `;
 
@@ -270,10 +265,7 @@ export const recipesByCategoryIdQuery = groq`
       _id,
       name,
       slug,
-      "path": select(
-        defined(slug.current) => slug.current,
-        _id
-      )
+      "path": slug.current
     },
     "categoryIds": kategori[]._ref,
     porsjoner,

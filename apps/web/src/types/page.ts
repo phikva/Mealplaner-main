@@ -83,6 +83,7 @@ export type RecipeGridBlock = {
     _id?: string;
     _type?: "reference";
     name?: string;
+    slug?: { current?: string };
   };
   layout?: "grid" | "carousel";
   maxItems?: number;
@@ -150,6 +151,7 @@ export type SanityCategory = {
   _id: string;
   name: string;
   slug?: { current?: string };
+  image?: SanityImage;
   path?: string;
 };
 

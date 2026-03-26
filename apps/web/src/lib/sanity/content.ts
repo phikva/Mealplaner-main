@@ -4,6 +4,7 @@ import {
   recipesQuery,
   tiersQuery,
 } from "@/lib/sanity/queries";
+import { withRecipePath } from "@/lib/sanity/recipe-path";
 import type {
   SanityCategory,
   SanityContentIndex,
@@ -30,7 +31,7 @@ export const getSanityContentIndex = async (): Promise<SanityContentIndex> => {
   ]);
 
   return {
-    recipes,
+    recipes: recipes.map(withRecipePath),
     categories,
     tiers,
   };
