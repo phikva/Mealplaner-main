@@ -1,8 +1,9 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { CategoryRecipesView } from "@/app/kategori/[path]/category-recipes-view";
-import { urlFor } from "@/lib/sanity/image";
+import { RecipeCollectionView } from "@/components/recipes/recipe-collection-view";
+import { mapSanityRecipeToCollectionItem } from "@/lib/recipes/map-recipe-collection-item";
+import { getBrukerprofilSettings } from "@/lib/sanity/brukerprofil";
 import {
   getCategoryByPath,
   getCategoryPaths,
@@ -43,18 +44,11 @@ export default async function CategoryPage({ params }: PageProps) {
     notFound();
   }
 
-  const recipes = await getRecipesByCategoryId(category._id);
-  const recipeItems = recipes.map((recipe) => ({
-    _id: recipe._id,
-    tittel: recipe.tittel,
-    recipePath: recipe.path || recipe.slug?.current || recipe._id,
-    imageUrl: recipe.image
-      ? urlFor(recipe.image).width(900).height(560).fit("crop").url()
-      : null,
-    totalKcal: recipe.totalKcal,
-    porsjoner: recipe.porsjoner,
-    categories: recipe.categories,
-  }));
+  const [recipes, brukerprofilSettings] = await Promise.all([
+    getRecipesByCategoryId(category._id),
+    getBrukerprofilSettings(),
+  ]);
+  const recipeItems = recipes.map(mapSanityRecipeToCollectionItem);
 
   return (
     <main className="mx-auto flex w-full max-w-6xl flex-1 flex-col gap-6 px-6 py-10">
@@ -84,7 +78,7 @@ export default async function CategoryPage({ params }: PageProps) {
           Ingen oppskrifter funnet i denne kategorien ennå.
         </p>
       ) : (
-        <CategoryRecipesView recipes={recipeItems} />
+        <RecipeCollectionView recipes={recipeItems} brukerprofilSettings={brukerprofilSettings} />
       )}
     </main>
   );

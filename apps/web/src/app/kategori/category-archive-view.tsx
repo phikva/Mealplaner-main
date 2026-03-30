@@ -21,8 +21,17 @@ export const CategoryArchiveView = ({ categories }: Props) => {
 
   return (
     <section className="space-y-3 md:space-y-4">
-      <div className="flex items-center justify-end">
-        <div className="inline-flex border border-border/70 bg-background/85 p-1">
+      <div className="flex flex-wrap items-center justify-end gap-2 sm:gap-3">
+        <Link
+          href="/oppskrifter"
+          className="inline-flex shrink-0 items-center border border-border/70 bg-secondary px-4 py-2 text-sm font-semibold tracking-[0.02em] transition hover:bg-secondary/80"
+        >
+          Se alle oppskrifter
+          <span aria-hidden className="ml-2">
+            →
+          </span>
+        </Link>
+        <div className="inline-flex shrink-0 border border-border/70 bg-background/85 p-1">
           <button
             type="button"
             onClick={() => setView("grid")}

@@ -96,6 +96,64 @@ export const brukerprofilSettingsQuery = groq`
   }
 `;
 
+/** Slim projection for archive/list pages (no ingredients or long text). */
+export const recipesListQuery = groq`
+  *[_type == "oppskrift"] | order(tittel asc){
+    _id,
+    tittel,
+    slug,
+    dietTags,
+    allergens,
+    "path": select(
+      defined(slug.current) => slug.current,
+      _id
+    ),
+    image{
+      ...,
+      asset
+    },
+    "categories": kategori[]->{
+      _id,
+      name,
+      slug,
+      "path": slug.current
+    },
+    "categoryIds": kategori[]._ref,
+    porsjoner,
+    totalKcal,
+    totalMakros
+  }
+`;
+
+/** Paginated fetch — some API paths cap bulk responses; loop until drained. */
+export const recipesListBatchQuery = groq`
+  *[_type == "oppskrift"] | order(tittel asc) [$start...$end]{
+    _id,
+    tittel,
+    slug,
+    dietTags,
+    allergens,
+    "path": select(
+      defined(slug.current) => slug.current,
+      _id
+    ),
+    image{
+      ...,
+      asset
+    },
+    "categories": kategori[]->{
+      _id,
+      name,
+      slug,
+      "path": slug.current
+    },
+    "categoryIds": kategori[]._ref,
+    porsjoner,
+    totalKcal,
+    totalMakros
+  }
+`;
+
 export const recipesQuery = groq`
   *[_type == "oppskrift"] | order(tittel asc){
     _id,
@@ -297,6 +355,8 @@ export const recipesByCategoryIdQuery = groq`
     _id,
     tittel,
     slug,
+    dietTags,
+    allergens,
     "path": select(
       defined(slug.current) => slug.current,
       _id
