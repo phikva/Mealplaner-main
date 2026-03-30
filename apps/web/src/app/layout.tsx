@@ -1,10 +1,15 @@
 import type { Metadata } from "next";
 import { Geist_Mono, Manrope } from "next/font/google";
+import { Suspense } from "react";
+import { OnboardingGate } from "@/components/onboarding/onboarding-gate";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { env } from "@/lib/env";
+import { getBrukerprofilSettings } from "@/lib/sanity/brukerprofil";
+import { getActiveOnboarding } from "@/lib/sanity/onboarding";
 import { urlFor } from "@/lib/sanity/image";
 import { getSiteSettings } from "@/lib/sanity/settings";
+import { createClient } from "@/lib/supabase/server";
 import "./globals.css";
 
 const manrope = Manrope({
@@ -64,6 +69,22 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const settings = await getSiteSettings();
+  const [onboarding, brukerprofilSettings, supabase] = await Promise.all([
+    getActiveOnboarding(),
+    getBrukerprofilSettings(),
+    createClient(),
+  ]);
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  const { data: profile } = user
+    ? await supabase
+        .from("profiles")
+        .select("full_name,diet_values,allergies,kitchen_category_ids,onboarding_completed")
+        .eq("id", user.id)
+        .maybeSingle()
+    : { data: null };
 
   return (
     <html
@@ -71,9 +92,17 @@ export default async function RootLayout({
         className={`${manrope.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <SiteHeader settings={settings} />
+        <SiteHeader settings={settings} initialProfile={profile} />
         {children}
         <SiteFooter settings={settings} />
+        <Suspense fallback={null}>
+          <OnboardingGate
+            onboarding={onboarding}
+            initialUserId={user?.id ?? null}
+            profileSettings={brukerprofilSettings}
+            initialProfile={profile}
+          />
+        </Suspense>
       </body>
     </html>
   );

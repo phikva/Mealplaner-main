@@ -57,11 +57,52 @@ export const activePageSlugsQuery = groq`
   }
 `;
 
+export const activeOnboardingQuery = groq`
+  *[_type == "onboarding" && isActive == true] | order(_updatedAt desc)[0]{
+    _id,
+    title,
+    "slug": slug.current,
+    content[]{
+      _key,
+      _type,
+      title,
+      body,
+      image{
+        ...,
+        asset
+      },
+      useCta,
+      primaryCta
+    }
+  }
+`;
+
+export const brukerprofilSettingsQuery = groq`
+  *[_type == "brukerprofil"][0]{
+    kostholdsbehov[]{
+      navn,
+      verdi,
+      beskrivelse
+    },
+    vanligeAllergier[]{
+      navn,
+      beskrivelse
+    },
+    kjokkenTyper[]->{
+      _id,
+      name,
+      slug
+    }
+  }
+`;
+
 export const recipesQuery = groq`
   *[_type == "oppskrift"] | order(tittel asc){
     _id,
     tittel,
     slug,
+    dietTags,
+    allergens,
     "path": select(
       defined(slug.current) => slug.current,
       _id
@@ -113,6 +154,7 @@ export const tiersQuery = groq`
     description,
     price,
     isDefault,
+    features,
     recipeAccess,
     mealStorage,
     favoriteRecipes,
@@ -186,6 +228,8 @@ export const recipeByPathQuery = groq`
     _id,
     tittel,
     slug,
+    dietTags,
+    allergens,
     "path": select(
       defined(slug.current) => slug.current,
       _id

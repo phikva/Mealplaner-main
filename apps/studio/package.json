@@ -19,17 +19,18 @@
     "sanity"
   ],
   "dependencies": {
-    "@sanity/vision": "^4.8.1",
+    "@sanity/vision": "^5.18.0",
     "@types/uuid": "^10.0.0",
     "react": "^19.2.2",
     "react-dom": "^19.2.2",
-    "sanity": "^4.8.1",
+    "sanity": "^5.18.0",
+    "sanity-plugin-media": "^4.1.1",
     "styled-components": "^6.1.15",
     "uuid": "^11.1.0"
   },
   "devDependencies": {
+    "@sanity/client": "^7.20.0",
     "@sanity/eslint-config-studio": "^3.0.1",
-    "@sanity/client": "^6.28.0",
     "@types/node": "^20.14.0",
     "@types/react": "^19.2.0",
     "eslint": "^8.56.0",

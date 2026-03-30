@@ -1,6 +1,7 @@
 import { defineField, defineType } from 'sanity'
 import { RecipeIcon } from './icons'
 import { Rule } from 'sanity'
+import { BrukerprofilTagsInput } from '../components/brukerprofilTagsInput'
 
 export default defineType({
   name: 'oppskrift',
@@ -9,6 +10,7 @@ export default defineType({
   icon: RecipeIcon,
   groups: [
     { name: 'general', title: 'Generelt', default: true },
+    { name: 'diet', title: 'Kosthold og allergener' },
     { name: 'ingredients', title: 'Ingredienser' },
     { name: 'instructions', title: 'Fremgangsmåte' },
     { name: 'nutrition', title: 'Ernæring' },
@@ -62,6 +64,42 @@ export default defineType({
       group: 'general',
       of: [{ type: 'reference', to: [{ type: 'kategori' }] }],
       description: 'Velg en eller flere kategorier for denne oppskriften',
+    }),
+    defineField({
+      name: 'dietTags',
+      title: 'Kosthold (tags)',
+      type: 'array',
+      group: 'diet',
+      of: [{ type: 'string' }],
+      description: 'Valgfri tagging for kosthold (f.eks. vegetar, vegan, lavkarbo).',
+      options: {
+        layout: 'tags',
+      },
+      components: {
+        input: BrukerprofilTagsInput,
+      },
+      options: {
+        source: 'diet',
+        placeholder: 'Søk kosthold…',
+      },
+    }),
+    defineField({
+      name: 'allergens',
+      title: 'Allergener',
+      type: 'array',
+      group: 'diet',
+      of: [{ type: 'string' }],
+      description: 'Valgfri liste over allergener (f.eks. gluten, nøtter, melk).',
+      options: {
+        layout: 'tags',
+      },
+      components: {
+        input: BrukerprofilTagsInput,
+      },
+      options: {
+        source: 'allergens',
+        placeholder: 'Søk allergener…',
+      },
     }),
     defineField({
       name: 'ingrediens',

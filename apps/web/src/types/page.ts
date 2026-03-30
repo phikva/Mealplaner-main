@@ -118,10 +118,55 @@ export type SanityPage = {
   content?: PageContentBlock[];
 };
 
+export type OnboardingSectionBlock = {
+  _key: string;
+  _type: "onboardingSection";
+  title: string;
+  body?: PortableTextBlock[];
+  image?: SanityImage;
+  useCta?: boolean;
+  primaryCta?: {
+    label?: string;
+    href?: string;
+  };
+};
+
+export type ActiveOnboardingDocument = {
+  _id: string;
+  title: string;
+  slug: string | null;
+  content?: OnboardingSectionBlock[];
+};
+
+export type BrukerprofilDietOption = {
+  navn: string;
+  verdi: string;
+  beskrivelse?: string;
+};
+
+export type BrukerprofilAllergyOption = {
+  navn: string;
+  beskrivelse?: string;
+};
+
+export type BrukerprofilKitchenOption = {
+  _id: string;
+  name?: string;
+  slug?: { current?: string };
+};
+
+export type BrukerprofilSettings = {
+  kostholdsbehov?: BrukerprofilDietOption[];
+  vanligeAllergier?: BrukerprofilAllergyOption[];
+  kjokkenTyper?: BrukerprofilKitchenOption[];
+};
+
 export type SanityRecipe = {
   _id: string;
   tittel: string;
   slug?: { current?: string };
+  dietTags?: string[];
+  allergens?: string[];
   path?: string;
   image?: SanityImage;
   categories?: SanityCategory[];
@@ -162,6 +207,7 @@ export type SanityTier = {
   description?: string;
   price?: number;
   isDefault?: boolean;
+  features?: string[];
   recipeAccess?: {
     accessType?: "limited" | "full";
     maxRecipes?: number;

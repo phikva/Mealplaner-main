@@ -1,4 +1,5 @@
 import { PageBlockRenderer } from "@/components/blocks/page-block-renderer";
+import { PersonalizedRecipeSection } from "@/components/home/personalized-recipe-section";
 import type { SanityContentIndex, SanityPage } from "@/types/page";
 
 type Props = {
@@ -13,6 +14,7 @@ export const SanityPageView = ({ page, contentIndex }: Props) => {
         blocks={page.content}
         context={{ contentIndex }}
       />
+      <PersonalizedRecipeSection contentIndex={contentIndex} />
     </main>
   );
 };

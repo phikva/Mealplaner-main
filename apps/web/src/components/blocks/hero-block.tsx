@@ -9,6 +9,9 @@ type HeroBlockProps = {
 };
 
 export const HeroBlockView = ({ block }: HeroBlockProps) => {
+  const assetRef = block.image?.asset?._ref || "";
+  const isGif = assetRef.endsWith("-gif");
+  const originalImageUrl = block.image ? urlFor(block.image).url() : null;
   const imageUrl = block.image
     ? urlFor(block.image).width(1600).height(900).fit("crop").url()
     : null;
@@ -76,7 +79,7 @@ export const HeroBlockView = ({ block }: HeroBlockProps) => {
         ) : null}
       </div>
 
-      <div className="overflow-hidden bg-muted/35">
+      <div className={isGif ? "overflow-hidden" : "overflow-hidden bg-muted/35"}>
         {block.mediaType === "video" && block.videoUrl ? (
           <iframe
             title={block.title}
@@ -88,12 +91,15 @@ export const HeroBlockView = ({ block }: HeroBlockProps) => {
           />
         ) : imageUrl ? (
           <Image
-            src={imageUrl}
+            src={isGif && originalImageUrl ? originalImageUrl : imageUrl}
             alt={block.title}
             width={1600}
             height={900}
-            className="aspect-video h-full w-full object-cover transition-transform duration-700 hover:scale-[1.02]"
+            className={`w-full transition-transform duration-700 ${
+              isGif ? "h-auto object-contain" : "aspect-video h-full object-cover hover:scale-[1.02]"
+            }`}
             priority
+            unoptimized={isGif}
           />
         ) : (
           <div className="flex aspect-video items-center justify-center text-sm text-muted-foreground">

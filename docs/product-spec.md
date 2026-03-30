@@ -73,6 +73,8 @@ Primært mål for fase 1:
 ### 5.3 Auth og brukerprofil
 - Registrering, innlogging og utlogging via Supabase Auth.
 - Brukerens appdata kobles til autentisert bruker-ID i Supabase.
+- **Onboarding (etter innlogging):** vises som en step-by-step wizard (1 skjerm av gangen) i modal og kan åpnes på nytt fra profil (preview).
+- **Profilside:** `\/profil` viser og lar brukeren oppdatere navn + preferanser (kosthold/allergier/kjøkken) som lagres i `public.profiles`.
 
 ### 5.4 Favoritter
 - Innlogget bruker kan legge til/fjerne favoritter.
@@ -96,11 +98,13 @@ Primært mål for fase 1:
 - Stripe Checkout for kjøp/aktivering.
 - Etter vellykket betaling oppdateres abonnementstatus i systemet.
 - Premium-funksjoner skal følge `tier`-definisjon i Sanity (f.eks. recipe access, meal storage, favorites, expert planning).
+- `\/abonnement` viser planer (hentes fra Sanity) og markerer brukerens nåværende plan (fra `public.profiles`).
 
 ### 5.8 Premium-plan (styrt fra Sanity)
 - Premium-plan skal ikke hardkodes i frontend.
 - Frontend leser feature-regler fra `tier`-dokument i Sanity.
 - Første versjon støtter minst disse feltene fra `tier`:
+  - `features[]` (liste fra “Funksjoner”-fanen i studio, vises i UI)
   - `recipeAccess` (begrenset/full + ev. maks antall)
   - `mealStorage` (lagringsvarighet)
   - `favoriteRecipes` (tillatelse + maks favoritter)
@@ -111,7 +115,9 @@ Primært mål for fase 1:
 ### Sanity (innhold)
 - Oppskrifter, kategorier og redaksjonelt innhold.
 - Eksisterende skjemaer i `apps/studio/schemaTypes` brukes som startpunkt.
-- Abonnementsnivå og premium-feature-flagg kommer fra `tier`.
+- Abonnementsnivå og premium-feature-flagg kommer fra `tier` (inkl. `features[]`).
+- Onboarding-innhold kommer fra `onboarding` (med `onboardingSection`-blokker).
+- Profilpreferanse-opsjoner kommer fra `brukerprofil`.
 
 ### Supabase (applikasjonsdata)
 - `users` / profilrelatert appdata (koblet til auth user id)
@@ -121,11 +127,24 @@ Primært mål for fase 1:
 
 Merk: Endelig tabellstruktur og constraints spesifiseres i teknisk design før implementasjon.
 
+#### `public.profiles` (brukerprofil)
+Appen forventer en `profiles`-rad per bruker. Minimumsfelter for dagens flyt:
+- `tier_sanity_id`, `tier_slug` (settes via `ensureProfile()` med default tier fra Sanity)
+- `full_name`
+- `diet_values text[]`
+- `allergies text[]`
+- `kitchen_category_ids text[]`
+- `onboarding_completed boolean`
+
+RLS: brukeren kan kun lese/endre egen rad.
+
 ## 7. Nøkkelflyter
 
 1. **Registrering og innlogging**
    - Bruker oppretter konto via Supabase Auth
    - Bruker får tilgang til personlige funksjoner
+   - Etter vellykket innlogging: redirect til `/?onboarding=1` og onboarding åpner (kun én gang per bruker)
+   - For testing kan passord-login brukes hvis magic link blir rate-limited
 
 2. **Favorisere oppskrift**
    - Innlogget bruker klikker favoritt
@@ -141,6 +160,10 @@ Merk: Endelig tabellstruktur og constraints spesifiseres i teknisk design før i
    - Bruker starter checkout
    - Fullført betaling oppdaterer abonnementstatus
    - Basis-funksjoner for innlogget bruker styres av statusregler definert for MVP
+
+5. **Onboarding preview**
+   - Fra `\/profil` kan brukeren trykke “Se onboarding” som åpner `/?onboarding=1&previewOnboarding=1`.
+   - Preview skal ikke skrive `onboarding_completed`.
 
 ## 8. Ikke-funksjonelle krav
 
