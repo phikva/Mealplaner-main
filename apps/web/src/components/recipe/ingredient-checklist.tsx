@@ -33,27 +33,33 @@ export const IngredientChecklist = ({ recipeId, ingredients, compact = false }: 
   const storageKey = useMemo(() => `mealplaner:ingredient-checks:${recipeId}`, [recipeId]);
   const [shoppingMode, setShoppingMode] = useState(false);
   const [checked, setChecked] = useState<Record<string, boolean>>({});
+  /** Unngå at lagring ved mount overskriver localStorage før hydrate er lest (ødela handleliste på mobil med to mount-punkter). */
+  const [checksHydrated, setChecksHydrated] = useState(false);
 
   useEffect(() => {
     try {
       const raw = window.localStorage.getItem(storageKey);
       if (!raw) {
+        setChecksHydrated(true);
         return;
       }
       const parsed = JSON.parse(raw) as Record<string, boolean>;
       setChecked(parsed);
     } catch {
       setChecked({});
+    } finally {
+      setChecksHydrated(true);
     }
   }, [storageKey]);
 
   useEffect(() => {
+    if (!checksHydrated) return;
     try {
       window.localStorage.setItem(storageKey, JSON.stringify(checked));
     } catch {
       // ignore localStorage errors
     }
-  }, [checked, storageKey]);
+  }, [checked, storageKey, checksHydrated]);
 
   const toggleIngredient = (id: string) => {
     setChecked((prev) => ({
@@ -78,20 +84,20 @@ export const IngredientChecklist = ({ recipeId, ingredients, compact = false }: 
         <button
           type="button"
           onClick={() => setShoppingMode((value) => !value)}
-          className={`inline-flex min-h-11 items-center justify-center border px-3 py-2 text-sm font-semibold tracking-[0.02em] transition-colors ${
+          className={`inline-flex min-h-11 items-center justify-center rounded-xl border px-3 py-2 text-sm font-semibold tracking-[0.02em] transition-colors ${
             shoppingMode
               ? "border-emerald-500/50 bg-emerald-500/15 text-emerald-800"
               : "border-border/70 bg-background/85 text-foreground hover:bg-muted/40"
           } ${compact ? "w-full" : ""}`}
           aria-pressed={shoppingMode}
         >
-          Handleliste modus: {shoppingMode ? "Pa" : "Av"}
+          Handleliste modus: {shoppingMode ? "På" : "Av"}
         </button>
         {shoppingMode ? (
           <button
             type="button"
             onClick={resetChecklist}
-            className={`inline-flex min-h-11 items-center justify-center border border-border/70 bg-background/85 px-3 py-2 text-sm font-semibold tracking-[0.02em] text-foreground transition-colors hover:bg-muted/40 ${
+            className={`inline-flex min-h-11 items-center justify-center rounded-xl border border-border/70 bg-background/85 px-3 py-2 text-sm font-semibold tracking-[0.02em] text-foreground transition-colors hover:bg-muted/40 ${
               compact ? "w-full" : ""
             }`}
           >
@@ -105,7 +111,9 @@ export const IngredientChecklist = ({ recipeId, ingredients, compact = false }: 
           Huk av det du har handlet: {checkedCount}/{ingredients.length}
         </p>
       ) : (
-        <p className="text-xs text-muted-foreground md:text-sm">Skru pa handleliste modus for a huke av varer.</p>
+        <p className="text-xs text-muted-foreground md:text-sm">
+          Skru på handleliste modus for å huke av varer.
+        </p>
       )}
 
       <ul className={compact ? "space-y-1.5" : "space-y-1.5 md:space-y-2"}>
@@ -119,24 +127,25 @@ export const IngredientChecklist = ({ recipeId, ingredients, compact = false }: 
             >
               <button
                 type="button"
-                onClick={() => (shoppingMode ? toggleIngredient(id) : undefined)}
-                className={`grid w-full grid-cols-[1fr_auto] items-start gap-3 py-2 text-left ${
+                disabled={!shoppingMode}
+                onClick={() => shoppingMode && toggleIngredient(id)}
+                className={`grid w-full grid-cols-[1fr_auto] items-start gap-3 rounded-lg py-2 text-left ${
                   shoppingMode ? "cursor-pointer active:opacity-80" : "cursor-default"
                 }`}
-                aria-pressed={isChecked}
+                aria-pressed={shoppingMode ? isChecked : undefined}
                 aria-label={shoppingMode ? `Marker ${item.name || "ingrediens"} som handlet` : undefined}
               >
                 <span className="flex items-start gap-2.5">
                   {shoppingMode ? (
                     <span
                       aria-hidden
-                      className={`mt-0.5 inline-flex h-5.5 w-5.5 items-center justify-center border ${
+                      className={`mt-0.5 inline-flex size-5 shrink-0 items-center justify-center rounded-md border ${
                         isChecked
-                          ? "border-emerald-500 bg-emerald-500/15 text-[13px] font-bold leading-none text-emerald-800"
-                          : "border-border/80 text-[13px] font-bold leading-none text-muted-foreground/70"
+                          ? "border-emerald-500 bg-emerald-500/15 text-[11px] font-bold leading-none text-emerald-800"
+                          : "border-border/80 text-[11px] font-bold leading-none text-muted-foreground/70"
                       }`}
                     >
-                      {isChecked ? "X" : ""}
+                      {isChecked ? "✓" : ""}
                     </span>
                   ) : null}
                   <span className={`pr-2 font-medium ${isChecked ? "text-muted-foreground line-through" : ""}`}>

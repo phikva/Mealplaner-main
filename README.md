@@ -8,7 +8,7 @@ Monorepo: Next.js-app og Sanity Studio.
 |--------|---------|
 | `apps/web` | Next.js (frontend) |
 | `apps/studio` | Sanity Studio og skjemaer |
-| `docs/` | Produktspesifikasjon |
+| `docs/` | [Produktspesifikasjon](docs/product-spec.md), [MVP-backlog](docs/mvp-backlog.md) |
 
 ## Kom i gang
 
@@ -77,6 +77,12 @@ create table if not exists public.profiles (
 ```
 
 RLS: brukeren kan kun lese/endre sin egen rad (se `apps/web/supabase/migrations/001_profiles.sql`).
+
+## Favoritter og måltidsplan (Supabase)
+
+Kjør også `002_recipe_favorites_and_meal_plan.sql` og deretter `003_meal_plan_sort_order.sql` i Supabase SQL Editor. Tabellene `recipe_favorites` og `meal_plan_entries` (dato, `sort_order` for rekkefølge per dag, oppskrift) har RLS slik at brukeren kun ser egne rader.
+
+
 
 Bygg:
 

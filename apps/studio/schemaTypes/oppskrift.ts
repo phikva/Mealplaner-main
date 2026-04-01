@@ -74,13 +74,11 @@ export default defineType({
       description: 'Valgfri tagging for kosthold (f.eks. vegetar, vegan, lavkarbo).',
       options: {
         layout: 'tags',
+        source: 'diet',
+        placeholder: 'Søk kosthold…',
       },
       components: {
         input: BrukerprofilTagsInput,
-      },
-      options: {
-        source: 'diet',
-        placeholder: 'Søk kosthold…',
       },
     }),
     defineField({
@@ -92,13 +90,11 @@ export default defineType({
       description: 'Valgfri liste over allergener (f.eks. gluten, nøtter, melk).',
       options: {
         layout: 'tags',
+        source: 'allergens',
+        placeholder: 'Søk allergener…',
       },
       components: {
         input: BrukerprofilTagsInput,
-      },
-      options: {
-        source: 'allergens',
-        placeholder: 'Søk allergener…',
       },
     }),
     defineField({

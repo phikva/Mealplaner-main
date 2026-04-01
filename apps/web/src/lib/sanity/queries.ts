@@ -220,6 +220,95 @@ export const tiersQuery = groq`
   }
 `;
 
+
+/** Samme liste-felter som recipesListQuery (kategorier, filtre) – brukes bl.a. favoritter og måltidsplan. */
+export const recipesByIdsQuery = groq`
+  *[_type == "oppskrift" && _id in $ids]{
+    _id,
+    tittel,
+    slug,
+    dietTags,
+    allergens,
+    "path": select(
+      defined(slug.current) => slug.current,
+      _id
+    ),
+    image{
+      ...,
+      asset
+    },
+    "categories": kategori[]->{
+      _id,
+      name,
+      slug,
+      "path": slug.current
+    },
+    "categoryIds": kategori[]._ref,
+    porsjoner,
+    totalKcal,
+    totalMakros
+  }
+`;
+
+export const recipesSearchByTitleQuery = groq`
+  *[_type == "oppskrift" && tittel match $pattern] | order(tittel asc)[0...24]{
+    _id,
+    tittel,
+    slug,
+    "path": select(
+      defined(slug.current) => slug.current,
+      _id
+    ),
+    image{
+      ...,
+      asset
+    },
+    porsjoner,
+    totalKcal,
+    totalMakros
+  }
+`;
+
+/** Søk med valgfri kategori (tom $categoryId = alle). */
+export const recipesSearchByTitleOptionalCategoryQuery = groq`
+  *[_type == "oppskrift" && tittel match $pattern && ($categoryId == "" || $categoryId in kategori[]._ref)] | order(tittel asc)[0...24]{
+    _id,
+    tittel,
+    slug,
+    "path": select(
+      defined(slug.current) => slug.current,
+      _id
+    ),
+    image{
+      ...,
+      asset
+    },
+    porsjoner,
+    totalKcal,
+    totalMakros
+  }
+`;
+
+/** Liste til måltidsplan-velger: alfabetisk, valgfri kategori, maks 36. */
+export const recipesBrowseForPickerQuery = groq`
+  *[_type == "oppskrift" && ($categoryId == "" || $categoryId in kategori[]._ref)] | order(tittel asc)[0...36]{
+    _id,
+    tittel,
+    slug,
+    "path": select(
+      defined(slug.current) => slug.current,
+      _id
+    ),
+    image{
+      ...,
+      asset
+    },
+    porsjoner,
+    totalKcal,
+    totalMakros
+  }
+`;
+
 export const siteSettingsQuery = groq`
   *[_type == "siteSettings"][0]{
     siteName,

@@ -1,5 +1,12 @@
 import { sanityClient } from "@/lib/sanity/client";
-import { recipeByPathQuery, recipePathsQuery } from "@/lib/sanity/queries";
+import {
+  recipeByPathQuery,
+  recipePathsQuery,
+  recipesBrowseForPickerQuery,
+  recipesByIdsQuery,
+  recipesSearchByTitleOptionalCategoryQuery,
+  recipesSearchByTitleQuery,
+} from "@/lib/sanity/queries";
 import { getRecipePathFromFields, withRecipePath } from "@/lib/sanity/recipe-path";
 import type { SanityRecipe } from "@/types/page";
 
@@ -46,4 +53,44 @@ export const getRecipePaths = async () => {
   return recipes.map((recipe) => ({
     path: getRecipePathFromFields(recipe),
   }));
+};
+
+
+export const getRecipesByIds = async (ids: string[]) => {
+  const uniq = [...new Set(ids.filter(Boolean))];
+  if (uniq.length === 0) return [];
+  const rows = await sanityClient.fetch<SanityRecipe[]>(recipesByIdsQuery, { ids: uniq }, {
+    next: { revalidate: SANITY_REVALIDATE_SECONDS, tags: ["sanity:recipes"] },
+  });
+  return rows.map((r) => withRecipePath(r));
+};
+
+export const searchRecipesByTitle = async (q: string) => {
+  const t = q.trim();
+  if (t.length < 2) return [];
+  const pattern = `*${t.replace(/\*/g, "")}*`;
+  const rows = await sanityClient.fetch<SanityRecipe[]>(recipesSearchByTitleQuery, { pattern }, {
+    next: { revalidate: 30, tags: ["sanity:recipes"] },
+  });
+  return rows.map((r) => withRecipePath(r));
+};
+
+/** Måltidsplan: søk (≥2 tegn) eller list utvalg; valgfri Sanity kategori-_id. */
+export const searchOrBrowseRecipesForPicker = async (q: string, categorySanityId?: string | null) => {
+  const categoryId = categorySanityId?.trim() ?? "";
+  const t = q.trim();
+  if (t.length >= 2) {
+    const pattern = `*${t.replace(/\*/g, "")}*`;
+    const rows = await sanityClient.fetch<SanityRecipe[]>(recipesSearchByTitleOptionalCategoryQuery, {
+      pattern,
+      categoryId,
+    }, {
+      next: { revalidate: 30, tags: ["sanity:recipes"] },
+    });
+    return rows.map((r) => withRecipePath(r));
+  }
+  const rows = await sanityClient.fetch<SanityRecipe[]>(recipesBrowseForPickerQuery, { categoryId }, {
+    next: { revalidate: 60, tags: ["sanity:recipes"] },
+  });
+  return rows.map((r) => withRecipePath(r));
 };

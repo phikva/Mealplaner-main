@@ -17,6 +17,7 @@ import {
   applyRecipeFilters,
   buildRecipeFilterOptionsFromSettingsAndRecipes,
   clampRecipeFilterState,
+  commitSliderValue,
   computeRecipeFilterBounds,
   countActiveFilters,
   emptyRecipeFilterState,
@@ -29,10 +30,15 @@ import {
   type RecipeFilterState,
 } from "@/lib/recipes/recipe-filters";
 import type { BrukerprofilSettings } from "@/types/page";
+import type { ArchiveFavoritesContext } from "@/lib/recipes/archive-favorites-context";
+import { RecipeFavoriteButton } from "@/components/recipes/recipe-favorite-button";
 
 type Props = {
   recipes: RecipeCollectionItem[];
   brukerprofilSettings: BrukerprofilSettings | null;
+  favoritesContext: ArchiveFavoritesContext;
+  /** På kategoriarkiv: skjul kategori-filter (listen er allerede i én kategori). */
+  hideCategoryFilter?: boolean;
 };
 
 const Q_DEBOUNCE_MS = 320;
@@ -78,22 +84,12 @@ function applySlidingToFilters(
   return clampRecipeFilterState(o);
 }
 
-function commitSliderValue(key: RecipeSliderKey, raw: number, b: RecipeFilterBounds): number | null {
-  switch (key) {
-    case "maxKcal":
-      return raw >= b.kcal.max ? null : raw;
-    case "maxProtein":
-      return raw >= b.protein.max ? null : raw;
-    case "maxKarbs":
-      return raw >= b.karbs.max ? null : raw;
-    case "maxFett":
-      return raw >= b.fett.max ? null : raw;
-    default:
-      return null;
-  }
-}
-
-export function RecipeCollectionView({ recipes, brukerprofilSettings }: Props) {
+export function RecipeCollectionView({
+  recipes,
+  brukerprofilSettings,
+  favoritesContext,
+  hideCategoryFilter = false,
+}: Props) {
   const [view, setView] = useState<"grid" | "list">("grid");
   const [filterPanelOpen, setFilterPanelOpen] = useState(false);
   const [sliding, setSliding] = useState<Partial<Record<RecipeSliderKey, number>>>({});
@@ -135,12 +131,21 @@ export function RecipeCollectionView({ recipes, brukerprofilSettings }: Props) {
     [filters, qDraft, sliding, bounds],
   );
 
-  const filteredRecipes = useMemo(
-    () => applyRecipeFilters(recipes, displayFilters),
-    [recipes, displayFilters],
+  const filtersForList = useMemo(
+    () =>
+      clampRecipeFilterState({
+        ...displayFilters,
+        categoryIds: hideCategoryFilter ? [] : displayFilters.categoryIds,
+      }),
+    [displayFilters, hideCategoryFilter],
   );
 
-  const activeCount = useMemo(() => countActiveFilters(displayFilters), [displayFilters]);
+  const filteredRecipes = useMemo(
+    () => applyRecipeFilters(recipes, filtersForList),
+    [recipes, filtersForList],
+  );
+
+  const activeCount = useMemo(() => countActiveFilters(filtersForList), [filtersForList]);
 
   const replaceFilters = useCallback(
     (raw: RecipeFilterState) => {
@@ -151,6 +156,12 @@ export function RecipeCollectionView({ recipes, brukerprofilSettings }: Props) {
     },
     [router, pathname],
   );
+
+  useEffect(() => {
+    if (!hideCategoryFilter) return;
+    if (filters.categoryIds.length === 0) return;
+    replaceFilters(clampRecipeFilterState({ ...filters, categoryIds: [] }));
+  }, [hideCategoryFilter, filters, replaceFilters]);
 
   const patchFilters = useCallback(
     (patch: Partial<RecipeFilterState>) => {
@@ -189,7 +200,7 @@ export function RecipeCollectionView({ recipes, brukerprofilSettings }: Props) {
       return `/oppskrift/${recipePath}`;
     }
     const params = new URLSearchParams();
-    const pFrom = filtersToSearchParams(displayFilters);
+    const pFrom = filtersToSearchParams(filtersForList);
     const q = pFrom.toString();
     const fromValue = q ? `${pathname}?${q}` : pathname;
     params.set("from", fromValue);
@@ -229,6 +240,7 @@ export function RecipeCollectionView({ recipes, brukerprofilSettings }: Props) {
     onSliderCommit,
     onClear,
     activeFilterCount: activeCount,
+    hideCategoryTab: hideCategoryFilter,
   };
 
   const activeFilterChips = useMemo((): ActiveFilterChip[] => {
@@ -246,17 +258,19 @@ export function RecipeCollectionView({ recipes, brukerprofilSettings }: Props) {
       });
     }
     const f = displayFilters;
-    for (const id of f.categoryIds) {
-      const cat = filterOptions.categories.find((c) => c._id === id);
-      if (!cat) continue;
-      chips.push({
-        key: `cat-${id}`,
-        label: cat.name,
-        onRemove: () => {
-          const cur = filtersRef.current;
-          patchFilters({ categoryIds: cur.categoryIds.filter((x) => x !== id) });
-        },
-      });
+    if (!hideCategoryFilter) {
+      for (const id of f.categoryIds) {
+        const cat = filterOptions.categories.find((c) => c._id === id);
+        if (!cat) continue;
+        chips.push({
+          key: `cat-${id}`,
+          label: cat.name,
+          onRemove: () => {
+            const cur = filtersRef.current;
+            patchFilters({ categoryIds: cur.categoryIds.filter((x) => x !== id) });
+          },
+        });
+      }
     }
     for (const verdi of f.diets) {
       const d = filterOptions.diets.find((o) => o.verdi === verdi);
@@ -308,7 +322,7 @@ export function RecipeCollectionView({ recipes, brukerprofilSettings }: Props) {
       });
     }
     return chips;
-  }, [displayFilters, qDraft, filterOptions, patchFilters, replaceFilters]);
+  }, [displayFilters, hideCategoryFilter, qDraft, filterOptions, patchFilters, replaceFilters]);
 
   return (
     <div className="flex flex-col gap-6 md:gap-8">
@@ -334,7 +348,7 @@ export function RecipeCollectionView({ recipes, brukerprofilSettings }: Props) {
             />
           </div>
           <RecipeFilterTriggerButton count={activeCount} onClick={() => setFilterPanelOpen(true)} />
-          {hasAnyActiveFilter(displayFilters) ? (
+          {hasAnyActiveFilter(filtersForList) ? (
             <button
               type="button"
               onClick={onClear}
@@ -401,7 +415,7 @@ export function RecipeCollectionView({ recipes, brukerprofilSettings }: Props) {
         <div className="flex flex-col gap-3 md:hidden">
           <div className="flex flex-wrap items-center gap-3">
             <RecipeFilterTriggerButton count={activeCount} onClick={() => setFilterPanelOpen(true)} />
-            {hasAnyActiveFilter(displayFilters) ? (
+            {hasAnyActiveFilter(filtersForList) ? (
               <button
                 type="button"
                 onClick={onClear}
@@ -478,7 +492,14 @@ export function RecipeCollectionView({ recipes, brukerprofilSettings }: Props) {
           </p>
         ) : (
           <div className={view === "grid" ? "grid gap-4 sm:grid-cols-2 xl:grid-cols-3" : "space-y-2"}>
-            {filteredRecipes.map((recipe) => (
+            {filteredRecipes.map((recipe) => {
+              const favorited = favoritesContext.favoritedIds.includes(recipe._id);
+              const blockAdd =
+                favoritesContext.maxFavorites != null &&
+                favoritesContext.currentFavoriteCount >= favoritesContext.maxFavorites &&
+                !favorited;
+
+              return (
               <article
                 key={recipe._id}
                 className={`overflow-hidden rounded-xl bg-background/85 transition hover:-translate-y-0.5 ${
@@ -487,68 +508,102 @@ export function RecipeCollectionView({ recipes, brukerprofilSettings }: Props) {
                     : "border border-border/40"
                 }`}
               >
-                <Link href={getRecipeHref(recipe.recipePath)} className="block">
-                  <div
-                    className={
-                      view === "grid"
-                        ? "relative aspect-video bg-muted/30"
-                        : "relative h-full min-h-[100px] bg-muted/30 md:min-h-[120px]"
-                    }
-                  >
-                    {recipe.imageUrl ? (
-                      <Image
-                        src={recipe.imageUrl}
-                        alt={recipe.tittel}
-                        width={900}
-                        height={560}
-                        className="h-full w-full object-cover"
-                      />
-                    ) : (
-                      <div className="flex h-full items-center justify-center text-xs text-muted-foreground md:text-sm">
-                        Ingen bilde
-                      </div>
-                    )}
-                    {typeof recipe.totalKcal === "number" || typeof recipe.porsjoner === "number" ? (
-                      <div className="absolute left-3 top-3 z-10 flex flex-wrap gap-2">
-                        {typeof recipe.totalKcal === "number" ? (
-                          <span
-                            className={`border border-border/70 bg-secondary font-sans font-semibold tracking-[0.02em] ${
-                              view === "list"
-                                ? "px-1.5 py-0 text-[9px] md:px-2 md:py-0.5 md:text-[10px]"
-                                : "px-2 py-0.5 text-[10px]"
-                            }`}
-                          >
-                            {Math.round(recipe.totalKcal)} kcal
-                          </span>
-                        ) : null}
-                        {typeof recipe.porsjoner === "number" ? (
-                          <span
-                            className={`border border-border/70 bg-secondary font-sans font-semibold tracking-[0.02em] ${
-                              view === "list"
-                                ? "px-1.5 py-0 text-[9px] md:px-2 md:py-0.5 md:text-[10px]"
-                                : "px-2 py-0.5 text-[10px]"
-                            }`}
-                          >
-                            {recipe.porsjoner} porsjoner
-                          </span>
-                        ) : null}
-                      </div>
-                    ) : null}
-                  </div>
-                </Link>
-
-                <div className={view === "grid" ? "space-y-3 p-4" : "space-y-2 p-3 md:p-4"}>
+                <div className="relative min-w-0">
                   <Link href={getRecipeHref(recipe.recipePath)} className="block">
-                    <h2
+                    <div
                       className={
                         view === "grid"
-                          ? "line-clamp-2 text-xl font-bold leading-tight"
-                          : "line-clamp-2 text-base font-bold leading-tight md:text-lg"
+                          ? "relative aspect-video bg-muted/30"
+                          : "relative h-full min-h-[100px] bg-muted/30 md:min-h-[120px]"
                       }
                     >
-                      {recipe.tittel}
-                    </h2>
+                      {recipe.imageUrl ? (
+                        <Image
+                          src={recipe.imageUrl}
+                          alt={recipe.tittel}
+                          width={900}
+                          height={560}
+                          className="h-full w-full object-cover"
+                        />
+                      ) : (
+                        <div className="flex h-full items-center justify-center text-xs text-muted-foreground md:text-sm">
+                          Ingen bilde
+                        </div>
+                      )}
+                      {typeof recipe.totalKcal === "number" || typeof recipe.porsjoner === "number" ? (
+                        <div
+                          className={
+                            view === "list"
+                              ? "absolute left-1 top-1 z-10 flex max-w-[calc(100%-2.25rem)] flex-nowrap items-center gap-0.5 md:left-3 md:top-3 md:max-w-[calc(100%-3.5rem)] md:flex-wrap md:gap-2"
+                              : "absolute left-3 top-3 z-10 flex max-w-[calc(100%-3.5rem)] flex-wrap gap-2"
+                          }
+                        >
+                          {typeof recipe.totalKcal === "number" ? (
+                            <span
+                              className={`whitespace-nowrap border border-border/70 bg-secondary/95 font-sans font-semibold tracking-[0.02em] backdrop-blur-[2px] ${
+                                view === "list"
+                                  ? "px-[3px] py-px text-[7px] leading-none md:px-2 md:py-0.5 md:text-[10px] md:leading-normal"
+                                  : "px-2 py-0.5 text-[10px]"
+                              }`}
+                            >
+                              {Math.round(recipe.totalKcal)} kcal
+                            </span>
+                          ) : null}
+                          {typeof recipe.porsjoner === "number" ? (
+                            <span
+                              className={`whitespace-nowrap border border-border/70 bg-secondary/95 font-sans font-semibold tracking-[0.02em] backdrop-blur-[2px] ${
+                                view === "list"
+                                  ? "px-[3px] py-px text-[7px] leading-none md:px-2 md:py-0.5 md:text-[10px] md:leading-normal"
+                                  : "px-2 py-0.5 text-[10px]"
+                              }`}
+                            >
+                              <span className="md:hidden" title={`${recipe.porsjoner} porsjoner`}>
+                                {recipe.porsjoner}p
+                              </span>
+                              <span className="hidden md:inline">{recipe.porsjoner} porsjoner</span>
+                            </span>
+                          ) : null}
+                        </div>
+                      ) : null}
+                    </div>
                   </Link>
+                  {view === "grid" ? (
+                    <div className="absolute right-2 top-2 z-20 md:right-3 md:top-3">
+                      <RecipeFavoriteButton
+                        recipeSanityId={recipe._id}
+                        initialFavorited={favorited}
+                        canFavorite={favoritesContext.canFavorite}
+                        blockAdd={blockAdd}
+                        isAuthenticated={favoritesContext.isAuthenticated}
+                        variant="icon"
+                      />
+                    </div>
+                  ) : null}
+                </div>
+
+                <div className={view === "grid" ? "space-y-3 p-4" : "min-w-0 space-y-2 p-3 md:p-4"}>
+                  {view === "list" ? (
+                    <div className="flex items-start justify-between gap-2">
+                      <Link href={getRecipeHref(recipe.recipePath)} className="min-w-0 flex-1">
+                        <h2 className="line-clamp-2 text-base font-bold leading-tight md:text-lg">
+                          {recipe.tittel}
+                        </h2>
+                      </Link>
+                      <RecipeFavoriteButton
+                        recipeSanityId={recipe._id}
+                        initialFavorited={favorited}
+                        canFavorite={favoritesContext.canFavorite}
+                        blockAdd={blockAdd}
+                        isAuthenticated={favoritesContext.isAuthenticated}
+                        variant="icon"
+                        className="size-9 md:size-10"
+                      />
+                    </div>
+                  ) : (
+                    <Link href={getRecipeHref(recipe.recipePath)} className="block">
+                      <h2 className="line-clamp-2 text-xl font-bold leading-tight">{recipe.tittel}</h2>
+                    </Link>
+                  )}
                   {recipe.categories && recipe.categories.length > 0 ? (
                     <div className="flex flex-wrap gap-1.5">
                       {recipe.categories.map((item) => (
@@ -564,7 +619,8 @@ export function RecipeCollectionView({ recipes, brukerprofilSettings }: Props) {
                   ) : null}
                 </div>
               </article>
-            ))}
+              );
+            })}
           </div>
         )}
       </section>

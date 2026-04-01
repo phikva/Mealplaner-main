@@ -4,6 +4,7 @@ import { Suspense } from "react";
 import { OnboardingGate } from "@/components/onboarding/onboarding-gate";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
+import { SonnerToaster } from "@/components/ui/sonner-toaster";
 import { env } from "@/lib/env";
 import { getBrukerprofilSettings } from "@/lib/sanity/brukerprofil";
 import { getActiveOnboarding } from "@/lib/sanity/onboarding";
@@ -95,6 +96,7 @@ export default async function RootLayout({
         <SiteHeader settings={settings} initialProfile={profile} />
         {children}
         <SiteFooter settings={settings} />
+        <SonnerToaster />
         <Suspense fallback={null}>
           <OnboardingGate
             onboarding={onboarding}

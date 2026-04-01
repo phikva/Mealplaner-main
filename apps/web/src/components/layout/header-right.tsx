@@ -30,7 +30,7 @@ export function HeaderRight({ navigation, initialProfile }: Props) {
   return (
     <div className="flex items-center gap-3">
       {filteredNavigation.length > 0 ? (
-        <nav className="hidden items-center gap-1 md:flex md:gap-2">
+        <nav className="hidden items-center gap-1 sm:flex sm:gap-2" aria-label="Hovedmeny">
           {filteredNavigation.map((item) => (
             <Link
               key={`${item.label}-${item.href}`}

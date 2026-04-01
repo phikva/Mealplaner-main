@@ -33,12 +33,15 @@ export type RecipeFilterBounds = {
   fett: { min: number; max: number };
 };
 
-const DEFAULT_BOUNDS: RecipeFilterBounds = {
+/** Standard glidebryter-intervaller når vi ikke har en dynamisk liste (f.eks. måltidsvelger). */
+export const DEFAULT_RECIPE_FILTER_BOUNDS: RecipeFilterBounds = {
   kcal: { min: 0, max: 4000 },
   protein: { min: 0, max: 250 },
   karbs: { min: 0, max: 400 },
   fett: { min: 0, max: 200 },
 };
+
+const DEFAULT_BOUNDS = DEFAULT_RECIPE_FILTER_BOUNDS;
 
 function widenRange(min: number, max: number, padRatio = 0.05): { min: number; max: number } {
   if (!Number.isFinite(min) || !Number.isFinite(max)) return { min: 0, max: 1 };
@@ -224,6 +227,26 @@ export function hasAnyActiveFilter(state: RecipeFilterState): boolean {
 
 export function clampRecipeFilterState(state: RecipeFilterState): RecipeFilterState {
   return { ...state };
+}
+
+/** Maks-glidebryter: helt til høyre = null (ingen øvre grense). Samme logikk som oppskriftsarkiv. */
+export function commitSliderValue(
+  key: "maxKcal" | "maxProtein" | "maxKarbs" | "maxFett",
+  raw: number,
+  b: RecipeFilterBounds,
+): number | null {
+  switch (key) {
+    case "maxKcal":
+      return raw >= b.kcal.max ? null : raw;
+    case "maxProtein":
+      return raw >= b.protein.max ? null : raw;
+    case "maxKarbs":
+      return raw >= b.karbs.max ? null : raw;
+    case "maxFett":
+      return raw >= b.fett.max ? null : raw;
+    default:
+      return null;
+  }
 }
 
 export function buildCategoryOptionsFromRecipes(

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { RecipeCollectionView } from "@/components/recipes/recipe-collection-view";
+import { getArchiveFavoritesContext } from "@/lib/recipes/archive-favorites-context";
 import { getBrukerprofilSettings } from "@/lib/sanity/brukerprofil";
 import { getRecipesForArchive } from "@/lib/sanity/content";
 import { mapSanityRecipeToCollectionItem } from "@/lib/recipes/map-recipe-collection-item";
@@ -18,6 +19,7 @@ export default async function OppskrifterArchivePage() {
   ]);
 
   const items = recipes.map(mapSanityRecipeToCollectionItem);
+  const favoritesContext = await getArchiveFavoritesContext(items.map((r) => r._id));
 
   return (
     <main className="mx-auto flex w-full max-w-6xl flex-1 flex-col gap-6 px-6 py-10">
@@ -48,7 +50,11 @@ export default async function OppskrifterArchivePage() {
       {recipes.length === 0 ? (
         <p className="bg-card/45 p-6 text-muted-foreground">Ingen oppskrifter er publisert ennå.</p>
       ) : (
-        <RecipeCollectionView recipes={items} brukerprofilSettings={brukerprofilSettings} />
+        <RecipeCollectionView
+          recipes={items}
+          brukerprofilSettings={brukerprofilSettings}
+          favoritesContext={favoritesContext}
+        />
       )}
     </main>
   );

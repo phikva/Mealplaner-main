@@ -6,6 +6,10 @@ import { getCategoryHref, getCategoryTagClassName } from "@/lib/category-tags";
 import { IngredientChecklist } from "@/components/recipe/ingredient-checklist";
 import { urlFor } from "@/lib/sanity/image";
 import { getRecipeByPath, getRecipePaths } from "@/lib/sanity/recipes";
+import { RecipeFavoriteButton } from "@/components/recipes/recipe-favorite-button";
+import { getTiers } from "@/lib/sanity/tiers";
+import { getFavoriteRules, resolveTierForProfile } from "@/lib/tier-access";
+import { createClient } from "@/lib/supabase/server";
 
 type PageProps = {
   params: Promise<{ path: string }>;
@@ -55,6 +59,47 @@ export default async function RecipePage({ params, searchParams }: PageProps) {
   const instructions = recipe.instruksjoner ?? [];
   const fromPathCategory = from?.startsWith("/kategori/") ? from.split("/")[2] : undefined;
   const breadcrumbCategoryPath = fromCategory || fromPathCategory;
+
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  let favState = {
+    authenticated: false,
+    favorited: false,
+    canFavorite: true,
+    blockAdd: false,
+  };
+  if (user) {
+    const { data: profile } = await supabase
+      .from("profiles")
+      .select("tier_sanity_id,tier_slug")
+      .eq("id", user.id)
+      .maybeSingle();
+    const tiers = await getTiers();
+    const tier = resolveTierForProfile(tiers, profile?.tier_sanity_id, profile?.tier_slug);
+    const rules = getFavoriteRules(tier);
+    const { data: favRow } = await supabase
+      .from("recipe_favorites")
+      .select("recipe_sanity_id")
+      .eq("user_id", user.id)
+      .eq("recipe_sanity_id", recipe._id)
+      .maybeSingle();
+    const { count } = await supabase
+      .from("recipe_favorites")
+      .select("*", { count: "exact", head: true })
+      .eq("user_id", user.id);
+    const favorited = Boolean(favRow);
+    const max = rules.maxFavorites;
+    const blockAdd = max != null && (count ?? 0) >= max && !favorited;
+    favState = {
+      authenticated: true,
+      favorited,
+      canFavorite: rules.canFavorite,
+      blockAdd,
+    };
+  }
+
   const breadcrumbCategory = breadcrumbCategoryPath
     ? recipe.categories?.find((category) => {
         const categoryPath = category.path || category.slug?.current || "";
@@ -102,7 +147,7 @@ export default async function RecipePage({ params, searchParams }: PageProps) {
                 </div>
               )}
               {(typeof recipe.totalKcal === "number" || typeof recipe.porsjoner === "number") ? (
-                <div className="absolute left-3 top-3 z-10 flex flex-wrap gap-2">
+                <div className="absolute left-3 top-3 z-10 flex max-w-[calc(100%-3.5rem)] flex-wrap gap-2">
                   {typeof recipe.totalKcal === "number" ? (
                     <span className="border border-border/70 bg-secondary px-2 py-0.5 font-sans text-[10px] font-semibold tracking-[0.02em] md:text-xs">
                       {Math.round(recipe.totalKcal)} kcal
@@ -115,16 +160,26 @@ export default async function RecipePage({ params, searchParams }: PageProps) {
                   ) : null}
                 </div>
               ) : null}
-              {(typeof recipe.totalMakros?.protein === "number" ||
-                typeof recipe.totalMakros?.karbs === "number" ||
-                typeof recipe.totalMakros?.fett === "number") ? (
-                <div className="absolute bottom-3 left-3 z-10 flex flex-wrap gap-2">
-                  <MacroPill label="P" value={recipe.totalMakros?.protein} />
-                  <MacroPill label="K" value={recipe.totalMakros?.karbs} />
-                  <MacroPill label="F" value={recipe.totalMakros?.fett} />
-                </div>
-              ) : null}
+              <div className="absolute right-2 top-2 z-20 md:right-3 md:top-3">
+                <RecipeFavoriteButton
+                  recipeSanityId={recipe._id}
+                  initialFavorited={favState.favorited}
+                  canFavorite={favState.canFavorite}
+                  blockAdd={favState.blockAdd}
+                  isAuthenticated={favState.authenticated}
+                  variant="icon"
+                />
+              </div>
             </div>
+            {(typeof recipe.totalMakros?.protein === "number" ||
+              typeof recipe.totalMakros?.karbs === "number" ||
+              typeof recipe.totalMakros?.fett === "number") ? (
+              <div className="flex flex-wrap gap-2 border-t border-border/50 bg-background/90 px-3 py-2.5 backdrop-blur-sm md:px-4 md:py-3">
+                <MacroPill label="P" value={recipe.totalMakros?.protein} />
+                <MacroPill label="K" value={recipe.totalMakros?.karbs} />
+                <MacroPill label="F" value={recipe.totalMakros?.fett} />
+              </div>
+            ) : null}
           </div>
 
           <section id="fremgangsmate" className="hidden space-y-3 md:block">
@@ -171,12 +226,12 @@ export default async function RecipePage({ params, searchParams }: PageProps) {
           </header>
 
           <section className="space-y-2 md:hidden">
-            <details open className="group bg-secondary/30 p-3.5">
-              <summary className="flex cursor-pointer list-none items-center justify-between border border-border/70 bg-background/85 px-3 py-2 text-base font-bold">
+            <details open className="group rounded-2xl bg-secondary/30 p-3.5">
+              <summary className="flex cursor-pointer list-none items-center justify-between rounded-xl border border-border/70 bg-background/85 px-3 py-2 text-base font-bold">
                 <span>Ingredienser</span>
                 <span aria-hidden className="text-sm text-muted-foreground">
-                  <span className="group-open:hidden">Apne</span>
-                  <span className="hidden group-open:inline">Lukke</span>
+                  <span className="group-open:hidden">Åpne</span>
+                  <span className="hidden group-open:inline">Lukk</span>
                 </span>
               </summary>
               <div className="mt-3">
@@ -184,12 +239,12 @@ export default async function RecipePage({ params, searchParams }: PageProps) {
               </div>
             </details>
 
-            <details className="group bg-muted/40 p-3.5">
-              <summary className="flex cursor-pointer list-none items-center justify-between border border-border/70 bg-background/85 px-3 py-2 text-base font-bold">
-                <span>Fremgangsmate</span>
+            <details className="group rounded-2xl bg-muted/40 p-3.5">
+              <summary className="flex cursor-pointer list-none items-center justify-between rounded-xl border border-border/70 bg-background/85 px-3 py-2 text-base font-bold">
+                <span>Fremgangsmåte</span>
                 <span aria-hidden className="text-sm text-muted-foreground">
-                  <span className="group-open:hidden">Apne</span>
-                  <span className="hidden group-open:inline">Lukke</span>
+                  <span className="group-open:hidden">Åpne</span>
+                  <span className="hidden group-open:inline">Lukk</span>
                 </span>
               </summary>
               {instructions.length > 0 ? (
@@ -197,7 +252,7 @@ export default async function RecipePage({ params, searchParams }: PageProps) {
                   {instructions.map((step, index) => (
                     <li
                       key={`${index + 1}-${step.slice(0, 24)}`}
-                      className="grid grid-cols-[auto_1fr] gap-3 bg-card/35 p-3.5"
+                      className="grid grid-cols-[auto_1fr] gap-3 rounded-xl bg-card/35 p-3.5"
                     >
                       <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-primary/12 text-sm font-semibold text-primary">
                         {index + 1}
@@ -215,7 +270,10 @@ export default async function RecipePage({ params, searchParams }: PageProps) {
             </details>
           </section>
 
-          <section id="ingredienser" className="hidden space-y-3 bg-secondary/30 p-4 md:block md:p-5">
+          <section
+            id="ingredienser"
+            className="hidden space-y-3 rounded-2xl bg-secondary/30 p-4 md:block md:p-5"
+          >
             <h2 className="text-xl font-bold md:text-2xl">Ingredienser</h2>
             <IngredientChecklist recipeId={recipe._id} ingredients={ingredients} />
           </section>
@@ -233,7 +291,7 @@ export default async function RecipePage({ params, searchParams }: PageProps) {
 }
 
 const MacroPill = ({ label, value }: { label: string; value?: number }) => (
-  <span className="border border-border/70 bg-background/90 px-2 py-0.5 font-sans text-[10px] font-semibold tracking-[0.02em] text-foreground md:text-xs">
+  <span className="border border-border/70 bg-secondary/50 px-2.5 py-1 font-sans text-[11px] font-semibold tracking-[0.02em] text-foreground md:text-xs">
     {label}: {typeof value === "number" ? `${Math.round(value)} g` : "-"}
   </span>
 );

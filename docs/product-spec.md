@@ -221,14 +221,23 @@ Disse reglene gjelder alltid i prosjektet:
 5. Prioriter enkel, tydelig og vedlikeholdbar løsning (KISS/YAGNI).
 6. Unngå premature abstraksjoner og premature optimaliseringer.
 
-## 12. Avklaringer for neste sprint
+## 12. Avklaringer og status
+
+### Avklart (implementasjon)
+
+- **Filter i MVP utover kategori (jf. §5.2):** Dekket i webappen – søk (`q`), flere kategorier (`category`), kosthold (`diet`), ekskludering av allergener (`excludeAllergen`), maks kalorier og makro (`maxKcal`, `maxProtein`, `maxKarbs`, `maxFett`), kombinerbare filtre, nullstilling og URL-synk. Full liste: `/oppskrifter` med `RecipeCollectionView` og `recipe-filters.ts` i `apps/web/src/components/recipes/` og `apps/web/src/lib/recipes/`.
+
+### Fortsatt åpne avklaringer
 
 - Hvilke konkrete felter i Sanity skal være obligatoriske for makroberegning?
-- Hvilke filtertyper er obligatoriske i MVP utover kategori?
 - Hvordan defineres nøyaktig tilgangsmodell for basis-abonnement (hva er låst/åpent)?
 - Skal måned/uke-plan støtte flere måltidstyper per dag i MVP (frokost/lunsj/middag)?
 - Hvilke endringer i Sanity Studio må inn først for å støtte frontend fullt ut?
 - Skal premium-funksjoner evalueres per request (live fra Sanity) eller via synkronisert cache med TTL?
+
+### Gjenværende MVP-arbeid (prioritet)
+
+Prioritert leveranseliste opp mot §2, §5.4–5.7 og §9: se [mvp-backlog.md](mvp-backlog.md).
 
 ## 13. Kildegrunnlag
 
@@ -237,3 +246,4 @@ Disse reglene gjelder alltid i prosjektet:
 - Studio: `apps/studio/package.json`
 - Sanity-skjemaer: `apps/studio/schemaTypes`
 - Next.js-app: `apps/web`
+- MVP-backlog (prioritert arbeidsliste): [mvp-backlog.md](mvp-backlog.md)

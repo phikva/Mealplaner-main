@@ -32,7 +32,8 @@ export const siteSettingsSchema = defineType({
       title: 'Lenker',
       type: 'array',
       group: 'links',
-      description: 'Felles lenker som kan brukes i både header og footer.',
+      description:
+        'Felles lenker som kan brukes i både header og footer. Legg inn f.eks. «Måltidsplanlegger» (/maltidsplanlegger) og «Favoritter» (/favoritter) med «Vis i header» for å vise dem i toppmenyen.',
       of: [
         {
           type: 'object',

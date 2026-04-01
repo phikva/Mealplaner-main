@@ -32,6 +32,8 @@ type Props = {
   activeFilterCount: number;
   layout: "inline" | "sheet";
   sheetFooter?: ReactNode;
+  /** Når true (f.eks. kategoriarkiv): skjul kategori-fanen; listen er allerede begrenset til én kategori. */
+  hideCategoryTab?: boolean;
 };
 
 function formatNum(n: number, decimals: number) {
@@ -57,7 +59,7 @@ function tabHasActivity(id: FilterTabId, committed: RecipeFilterState): boolean 
   }
 }
 
-function MaxSliderRow({
+export function MaxSliderRow({
   label,
   unit,
   lo,
@@ -69,6 +71,7 @@ function MaxSliderRow({
   onSliderCommit,
   dense = false,
   showHint = true,
+  minimal = false,
 }: {
   label: string;
   unit: string;
@@ -83,10 +86,17 @@ function MaxSliderRow({
   dense?: boolean;
   /** Vis forklaring under slideren (kalorier) eller skjul (makroer – forklaring står én gang). */
   showHint?: boolean;
+  /** Ekstra kompakt (f.eks. måltidsvelger-modal). */
+  minimal?: boolean;
 }) {
   const shown = maxVal === null ? hi : Math.min(maxVal, hi);
-  const rangeClass =
-    "h-2 w-full min-w-0 cursor-pointer appearance-none rounded-full bg-muted accent-primary [&::-webkit-slider-thumb]:size-4 [&::-webkit-slider-thumb]:shrink-0 [&::-webkit-slider-thumb]:cursor-grab [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-background [&::-webkit-slider-thumb]:bg-primary [&::-webkit-slider-thumb]:shadow-sm active:[&::-webkit-slider-thumb]:cursor-grabbing";
+  const rangeClass = cn(
+    "w-full min-w-0 cursor-pointer appearance-none rounded-full bg-muted accent-primary",
+    "[&::-webkit-slider-thumb]:shrink-0 [&::-webkit-slider-thumb]:cursor-grab [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:border-background [&::-webkit-slider-thumb]:bg-primary [&::-webkit-slider-thumb]:shadow-sm active:[&::-webkit-slider-thumb]:cursor-grabbing",
+    minimal
+      ? "h-1.5 [&::-webkit-slider-thumb]:size-3 [&::-webkit-slider-thumb]:border-2"
+      : "h-2 [&::-webkit-slider-thumb]:size-4 [&::-webkit-slider-thumb]:border-2",
+  );
 
   const finish = (el: HTMLInputElement) => {
     onSliderCommit(maxKey, Number(el.value));
@@ -98,21 +108,35 @@ function MaxSliderRow({
   const ariaHint = maxVal === null ? "ingen øvre grense" : `maks ${formatNum(maxVal, decimals)} ${unit}`;
 
   return (
-    <div className={cn(dense ? "min-w-0 space-y-1.5" : "space-y-2")}>
-      <div className="flex min-w-0 items-baseline justify-between gap-2">
+    <div
+      className={cn(
+        minimal ? "min-w-0 space-y-1" : dense ? "min-w-0 space-y-1.5" : "space-y-2",
+      )}
+    >
+      <div className="flex min-w-0 items-baseline justify-between gap-1.5">
         <p
           className={cn(
             "min-w-0 font-medium text-foreground",
-            dense ? "truncate text-xs" : "text-sm",
+            minimal ? "truncate text-[11px] leading-tight" : dense ? "truncate text-xs" : "text-sm",
           )}
         >
           {label}
         </p>
-        <div className="shrink-0 text-right">
-          <span className={cn("text-muted-foreground", dense ? "text-[10px]" : "text-[11px]")}>
+        <div className="shrink-0 text-right leading-none">
+          <span
+            className={cn(
+              "text-muted-foreground",
+              minimal ? "text-[9px]" : dense ? "text-[10px]" : "text-[11px]",
+            )}
+          >
             Maks{" "}
           </span>
-          <span className={cn("tabular-nums font-semibold text-foreground", dense ? "text-xs" : "text-sm")}>
+          <span
+            className={cn(
+              "tabular-nums font-semibold text-foreground",
+              minimal ? "text-[10px]" : dense ? "text-xs" : "text-sm",
+            )}
+          >
             {maxVal === null ? (
               <span className="font-normal text-muted-foreground">–</span>
             ) : (
@@ -160,11 +184,12 @@ export function RecipeFilterPanel({
   activeFilterCount,
   layout,
   sheetFooter,
+  hideCategoryTab = false,
 }: Props) {
   const showDiet = options.diets.length > 0;
   const showAllergens = options.allergens.length > 0;
   const showPrefs = showDiet || showAllergens;
-  const showCategory = options.categories.length > 0;
+  const showCategory = options.categories.length > 0 && !hideCategoryTab;
   const kcalSpan = bounds.kcal.max - bounds.kcal.min;
   const kcalStep = kcalSpan > 800 ? 25 : kcalSpan > 200 ? 10 : 1;
   const macroStep = 1;

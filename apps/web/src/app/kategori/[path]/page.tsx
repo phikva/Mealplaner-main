@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { RecipeCollectionView } from "@/components/recipes/recipe-collection-view";
+import { getArchiveFavoritesContext } from "@/lib/recipes/archive-favorites-context";
 import { mapSanityRecipeToCollectionItem } from "@/lib/recipes/map-recipe-collection-item";
 import { getBrukerprofilSettings } from "@/lib/sanity/brukerprofil";
 import {
@@ -49,6 +50,7 @@ export default async function CategoryPage({ params }: PageProps) {
     getBrukerprofilSettings(),
   ]);
   const recipeItems = recipes.map(mapSanityRecipeToCollectionItem);
+  const favoritesContext = await getArchiveFavoritesContext(recipeItems.map((r) => r._id));
 
   return (
     <main className="mx-auto flex w-full max-w-6xl flex-1 flex-col gap-6 px-6 py-10">
@@ -78,7 +80,12 @@ export default async function CategoryPage({ params }: PageProps) {
           Ingen oppskrifter funnet i denne kategorien ennå.
         </p>
       ) : (
-        <RecipeCollectionView recipes={recipeItems} brukerprofilSettings={brukerprofilSettings} />
+        <RecipeCollectionView
+          recipes={recipeItems}
+          brukerprofilSettings={brukerprofilSettings}
+          favoritesContext={favoritesContext}
+          hideCategoryFilter
+        />
       )}
     </main>
   );
