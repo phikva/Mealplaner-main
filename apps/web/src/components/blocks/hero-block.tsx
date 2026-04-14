@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { PortableText } from "@portabletext/react";
 import { urlFor } from "@/lib/sanity/image";
+import { cn } from "@/lib/utils";
 import type { HeroBlock } from "@/types/page";
 
 type HeroBlockProps = {
@@ -37,7 +38,14 @@ export const HeroBlockView = ({ block }: HeroBlockProps) => {
           </div>
         ) : null}
         {showPrimaryCta || showSecondaryCta ? (
-          <div className="flex flex-wrap items-center gap-3 pt-2">
+          <div
+            className={cn(
+              "flex gap-3 pt-2",
+              showPrimaryCta && showSecondaryCta
+                ? "flex-col md:flex-row md:flex-wrap md:items-center [&>a]:w-full md:[&>a]:w-auto"
+                : "flex flex-wrap items-center",
+            )}
+          >
             {showPrimaryCta ? (
               <Link
                 href={block.primaryCta?.href || "/"}
@@ -59,7 +67,7 @@ export const HeroBlockView = ({ block }: HeroBlockProps) => {
             {showSecondaryCta ? (
               <Link
                 href={block.secondaryCta?.href || "/"}
-                className="group inline-flex items-center gap-2 rounded-full border border-foreground/35 px-7 py-3 text-base font-semibold tracking-[0.02em] text-foreground transition-all hover:border-foreground hover:gap-3"
+                className="group inline-flex items-center justify-center gap-2 rounded-full border border-foreground/35 px-7 py-3 text-center text-base font-semibold tracking-[0.02em] text-foreground transition-all hover:border-foreground hover:gap-3"
                 target={
                   block.secondaryCta?.href && isExternalLink(block.secondaryCta.href)
                     ? "_blank"

@@ -72,6 +72,25 @@ export function PersonalizedRecipeSection({ contentIndex }: Props) {
       return allergens.every((a) => !excludedAllergens.has(a));
     };
 
+    /** Når bruker har valgt kosthold: vis kun oppskrifter som matcher minst én valgt tag (samme som filter-URL, OR). */
+    const matchesDietPrefs = (r: SanityRecipe) => {
+      if (dietValues.length === 0) return true;
+      const tags = r.dietTags ?? [];
+      return dietValues.some((d) => tags.includes(d));
+    };
+
+    /** Når bruker har valgt kjøkken/kategori: vis kun oppskrifter i minst én av disse kategoriene. */
+    const matchesKitchenPrefs = (r: SanityRecipe) => {
+      if (kitchenCategoryIds.length === 0) return true;
+      const ids = r.categoryIds ?? [];
+      return kitchenCategoryIds.some((id) => ids.includes(id));
+    };
+
+    const isEligibleForCarousel = (r: SanityRecipe) =>
+      isAllowed(r) && matchesDietPrefs(r) && matchesKitchenPrefs(r);
+
+    const eligible = contentIndex.recipes.filter(isEligibleForCarousel);
+
     const score = (r: SanityRecipe) => {
       if (!dietValues.length) return 0;
       const tags = new Set(r.dietTags ?? []);
@@ -83,7 +102,6 @@ export function PersonalizedRecipeSection({ contentIndex }: Props) {
       for (const r of sorted) {
         if (blocks.length >= 32) break;
         if (seen.has(r._id)) continue;
-        if (!isAllowed(r)) continue;
         blocks.push(r);
         seen.add(r._id);
         if (count > 0) count -= 1;
@@ -92,20 +110,24 @@ export function PersonalizedRecipeSection({ contentIndex }: Props) {
     };
 
     if (hasSignals) {
-      // 2 per kitchen/preference (category)
+      if (eligible.length === 0) {
+        return { recipes: [], personalized: true };
+      }
+
+      // 2 per kitchen/preference (category) — kun innenfor hele den tillatte mengden
       kitchenCategoryIds.forEach((catId) => {
-        const candidates = contentIndex.recipes.filter((r) => r.categoryIds?.includes(catId));
+        const candidates = eligible.filter((r) => r.categoryIds?.includes(catId));
         addTop(candidates, 2);
       });
 
       // 2 per diet tag
       dietValues.forEach((diet) => {
-        const candidates = contentIndex.recipes.filter((r) => (r.dietTags ?? []).includes(diet));
+        const candidates = eligible.filter((r) => (r.dietTags ?? []).includes(diet));
         addTop(candidates, 2);
       });
 
-      // Fill a little extra (still respecting allergies)
-      addTop(contentIndex.recipes, 8);
+      // Fyll ut med flere treff — fortsatt kun preferanse-kompatible oppskrifter
+      addTop(eligible, 8);
       return { recipes: blocks, personalized: true };
     }
 
@@ -120,7 +142,24 @@ export function PersonalizedRecipeSection({ contentIndex }: Props) {
   }
 
   if (result.recipes.length === 0) {
-    return null;
+    if (!result.personalized) {
+      return null;
+    }
+    return (
+      <section className="space-y-4 py-4 md:py-6">
+        <div className="space-y-2">
+          <h2 className="text-3xl font-bold tracking-tight">For deg</h2>
+          <p className="text-base text-muted-foreground">
+            Ingen oppskrifter matcher kombinasjonen av preferansene og allergiene dine akkurat nå. Prøv å justere
+            valgene under profil, eller bla i{" "}
+            <Link href="/oppskrifter" className="font-semibold text-foreground underline-offset-2 hover:underline">
+              alle oppskrifter
+            </Link>
+            .
+          </p>
+        </div>
+      </section>
+    );
   }
 
   const scrollCarousel = (direction: "left" | "right") => {

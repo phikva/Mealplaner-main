@@ -61,26 +61,18 @@ export function AuthStatus({ onAuthStateChange }: AuthStatusProps) {
 
   if (state.status === "loading") {
     return (
-      <div className="h-6 w-24 rounded-md bg-muted" aria-hidden />
+      <div className="h-10 w-[5.5rem] rounded-full bg-muted" aria-hidden />
     );
   }
 
   if (state.status === "signed_out") {
     return (
-      <div className="flex items-center gap-2">
-        <Link
-          href="/logg-inn"
-          className="rounded-full px-3 py-1 text-xs font-semibold tracking-[0.02em] text-muted-foreground transition-colors hover:text-foreground"
-        >
-          Logg inn
-        </Link>
-        <Link
-          href="/registrering"
-          className="rounded-full bg-primary px-3 py-1 text-xs font-semibold tracking-[0.02em] text-primary-foreground transition-colors hover:bg-primary/90"
-        >
-          Registrer deg
-        </Link>
-      </div>
+      <Link
+        href="/logg-inn"
+        className="inline-flex min-h-10 items-center rounded-full border border-border/70 px-3 py-1.5 text-xs font-semibold tracking-[0.02em] text-foreground transition-colors hover:bg-muted"
+      >
+        Logg inn
+      </Link>
     );
   }
 

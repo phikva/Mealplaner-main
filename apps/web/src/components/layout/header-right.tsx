@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useCallback, useState } from "react";
 import { AuthStatus } from "@/components/auth/auth-status";
+import { MobileNavDrawer } from "@/components/layout/mobile-nav-drawer";
 import { ProfileBadge } from "@/components/profile/profile-badge";
 import type { SiteLink } from "@/types/page";
 
@@ -25,10 +26,16 @@ export function HeaderRight({ navigation, initialProfile }: Props) {
 
   const filteredNavigation = signedIn
     ? navigation.filter((item) => item.href !== "/registrering" && item.href !== "/logg-inn")
-    : navigation;
+    : navigation.filter(
+        (item) =>
+          !(
+            item.href === "/registrering" &&
+            item.label.trim().toLowerCase() === "registrer deg"
+          ),
+      );
 
   return (
-    <div className="flex items-center gap-3">
+    <div className="flex items-center gap-2 sm:gap-3">
       {filteredNavigation.length > 0 ? (
         <nav className="hidden items-center gap-1 sm:flex sm:gap-2" aria-label="Hovedmeny">
           {filteredNavigation.map((item) => (
@@ -47,6 +54,9 @@ export function HeaderRight({ navigation, initialProfile }: Props) {
       ) : (
         <AuthStatus onAuthStateChange={onAuthStateChange} />
       )}
+      {filteredNavigation.length > 0 ? (
+        <MobileNavDrawer items={filteredNavigation} signedIn={signedIn} />
+      ) : null}
     </div>
   );
 }
