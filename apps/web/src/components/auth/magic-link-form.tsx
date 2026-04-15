@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { createClient } from "@/lib/supabase/client";
+import { publicOriginForAuthEmail } from "@/lib/env";
 
 type Mode = "login" | "register";
 
@@ -12,12 +13,12 @@ const copy: Record<
 > = {
   login: {
     title: "Logg inn",
-    lead: "Vi sender deg en magic link på e-post.",
+    lead: "Skriv inn e-post og passord.",
     emailLabel: "E-post",
     placeholder: "deg@eksempel.no",
-    submitIdle: "Send innloggingslenke",
-    submitSending: "Sender…",
-    success: "Sjekk e-posten din for innloggingslenke.",
+    submitIdle: "Logg inn",
+    submitSending: "Logger inn…",
+    success: "",
     altPrompt: "Har du ikke konto?",
     altHref: "/registrering",
     altLabel: "Registrer deg",
@@ -42,7 +43,6 @@ type MagicLinkFormProps = {
 
 export function MagicLinkForm({ mode }: MagicLinkFormProps) {
   const c = copy[mode];
-  const [method, setMethod] = useState<"magic" | "password">(mode === "login" ? "password" : "magic");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
@@ -62,7 +62,7 @@ export function MagicLinkForm({ mode }: MagicLinkFormProps) {
 
     const supabase = createClient();
 
-    if (mode === "login" && method === "password") {
+    if (mode === "login") {
       if (!password) {
         setStatus("error");
         setMessage("Skriv inn passordet ditt.");
@@ -89,10 +89,11 @@ export function MagicLinkForm({ mode }: MagicLinkFormProps) {
       return;
     }
 
+    const origin = publicOriginForAuthEmail();
     const { error } = await supabase.auth.signInWithOtp({
       email: trimmed,
       options: {
-        emailRedirectTo: `${window.location.origin}/auth/callback?next=/`,
+        emailRedirectTo: `${origin}/auth/callback?next=/`,
       },
     });
 
@@ -114,33 +115,6 @@ export function MagicLinkForm({ mode }: MagicLinkFormProps) {
       </header>
 
       <form onSubmit={onSubmit} className="mt-6 space-y-3 rounded-xl border border-border/60 bg-background/85 p-5 shadow-sm">
-        {mode === "login" ? (
-          <div className="grid grid-cols-2 gap-2">
-            <button
-              type="button"
-              onClick={() => setMethod("password")}
-              className={
-                method === "password"
-                  ? "rounded-lg bg-primary px-3 py-2 text-sm font-semibold text-primary-foreground"
-                  : "rounded-lg border border-border/70 bg-background px-3 py-2 text-sm font-semibold hover:bg-muted"
-              }
-            >
-              Passord
-            </button>
-            <button
-              type="button"
-              onClick={() => setMethod("magic")}
-              className={
-                method === "magic"
-                  ? "rounded-lg bg-primary px-3 py-2 text-sm font-semibold text-primary-foreground"
-                  : "rounded-lg border border-border/70 bg-background px-3 py-2 text-sm font-semibold hover:bg-muted"
-              }
-            >
-              Magic link
-            </button>
-          </div>
-        ) : null}
-
         <label className="block space-y-1.5">
           <span className="text-sm font-semibold">{c.emailLabel}</span>
           <input
@@ -154,7 +128,7 @@ export function MagicLinkForm({ mode }: MagicLinkFormProps) {
           />
         </label>
 
-        {mode === "login" && method === "password" ? (
+        {mode === "login" ? (
           <label className="block space-y-1.5">
             <span className="text-sm font-semibold">Passord</span>
             <input
@@ -172,11 +146,7 @@ export function MagicLinkForm({ mode }: MagicLinkFormProps) {
           disabled={status === "sending"}
           className="inline-flex w-full items-center justify-center rounded-lg bg-primary px-4 py-3 text-base font-semibold tracking-[0.02em] text-primary-foreground transition-colors hover:bg-primary/90 disabled:opacity-60"
         >
-          {status === "sending"
-            ? c.submitSending
-            : mode === "login" && method === "password"
-              ? "Logg inn"
-              : c.submitIdle}
+          {status === "sending" ? c.submitSending : c.submitIdle}
         </button>
 
         {message ? (

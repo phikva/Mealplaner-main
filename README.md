@@ -30,9 +30,9 @@ npm run dev:web      # http://localhost:3000
 npm run dev:studio   # Sanity Studio (standardport)
 ```
 
-## Supabase auth (magic link)
+## Supabase auth
 
-- **Logg inn**: `http://localhost:3000/logg-inn` (magic link eller passord)
+- **Logg inn**: `http://localhost:3000/logg-inn` (passord)
 - **Registrering**: `http://localhost:3000/registrering`
 - **Callback route**: `/auth/callback`
 - **Profil**: `http://localhost:3000/profil`
@@ -42,6 +42,10 @@ I Supabase Dashboard må du sette redirect URLs:
 
 - `http://localhost:3000/auth/callback`
 - `https://<din-produksjonsdomain>/auth/callback`
+
+På Vercel: sett `NEXT_PUBLIC_SITE_URL` til den offentlige URL-en (f.eks. `https://mealplaner-main-web.vercel.app`). Da brukes den i lenker som sendes fra Supabase (magic link / bekreftelse), slik at du ikke ender på `localhost` i e-post når appen er deployet.
+
+**Site URL** i Supabase skal også være samme offentlige origin (ikke `http://localhost:3000` for produksjon).
 
 Når en bruker logger inn, sørger appen for at det finnes en rad i `public.profiles` og setter default tier fra Sanity (der `tier.isDefault == true`).
 
