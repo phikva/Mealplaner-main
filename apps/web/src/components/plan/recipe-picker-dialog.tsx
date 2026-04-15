@@ -7,7 +7,11 @@ import { ChevronDown, Plus } from "lucide-react";
 import { addMealPlanEntryAction } from "@/app/actions/meal-plan";
 import { MaxSliderRow, type RecipeSliderKey } from "@/components/recipes/recipe-filter-panel";
 import { RecipeNutritionLine } from "@/components/plan/plan-nutrition";
-import type { MealPlanCategoryOption, RecipeSearchHit } from "@/components/plan/meal-plan-types";
+import {
+  MEAL_PLAN_PICKER_FAVORITES_VALUE,
+  type MealPlanCategoryOption,
+  type RecipeSearchHit,
+} from "@/components/plan/meal-plan-types";
 import {
   applyRecipeFilters,
   commitSliderValue,
@@ -72,7 +76,11 @@ export function AddMealPlanButton({ planDate, categoryOptions, onAdded, compact 
     try {
       const params = new URLSearchParams();
       if (search.trim()) params.set("q", search.trim());
-      if (category) params.set("category", category);
+      if (category === MEAL_PLAN_PICKER_FAVORITES_VALUE) {
+        params.set("favorites", "1");
+      } else if (category) {
+        params.set("category", category);
+      }
       const res = await fetch(`/api/recipes/search?${params.toString()}`);
       const data = (await res.json()) as { recipes: RecipeSearchHit[] };
       setHits(data.recipes ?? []);
@@ -143,7 +151,14 @@ export function AddMealPlanButton({ planDate, categoryOptions, onAdded, compact 
     }
   };
 
-  const listTitle = q.trim().length >= 2 ? "Søketreff" : "Oppskrifter";
+  const listTitle =
+    categoryFilter === MEAL_PLAN_PICKER_FAVORITES_VALUE
+      ? q.trim().length >= 2
+        ? "Søk i favoritter"
+        : "Favoritter"
+      : q.trim().length >= 2
+        ? "Søketreff"
+        : "Oppskrifter";
 
   const handleOpenChange = (next: boolean) => {
     setOpen(next);
@@ -232,6 +247,7 @@ export function AddMealPlanButton({ planDate, categoryOptions, onAdded, compact 
                     className="h-10 min-h-10 w-full rounded-xl border border-border/60 bg-background px-2 py-1 text-sm shadow-sm md:h-8 md:min-h-0 md:text-sm"
                   >
                     <option value="">Alle kategorier</option>
+                    <option value={MEAL_PLAN_PICKER_FAVORITES_VALUE}>Favoritter</option>
                     {categoryOptions.map((c) => (
                       <option key={c._id} value={c._id}>
                         {c.name}
@@ -372,7 +388,13 @@ export function AddMealPlanButton({ planDate, categoryOptions, onAdded, compact 
                 </p>
                 {loading ? <p className="px-2 py-4 text-sm text-muted-foreground">Laster …</p> : null}
                 {!loading && hits.length === 0 ? (
-                  <p className="px-2 py-4 text-sm text-muted-foreground">Ingen oppskrifter i utvalget.</p>
+                  <p className="px-2 py-4 text-sm text-muted-foreground">
+                    {categoryFilter === MEAL_PLAN_PICKER_FAVORITES_VALUE
+                      ? q.trim().length >= 2
+                        ? "Ingen favoritter matcher søket."
+                        : "Du har ingen favoritter ennå. Legg til favoritter fra en oppskriftsside."
+                      : "Ingen oppskrifter i utvalget."}
+                  </p>
                 ) : null}
                 {!loading && hits.length > 0 && filteredHits.length === 0 ? (
                   <p className="px-2 py-3 text-sm text-muted-foreground">
