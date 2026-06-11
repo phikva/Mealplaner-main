@@ -85,15 +85,29 @@ export function computeRecipeFilterBounds(
   };
 }
 
-/** Kun maks-grenser (én slider per verdi): «inntil X» for enklere UX. */
+export type RecipeNutritionFilterKey =
+  | "minKcal"
+  | "maxKcal"
+  | "minProtein"
+  | "maxProtein"
+  | "minKarbs"
+  | "maxKarbs"
+  | "minFett"
+  | "maxFett";
+
+/** Min/maks-grenser (én slider per verdi). */
 export type RecipeFilterState = {
   q: string;
   categoryIds: string[];
   diets: string[];
   excludeAllergens: string[];
+  minKcal: number | null;
   maxKcal: number | null;
+  minProtein: number | null;
   maxProtein: number | null;
+  minKarbs: number | null;
   maxKarbs: number | null;
+  minFett: number | null;
   maxFett: number | null;
 };
 
@@ -102,9 +116,13 @@ export const emptyRecipeFilterState = (): RecipeFilterState => ({
   categoryIds: [],
   diets: [],
   excludeAllergens: [],
+  minKcal: null,
   maxKcal: null,
+  minProtein: null,
   maxProtein: null,
+  minKarbs: null,
   maxKarbs: null,
+  minFett: null,
   maxFett: null,
 });
 
@@ -128,9 +146,13 @@ export function parseRecipeFilters(
     categoryIds,
     diets,
     excludeAllergens,
+    minKcal: parseOptNumber(sp, "minKcal"),
     maxKcal: parseOptNumber(sp, "maxKcal"),
+    minProtein: parseOptNumber(sp, "minProtein"),
     maxProtein: parseOptNumber(sp, "maxProtein"),
+    minKarbs: parseOptNumber(sp, "minKarbs"),
     maxKarbs: parseOptNumber(sp, "maxKarbs"),
+    minFett: parseOptNumber(sp, "minFett"),
     maxFett: parseOptNumber(sp, "maxFett"),
   };
 }
@@ -147,9 +169,13 @@ export function filtersToSearchParams(state: RecipeFilterState): URLSearchParams
   for (const a of state.excludeAllergens) {
     if (a) p.append("excludeAllergen", a);
   }
+  if (state.minKcal !== null) p.set("minKcal", String(state.minKcal));
   if (state.maxKcal !== null) p.set("maxKcal", String(state.maxKcal));
+  if (state.minProtein !== null) p.set("minProtein", String(state.minProtein));
   if (state.maxProtein !== null) p.set("maxProtein", String(state.maxProtein));
+  if (state.minKarbs !== null) p.set("minKarbs", String(state.minKarbs));
   if (state.maxKarbs !== null) p.set("maxKarbs", String(state.maxKarbs));
+  if (state.minFett !== null) p.set("minFett", String(state.minFett));
   if (state.maxFett !== null) p.set("maxFett", String(state.maxFett));
   return p;
 }
@@ -176,6 +202,13 @@ function atMost(value: number | undefined, max: number | null): boolean {
   return value <= max;
 }
 
+/** Verdi må være definert og ≥ min når min er satt. */
+function atLeast(value: number | undefined, min: number | null): boolean {
+  if (min === null) return true;
+  if (value == null || !Number.isFinite(value)) return false;
+  return value >= min;
+}
+
 export function applyRecipeFilters(recipes: RecipeCollectionItem[], state: RecipeFilterState): RecipeCollectionItem[] {
   const excluded = new Set(state.excludeAllergens.map((a) => a.toLowerCase()));
   return recipes.filter((r) => {
@@ -197,11 +230,15 @@ export function applyRecipeFilters(recipes: RecipeCollectionItem[], state: Recip
       if (!state.diets.some((d) => tags.includes(d))) return false;
     }
 
+    if (!atLeast(r.totalKcal, state.minKcal)) return false;
     if (!atMost(r.totalKcal, state.maxKcal)) return false;
 
     const m = r.totalMakros;
+    if (!atLeast(m?.protein, state.minProtein)) return false;
     if (!atMost(m?.protein, state.maxProtein)) return false;
+    if (!atLeast(m?.karbs, state.minKarbs)) return false;
     if (!atMost(m?.karbs, state.maxKarbs)) return false;
+    if (!atLeast(m?.fett, state.minFett)) return false;
     if (!atMost(m?.fett, state.maxFett)) return false;
 
     return true;
@@ -214,9 +251,13 @@ export function countActiveFilters(state: RecipeFilterState): number {
   n += state.categoryIds.length;
   n += state.diets.length;
   n += state.excludeAllergens.length;
+  if (state.minKcal !== null) n += 1;
   if (state.maxKcal !== null) n += 1;
+  if (state.minProtein !== null) n += 1;
   if (state.maxProtein !== null) n += 1;
+  if (state.minKarbs !== null) n += 1;
   if (state.maxKarbs !== null) n += 1;
+  if (state.minFett !== null) n += 1;
   if (state.maxFett !== null) n += 1;
   return n;
 }
@@ -229,24 +270,46 @@ export function clampRecipeFilterState(state: RecipeFilterState): RecipeFilterSt
   return { ...state };
 }
 
-/** Maks-glidebryter: helt til høyre = null (ingen øvre grense). Samme logikk som oppskriftsarkiv. */
+/** Glidebryter: maks helt til høyre = null; min helt til venstre = null. */
 export function commitSliderValue(
-  key: "maxKcal" | "maxProtein" | "maxKarbs" | "maxFett",
+  key: RecipeNutritionFilterKey,
   raw: number,
   b: RecipeFilterBounds,
 ): number | null {
   switch (key) {
+    case "minKcal":
+      return raw <= b.kcal.min ? null : raw;
     case "maxKcal":
       return raw >= b.kcal.max ? null : raw;
+    case "minProtein":
+      return raw <= b.protein.min ? null : raw;
     case "maxProtein":
       return raw >= b.protein.max ? null : raw;
+    case "minKarbs":
+      return raw <= b.karbs.min ? null : raw;
     case "maxKarbs":
       return raw >= b.karbs.max ? null : raw;
+    case "minFett":
+      return raw <= b.fett.min ? null : raw;
     case "maxFett":
       return raw >= b.fett.max ? null : raw;
     default:
       return null;
   }
+}
+
+export function applySlidingToRecipeFilters(
+  base: RecipeFilterState,
+  sliding: Partial<Record<RecipeNutritionFilterKey, number>>,
+  b: RecipeFilterBounds,
+): RecipeFilterState {
+  const o = { ...base };
+  for (const key of Object.keys(sliding) as RecipeNutritionFilterKey[]) {
+    const raw = sliding[key];
+    if (raw === undefined) continue;
+    o[key] = commitSliderValue(key, raw, b);
+  }
+  return clampRecipeFilterState(o);
 }
 
 export function buildCategoryOptionsFromRecipes(

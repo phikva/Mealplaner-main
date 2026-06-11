@@ -1,7 +1,13 @@
 "use client";
 
 import type { MealPlanRow } from "@/app/actions/meal-plan";
-import { WEEKDAY_SHORT, localYmd, planDayAndMonth1, planMonthIndex0 } from "@/components/plan/meal-plan-dates";
+import {
+  WEEKDAY_SHORT,
+  isPlanDateWithinStorageLimit,
+  localYmd,
+  planDayAndMonth1,
+  planMonthIndex0,
+} from "@/components/plan/meal-plan-dates";
 import { MacroTotalsLine } from "@/components/plan/plan-nutrition";
 import { planMonthCellEmpty, planMonthCellHasMeals } from "@/components/plan/plan-tokens";
 import { AddMealPlanButton } from "@/components/plan/recipe-picker-dialog";
@@ -16,6 +22,7 @@ type Props = {
   entriesByDate: Map<string, MealPlanRow[]>;
   recipeMap: Map<string, SanityRecipe>;
   categoryOptions: MealPlanCategoryOption[];
+  mealStorageMaxDays: number | null;
   onReload: () => void;
 };
 
@@ -25,6 +32,7 @@ export function MonthPlanner({
   entriesByDate,
   recipeMap,
   categoryOptions,
+  mealStorageMaxDays,
   onReload,
 }: Props) {
   return (
@@ -42,14 +50,17 @@ export function MonthPlanner({
         const dayTotals = sumMacrosFromRecipes(
           dayEntries.map((e) => recipeMap.get(e.recipe_sanity_id)).filter((r): r is SanityRecipe => Boolean(r)),
         );
+        const dateAllowed = isPlanDateWithinStorageLimit(ymd, mealStorageMaxDays);
+        const canAddMeal = inMonth && dateAllowed;
+        const isMutedCell = !inMonth || !dateAllowed;
         return (
           <div
             key={`${ymd}-${i}`}
             className={cn(
               "relative flex min-h-[7.25rem] flex-col rounded-xl border p-1.5 md:min-h-[8rem] md:p-2",
               inMonth && hasMeals && planMonthCellHasMeals,
-              inMonth && !hasMeals && planMonthCellEmpty,
-              !inMonth && "border-transparent bg-muted/20 opacity-50",
+              inMonth && !hasMeals && dateAllowed && planMonthCellEmpty,
+              isMutedCell && "border-transparent bg-muted/20 opacity-50",
             )}
           >
             <div className="flex items-start justify-between gap-1">
@@ -86,7 +97,19 @@ export function MonthPlanner({
             >
               {dayEntries.length} målt.
             </p>
-            <AddMealPlanButton planDate={ymd} categoryOptions={categoryOptions} onAdded={onReload} compact />
+            {canAddMeal ? (
+              <AddMealPlanButton
+                planDate={ymd}
+                categoryOptions={categoryOptions}
+                mealStorageMaxDays={mealStorageMaxDays}
+                onAdded={onReload}
+                compact
+              />
+            ) : (
+              <div className="mt-1 flex min-h-11 items-center justify-center" aria-hidden>
+                <span className="text-xs text-muted-foreground/50">—</span>
+              </div>
+            )}
           </div>
         );
       })}

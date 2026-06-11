@@ -4,7 +4,9 @@ import { addDays, localYmd, mondayOfWeek } from "@/components/plan/meal-plan-dat
 import { MealPlanView } from "@/components/plan/meal-plan-view";
 import { MEAL_PLANNER_ROUTE } from "@/lib/app-routes";
 import { getCategories } from "@/lib/sanity/categories";
+import { getTiers } from "@/lib/sanity/tiers";
 import { createClient } from "@/lib/supabase/server";
+import { getMealStorageRules, resolveTierForProfile } from "@/lib/tier-access";
 
 export const metadata = {
   title: MEAL_PLANNER_ROUTE.label,
@@ -26,13 +28,20 @@ export default async function MaltidsplanleggerPage() {
   const from = localYmd(mon);
   const to = localYmd(sun);
 
-  const [bundle, categories] = await Promise.all([getMealPlanWithRecipesAction(from, to), getCategories()]);
+  const [bundle, categories, tiers, profileRes] = await Promise.all([
+    getMealPlanWithRecipesAction(from, to),
+    getCategories(),
+    getTiers(),
+    supabase.from("profiles").select("tier_sanity_id,tier_slug").eq("id", user.id).maybeSingle(),
+  ]);
   if (!bundle.ok) {
     if (bundle.error === "not_authenticated") redirect(loginNext);
     throw new Error("Kunne ikke laste måltidsplan fra databasen.");
   }
 
   const categoryOptions = categories.map((c) => ({ _id: c._id, name: c.name }));
+  const tier = resolveTierForProfile(tiers, profileRes.data?.tier_sanity_id, profileRes.data?.tier_slug);
+  const mealStorageMaxDays = getMealStorageRules(tier).maxDays;
 
   return (
     <main className="mx-auto flex w-full max-w-6xl flex-1 flex-col gap-4 px-4 py-6 md:gap-6 md:px-6 md:py-10">
@@ -53,6 +62,7 @@ export default async function MaltidsplanleggerPage() {
         initialEntries={bundle.entries}
         initialRecipes={bundle.recipes}
         categoryOptions={categoryOptions}
+        mealStorageMaxDays={mealStorageMaxDays}
       />
     </main>
   );

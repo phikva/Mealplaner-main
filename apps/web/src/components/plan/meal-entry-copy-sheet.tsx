@@ -6,7 +6,12 @@ import { useEffect, useState, useTransition } from "react";
 import { Copy, ExternalLink } from "lucide-react";
 import { copyMealPlanEntryToDatesAction, type MealPlanRow } from "@/app/actions/meal-plan";
 import { notifyMealEntryCopyResult } from "@/components/plan/plan-copy-feedback";
-import { nextNDaysAfter, remainingWeekDatesAfter } from "@/components/plan/meal-plan-dates";
+import {
+  isPlanDateWithinStorageLimit,
+  maxForwardCopyDaysFrom,
+  nextNDaysAfter,
+  remainingWeekDatesAfter,
+} from "@/components/plan/meal-plan-dates";
 import { cn } from "@/lib/utils";
 import type { SanityRecipe } from "@/types/page";
 
@@ -15,14 +20,25 @@ type Props = {
   onOpenChange: (open: boolean) => void;
   entry: MealPlanRow;
   recipe?: SanityRecipe;
+  mealStorageMaxDays: number | null;
   onCopied: () => void;
 };
 
-export function MealEntryCopySheet({ open, onOpenChange, entry, recipe, onCopied }: Props) {
+export function MealEntryCopySheet({
+  open,
+  onOpenChange,
+  entry,
+  recipe,
+  mealStorageMaxDays,
+  onCopied,
+}: Props) {
   const title = recipe?.tittel ?? "Ukjent oppskrift";
   const path = recipe?.path;
   const sourceYmd = entry.plan_date;
-  const restOfWeek = remainingWeekDatesAfter(sourceYmd);
+  const restOfWeek = remainingWeekDatesAfter(sourceYmd).filter((d) =>
+    isPlanDateWithinStorageLimit(d, mealStorageMaxDays),
+  );
+  const maxForward = maxForwardCopyDaysFrom(sourceYmd, mealStorageMaxDays);
   const [forwardDays, setForwardDays] = useState(3);
   const [error, setError] = useState<string | null>(null);
   const [pending, startTransition] = useTransition();
@@ -45,7 +61,7 @@ export function MealEntryCopySheet({ open, onOpenChange, entry, recipe, onCopied
         setError(res.error === "not_authenticated" ? "Logg inn på nytt." : "Kunne ikke kopiere. Prøv igjen.");
         return;
       }
-      notifyMealEntryCopyResult(res.added, res.skipped);
+      notifyMealEntryCopyResult(res.added, res.skipped, res.skippedOutOfRange);
       onOpenChange(false);
       onCopied();
     });
@@ -123,23 +139,29 @@ export function MealEntryCopySheet({ open, onOpenChange, entry, recipe, onCopied
                   id="copy-forward-days"
                   type="number"
                   min={1}
-                  max={30}
+                  max={Math.max(1, maxForward)}
                   value={forwardDays}
                   onChange={(e) => setForwardDays(Number(e.target.value) || 1)}
+                  disabled={maxForward < 1}
                   className="h-11 w-20 rounded-xl border border-border/60 bg-background px-3 text-center text-base font-semibold tabular-nums shadow-sm md:text-sm"
                 />
                 <button
                   type="button"
-                  disabled={pending}
+                  disabled={pending || maxForward < 1}
                   onClick={() =>
-                    runCopy(nextNDaysAfter(sourceYmd, Math.min(30, Math.max(1, Math.floor(forwardDays)))))
+                    runCopy(
+                      nextNDaysAfter(
+                        sourceYmd,
+                        Math.min(maxForward, Math.max(1, Math.floor(forwardDays))),
+                      ),
+                    )
                   }
                   className={cn(
                     "min-h-11 flex-1 cursor-pointer rounded-xl border border-border/60 bg-secondary px-3 text-sm font-semibold text-secondary-foreground transition",
                     "hover:bg-secondary/90 disabled:cursor-not-allowed disabled:opacity-50",
                   )}
                 >
-                  Kopier {Math.min(30, Math.max(1, Math.floor(forwardDays)))} dager
+                  Kopier {Math.min(maxForward, Math.max(1, Math.floor(forwardDays)))} dager
                 </button>
               </div>
             </div>

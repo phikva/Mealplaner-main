@@ -15,6 +15,7 @@ import {
 import { cn } from "@/lib/utils";
 import {
   applyRecipeFilters,
+  applySlidingToRecipeFilters,
   buildRecipeFilterOptionsFromSettingsAndRecipes,
   clampRecipeFilterState,
   commitSliderValue,
@@ -69,21 +70,6 @@ function ActiveFilterChipsRow({ chips, className }: { chips: ActiveFilterChip[];
   );
 }
 
-function applySlidingToFilters(
-  base: RecipeFilterState,
-  sliding: Partial<Record<RecipeSliderKey, number>>,
-  b: RecipeFilterBounds,
-): RecipeFilterState {
-  const o = { ...base };
-  if (sliding.maxKcal !== undefined) o.maxKcal = sliding.maxKcal >= b.kcal.max ? null : sliding.maxKcal;
-  if (sliding.maxProtein !== undefined) {
-    o.maxProtein = sliding.maxProtein >= b.protein.max ? null : sliding.maxProtein;
-  }
-  if (sliding.maxKarbs !== undefined) o.maxKarbs = sliding.maxKarbs >= b.karbs.max ? null : sliding.maxKarbs;
-  if (sliding.maxFett !== undefined) o.maxFett = sliding.maxFett >= b.fett.max ? null : sliding.maxFett;
-  return clampRecipeFilterState(o);
-}
-
 export function RecipeCollectionView({
   recipes,
   brukerprofilSettings,
@@ -127,7 +113,7 @@ export function RecipeCollectionView({
 
   const displayFilters = useMemo(
     () =>
-      applySlidingToFilters(clampRecipeFilterState({ ...filters, q: qDraft }), sliding, bounds),
+      applySlidingToRecipeFilters(clampRecipeFilterState({ ...filters, q: qDraft }), sliding, bounds),
     [filters, qDraft, sliding, bounds],
   );
 
@@ -293,11 +279,25 @@ export function RecipeCollectionView({
         },
       });
     }
+    if (f.minKcal !== null) {
+      chips.push({
+        key: "minKcal",
+        label: `≥ ${Math.round(f.minKcal)} kcal`,
+        onRemove: () => patchFilters({ minKcal: null }),
+      });
+    }
     if (f.maxKcal !== null) {
       chips.push({
         key: "maxKcal",
         label: `≤ ${Math.round(f.maxKcal)} kcal`,
         onRemove: () => patchFilters({ maxKcal: null }),
+      });
+    }
+    if (f.minProtein !== null) {
+      chips.push({
+        key: "minProtein",
+        label: `≥ ${Math.round(f.minProtein * 10) / 10} g protein`,
+        onRemove: () => patchFilters({ minProtein: null }),
       });
     }
     if (f.maxProtein !== null) {
@@ -307,11 +307,25 @@ export function RecipeCollectionView({
         onRemove: () => patchFilters({ maxProtein: null }),
       });
     }
+    if (f.minKarbs !== null) {
+      chips.push({
+        key: "minKarbs",
+        label: `≥ ${Math.round(f.minKarbs * 10) / 10} g karbohydrater`,
+        onRemove: () => patchFilters({ minKarbs: null }),
+      });
+    }
     if (f.maxKarbs !== null) {
       chips.push({
         key: "maxKarbs",
         label: `≤ ${Math.round(f.maxKarbs * 10) / 10} g karbohydrater`,
         onRemove: () => patchFilters({ maxKarbs: null }),
+      });
+    }
+    if (f.minFett !== null) {
+      chips.push({
+        key: "minFett",
+        label: `≥ ${Math.round(f.minFett * 10) / 10} g fett`,
+        onRemove: () => patchFilters({ minFett: null }),
       });
     }
     if (f.maxFett !== null) {

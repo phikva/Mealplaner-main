@@ -12,6 +12,7 @@ function toPickerRows(recipes: SanityRecipe[]) {
     path: r.path,
     totalKcal: r.totalKcal,
     totalMakros: r.totalMakros,
+    porsjoner: r.porsjoner,
     imageUrl: recipeThumbUrl(r.image),
   }));
 }
@@ -51,7 +52,11 @@ export async function GET(req: NextRequest) {
     } = await supabase.auth.getUser();
 
     if (!user) {
-      return NextResponse.json({ recipes: [] });
+      const response = NextResponse.json({ recipes: [] });
+      pendingCookies.forEach(({ name, value, options }) => {
+        response.cookies.set(name, value, options);
+      });
+      return response;
     }
 
     const { data: favRows } = await supabase

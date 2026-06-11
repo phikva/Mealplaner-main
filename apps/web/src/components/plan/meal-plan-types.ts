@@ -11,6 +11,7 @@ export type RecipeSearchHit = {
   path?: string;
   totalKcal?: number;
   totalMakros?: SanityRecipe["totalMakros"];
+  porsjoner?: number;
   imageUrl?: string | null;
 };
 

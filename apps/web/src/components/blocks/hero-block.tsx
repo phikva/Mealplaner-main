@@ -3,20 +3,28 @@ import Link from "next/link";
 import { PortableText } from "@portabletext/react";
 import { urlFor } from "@/lib/sanity/image";
 import { cn } from "@/lib/utils";
+import type { HeroViewerState } from "@/lib/tier-access";
 import type { HeroBlock } from "@/types/page";
 
 type HeroBlockProps = {
   block: HeroBlock;
+  viewer?: HeroViewerState;
 };
 
-export const HeroBlockView = ({ block }: HeroBlockProps) => {
+export const HeroBlockView = ({ block, viewer }: HeroBlockProps) => {
   const assetRef = block.image?.asset?._ref || "";
   const isGif = assetRef.endsWith("-gif");
   const originalImageUrl = block.image ? urlFor(block.image).url() : null;
   const imageUrl = block.image
     ? urlFor(block.image).width(1600).height(900).fit("crop").url()
     : null;
-  const showPrimaryCta = Boolean(block.useCta && block.primaryCta?.label && block.primaryCta?.href);
+  const loggedIn = viewer?.loggedIn === true;
+  const showUpgradeCta = loggedIn && viewer.showUpgradeCta;
+  const showGuestPrimaryCta =
+    !loggedIn && Boolean(block.useCta && block.primaryCta?.label && block.primaryCta?.href);
+  const showPrimaryCta = showUpgradeCta || showGuestPrimaryCta;
+  const primaryLabel = showUpgradeCta ? "Oppgrader" : block.primaryCta?.label;
+  const primaryHref = showUpgradeCta ? "/abonnement" : block.primaryCta?.href;
   const showSecondaryCta = Boolean(
     block.useCta &&
       block.ctaCount === "two" &&
@@ -37,6 +45,11 @@ export const HeroBlockView = ({ block }: HeroBlockProps) => {
             <PortableText value={block.subtitle} />
           </div>
         ) : null}
+        {loggedIn ? (
+          <p className="rounded-xl border border-border/50 bg-muted/30 px-4 py-3 text-sm font-medium text-foreground">
+            {viewer.statusMessage}
+          </p>
+        ) : null}
         {showPrimaryCta || showSecondaryCta ? (
           <div
             className={cn(
@@ -48,20 +61,16 @@ export const HeroBlockView = ({ block }: HeroBlockProps) => {
           >
             {showPrimaryCta ? (
               <Link
-                href={block.primaryCta?.href || "/"}
+                href={primaryHref || "/"}
                 className="inline-flex items-center justify-center rounded-full bg-primary px-7 py-3 text-base font-semibold tracking-[0.02em] text-primary-foreground transition-all hover:bg-primary/90"
                 target={
-                  block.primaryCta?.href && isExternalLink(block.primaryCta.href)
-                    ? "_blank"
-                    : undefined
+                  primaryHref && isExternalLink(primaryHref) ? "_blank" : undefined
                 }
                 rel={
-                  block.primaryCta?.href && isExternalLink(block.primaryCta.href)
-                    ? "noreferrer noopener"
-                    : undefined
+                  primaryHref && isExternalLink(primaryHref) ? "noreferrer noopener" : undefined
                 }
               >
-                {block.primaryCta?.label}
+                {primaryLabel}
               </Link>
             ) : null}
             {showSecondaryCta ? (

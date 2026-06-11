@@ -3,6 +3,8 @@ import { SanityPageView } from "@/components/pages/sanity-page";
 import { mapPageToMetadata } from "@/lib/seo/page-seo";
 import { getSanityContentIndex } from "@/lib/sanity/content";
 import { getActiveHomePage } from "@/lib/sanity/pages";
+import { createClient } from "@/lib/supabase/server";
+import { getHeroViewerState, type HeroViewerState } from "@/lib/tier-access";
 
 export async function generateMetadata(): Promise<Metadata> {
   const page = await getActiveHomePage();
@@ -14,6 +16,24 @@ export async function generateMetadata(): Promise<Metadata> {
   }
 
   return mapPageToMetadata(page);
+}
+
+async function loadHeroViewer(
+  tiers: Awaited<ReturnType<typeof getSanityContentIndex>>["tiers"],
+): Promise<HeroViewerState | undefined> {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) return undefined;
+
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select("tier_sanity_id,tier_slug")
+    .eq("id", user.id)
+    .maybeSingle();
+
+  return getHeroViewerState(tiers, profile);
 }
 
 export default async function Home() {
@@ -36,5 +56,9 @@ export default async function Home() {
     );
   }
 
-  return <SanityPageView page={page} contentIndex={contentIndex} />;
+  const heroViewer = await loadHeroViewer(contentIndex.tiers);
+
+  return (
+    <SanityPageView page={page} contentIndex={contentIndex} heroViewer={heroViewer} />
+  );
 }

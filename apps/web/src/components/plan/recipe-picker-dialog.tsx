@@ -4,8 +4,10 @@ import Image from "next/image";
 import { Dialog, VisuallyHidden } from "radix-ui";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { ChevronDown, Plus } from "lucide-react";
+import { toast } from "sonner";
 import { addMealPlanEntryAction } from "@/app/actions/meal-plan";
-import { MaxSliderRow, type RecipeSliderKey } from "@/components/recipes/recipe-filter-panel";
+import { isPlanDateWithinStorageLimit } from "@/components/plan/meal-plan-dates";
+import { MaxSliderRow, MinSliderRow, type RecipeSliderKey } from "@/components/recipes/recipe-filter-panel";
 import { RecipeNutritionLine } from "@/components/plan/plan-nutrition";
 import {
   MEAL_PLAN_PICKER_FAVORITES_VALUE,
@@ -14,57 +16,77 @@ import {
 } from "@/components/plan/meal-plan-types";
 import {
   applyRecipeFilters,
+  applySlidingToRecipeFilters,
   commitSliderValue,
   DEFAULT_RECIPE_FILTER_BOUNDS,
   emptyRecipeFilterState,
   type RecipeCollectionItem,
-  type RecipeFilterBounds,
   type RecipeFilterState,
 } from "@/lib/recipes/recipe-filters";
+import { recipeNutritionPerPortion } from "@/lib/meal-plan-macros";
 import { cn } from "@/lib/utils";
 
 type Props = {
   planDate: string;
   categoryOptions: MealPlanCategoryOption[];
+  mealStorageMaxDays: number | null;
   onAdded: () => void;
   compact?: boolean;
+  /** I kolonne-header (tom dag) – ikke skyv til bunnen av flex-kolonnen. */
+  inline?: boolean;
 };
 
-type NutritionMax = Pick<RecipeFilterState, "maxKcal" | "maxProtein" | "maxKarbs" | "maxFett">;
+type NutritionBounds = Pick<
+  RecipeFilterState,
+  | "minKcal"
+  | "maxKcal"
+  | "minProtein"
+  | "maxProtein"
+  | "minKarbs"
+  | "maxKarbs"
+  | "minFett"
+  | "maxFett"
+>;
 
-const emptyNutrition = (): NutritionMax => ({
+const emptyNutrition = (): NutritionBounds => ({
+  minKcal: null,
   maxKcal: null,
+  minProtein: null,
   maxProtein: null,
+  minKarbs: null,
   maxKarbs: null,
+  minFett: null,
   maxFett: null,
 });
 
-function mergeNutritionSliding(
-  base: NutritionMax,
-  sliding: Partial<Record<RecipeSliderKey, number>>,
-  b: RecipeFilterBounds,
-): NutritionMax {
-  const o = { ...base };
-  if (sliding.maxKcal !== undefined) o.maxKcal = sliding.maxKcal >= b.kcal.max ? null : sliding.maxKcal;
-  if (sliding.maxProtein !== undefined) {
-    o.maxProtein = sliding.maxProtein >= b.protein.max ? null : sliding.maxProtein;
-  }
-  if (sliding.maxKarbs !== undefined) o.maxKarbs = sliding.maxKarbs >= b.karbs.max ? null : sliding.maxKarbs;
-  if (sliding.maxFett !== undefined) o.maxFett = sliding.maxFett >= b.fett.max ? null : sliding.maxFett;
-  return o;
+function nutritionActive(n: NutritionBounds): boolean {
+  return (
+    n.minKcal !== null ||
+    n.maxKcal !== null ||
+    n.minProtein !== null ||
+    n.maxProtein !== null ||
+    n.minKarbs !== null ||
+    n.maxKarbs !== null ||
+    n.minFett !== null ||
+    n.maxFett !== null
+  );
 }
 
-function nutritionActive(n: NutritionMax): boolean {
-  return n.maxKcal !== null || n.maxProtein !== null || n.maxKarbs !== null || n.maxFett !== null;
-}
-
-export function AddMealPlanButton({ planDate, categoryOptions, onAdded, compact }: Props) {
+export function AddMealPlanButton({
+  planDate,
+  categoryOptions,
+  mealStorageMaxDays,
+  onAdded,
+  compact,
+  inline,
+}: Props) {
+  const dateAllowed = isPlanDateWithinStorageLimit(planDate, mealStorageMaxDays);
   const [open, setOpen] = useState(false);
   const [categoryFilter, setCategoryFilter] = useState("");
   const [q, setQ] = useState("");
   const [hits, setHits] = useState<RecipeSearchHit[]>([]);
   const [loading, setLoading] = useState(false);
-  const [nutrition, setNutrition] = useState<NutritionMax>(emptyNutrition);
+  const [nutrition, setNutrition] = useState<NutritionBounds>(emptyNutrition);
   const [sliding, setSliding] = useState<Partial<Record<RecipeSliderKey, number>>>({});
   /** Ernæring er sekundært – lukket som standard så oppskriftslisten får plass. */
   const [nutritionExpanded, setNutritionExpanded] = useState(false);
@@ -106,17 +128,19 @@ export function AddMealPlanButton({ planDate, categoryOptions, onAdded, compact 
   }, [open, q, categoryFilter, fetchList]);
 
   const effectiveNutrition = useMemo(
-    () => mergeNutritionSliding(nutrition, sliding, bounds),
+    () =>
+      applySlidingToRecipeFilters(
+        { ...emptyRecipeFilterState(), ...nutrition },
+        sliding,
+        bounds,
+      ),
     [nutrition, sliding, bounds],
   );
 
-  const filteredHits = useMemo(() => {
-    const state: RecipeFilterState = {
-      ...emptyRecipeFilterState(),
-      ...effectiveNutrition,
-    };
-    return applyRecipeFilters(hits as RecipeCollectionItem[], state);
-  }, [hits, effectiveNutrition]);
+  const filteredHits = useMemo(
+    () => applyRecipeFilters(hits as RecipeCollectionItem[], effectiveNutrition),
+    [hits, effectiveNutrition],
+  );
 
   const onSliderInput = useCallback((key: RecipeSliderKey, value: number) => {
     setSliding((s) => ({ ...s, [key]: value }));
@@ -148,7 +172,17 @@ export function AddMealPlanButton({ planDate, categoryOptions, onAdded, compact 
       setOpen(false);
       setQ("");
       onAdded();
+      return;
     }
+    if (res.error === "date_out_of_range") {
+      toast.info("Denne datoen er utenfor det abonnementet ditt tillater.");
+      return;
+    }
+    if (res.error === "not_authenticated") {
+      toast.error("Logg inn på nytt for å legge til måltider.");
+      return;
+    }
+    toast.error("Kunne ikke legge til måltid. Prøv igjen.");
   };
 
   const listTitle =
@@ -172,13 +206,34 @@ export function AddMealPlanButton({ planDate, categoryOptions, onAdded, compact 
     }
   };
 
+  const wrapperClass = compact ? "mt-1" : inline ? "mt-2" : "mt-auto pt-2";
+
+  if (!dateAllowed) {
+    return (
+      <div className={wrapperClass} aria-disabled="true">
+        <p
+          className={cn(
+            "pointer-events-none select-none text-center text-[10px] leading-snug text-muted-foreground",
+            compact ? "px-0.5 py-1" : "rounded-xl border border-dashed border-border/40 px-2 py-2.5 text-xs",
+          )}
+          title="Denne datoen er utenfor abonnementet ditt"
+        >
+          {compact ? "—" : "Utenfor abonnement"}
+        </p>
+      </div>
+    );
+  }
+
   return (
-    <div className={compact ? "mt-1" : "mt-auto pt-2"}>
+    <div className={wrapperClass}>
       {!compact ? (
         <button
           type="button"
           onClick={() => setOpen(true)}
-          className="flex min-h-11 w-full cursor-pointer items-center justify-center gap-1 rounded-xl border border-dashed border-border/60 py-2.5 text-xs font-semibold text-muted-foreground hover:bg-muted/60"
+          className={cn(
+            "flex w-full cursor-pointer items-center justify-center gap-1 rounded-xl border border-dashed border-border/60 font-semibold text-muted-foreground hover:bg-muted/60",
+            inline ? "min-h-9 py-2 text-[10px] leading-tight" : "min-h-11 py-2.5 text-xs",
+          )}
         >
           <Plus className="size-3.5" />
           Legg til måltid
@@ -288,7 +343,7 @@ export function AddMealPlanButton({ planDate, categoryOptions, onAdded, compact 
                         aria-hidden
                       />
                       <span className="min-w-0 text-[11px] font-semibold leading-tight text-foreground">
-                        Ernæring (maks)
+                        Ernæring
                         {nutritionActive(effectiveNutrition) ? (
                           <span className="ml-1.5 inline-flex rounded-full bg-primary/12 px-1.5 py-px text-[9px] font-semibold text-primary">
                             aktiv
@@ -313,11 +368,25 @@ export function AddMealPlanButton({ planDate, categoryOptions, onAdded, compact 
                   </div>
                   {nutritionExpanded ? (
                     <div
-                      className="mt-1.5 max-h-[min(24vh,9.5rem)] space-y-1 overflow-y-auto overscroll-contain pr-0.5 pt-0.5"
+                      className="mt-1.5 max-h-[min(36vh,16rem)] space-y-1 overflow-y-auto overscroll-contain pr-0.5 pt-0.5"
                       onClick={(e) => e.stopPropagation()}
                     >
+                      <MinSliderRow
+                        label="Kalorier (min)"
+                        unit="kcal"
+                        lo={bounds.kcal.min}
+                        hi={bounds.kcal.max}
+                        step={kcalStep}
+                        minVal={effectiveNutrition.minKcal}
+                        minKey="minKcal"
+                        onSliderInput={onSliderInput}
+                        onSliderCommit={onSliderCommit}
+                        dense
+                        minimal
+                        showHint={false}
+                      />
                       <MaxSliderRow
-                        label="Kalorier"
+                        label="Kalorier (maks)"
                         unit="kcal"
                         lo={bounds.kcal.min}
                         hi={bounds.kcal.max}
@@ -330,8 +399,22 @@ export function AddMealPlanButton({ planDate, categoryOptions, onAdded, compact 
                         minimal
                         showHint={false}
                       />
+                      <MinSliderRow
+                        label="Protein (min)"
+                        unit="g"
+                        lo={bounds.protein.min}
+                        hi={bounds.protein.max}
+                        step={macroStep}
+                        minVal={effectiveNutrition.minProtein}
+                        minKey="minProtein"
+                        onSliderInput={onSliderInput}
+                        onSliderCommit={onSliderCommit}
+                        dense
+                        minimal
+                        showHint={false}
+                      />
                       <MaxSliderRow
-                        label="Protein"
+                        label="Protein (maks)"
                         unit="g"
                         lo={bounds.protein.min}
                         hi={bounds.protein.max}
@@ -344,8 +427,22 @@ export function AddMealPlanButton({ planDate, categoryOptions, onAdded, compact 
                         minimal
                         showHint={false}
                       />
+                      <MinSliderRow
+                        label="Karbohydrater (min)"
+                        unit="g"
+                        lo={bounds.karbs.min}
+                        hi={bounds.karbs.max}
+                        step={macroStep}
+                        minVal={effectiveNutrition.minKarbs}
+                        minKey="minKarbs"
+                        onSliderInput={onSliderInput}
+                        onSliderCommit={onSliderCommit}
+                        dense
+                        minimal
+                        showHint={false}
+                      />
                       <MaxSliderRow
-                        label="Karbohydrater"
+                        label="Karbohydrater (maks)"
                         unit="g"
                         lo={bounds.karbs.min}
                         hi={bounds.karbs.max}
@@ -358,8 +455,22 @@ export function AddMealPlanButton({ planDate, categoryOptions, onAdded, compact 
                         minimal
                         showHint={false}
                       />
+                      <MinSliderRow
+                        label="Fett (min)"
+                        unit="g"
+                        lo={bounds.fett.min}
+                        hi={bounds.fett.max}
+                        step={macroStep}
+                        minVal={effectiveNutrition.minFett}
+                        minKey="minFett"
+                        onSliderInput={onSliderInput}
+                        onSliderCommit={onSliderCommit}
+                        dense
+                        minimal
+                        showHint={false}
+                      />
                       <MaxSliderRow
-                        label="Fett"
+                        label="Fett (maks)"
                         unit="g"
                         lo={bounds.fett.min}
                         hi={bounds.fett.max}
@@ -403,7 +514,9 @@ export function AddMealPlanButton({ planDate, categoryOptions, onAdded, compact 
                 ) : null}
                 <ul className="space-y-2 pb-2">
                   {!loading &&
-                    filteredHits.map((h) => (
+                    filteredHits.map((h) => {
+                      const nutrition = recipeNutritionPerPortion(h);
+                      return (
                       <li key={h._id}>
                         <button
                           type="button"
@@ -433,15 +546,16 @@ export function AddMealPlanButton({ planDate, categoryOptions, onAdded, compact 
                           <div className="min-w-0 flex-1 py-0.5">
                             <span className="line-clamp-2 text-sm font-semibold leading-snug">{h.tittel}</span>
                             <RecipeNutritionLine
-                              totalKcal={h.totalKcal}
-                              totalMakros={h.totalMakros}
+                              totalKcal={nutrition.totalKcal}
+                              totalMakros={nutrition.totalMakros}
                               size="sm"
                               className="mt-1 !justify-start"
                             />
                           </div>
                         </button>
                       </li>
-                    ))}
+                    );
+                    })}
                 </ul>
               </div>
               <div className="shrink-0 border-t border-border/50 bg-background/95 p-2 pb-[max(0.5rem,env(safe-area-inset-bottom))] backdrop-blur-md md:rounded-b-2xl md:p-2.5">

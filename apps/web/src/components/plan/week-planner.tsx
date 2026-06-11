@@ -27,6 +27,7 @@ type Props = {
   entriesByDate: Map<string, MealPlanRow[]>;
   recipeMap: Map<string, SanityRecipe>;
   categoryOptions: MealPlanCategoryOption[];
+  mealStorageMaxDays: number | null;
   onReload: () => void;
   selectedWeekDayIndex: number;
   onWeekDayIndexChange: (index: number) => void;
@@ -41,11 +42,28 @@ function dayTotalsFor(
   );
 }
 
+function MealCountBadge({ count, emphasized }: { count: number; emphasized?: boolean }) {
+  return (
+    <span
+      className={cn(
+        "inline-flex size-5 shrink-0 items-center justify-center rounded-full text-[10px] font-bold tabular-nums leading-none",
+        emphasized
+          ? "bg-secondary text-secondary-foreground shadow-sm"
+          : "bg-secondary/75 text-secondary-foreground",
+      )}
+      aria-label={`${count} måltid`}
+    >
+      {count}
+    </span>
+  );
+}
+
 export function WeekPlanner({
   weekDays,
   entriesByDate,
   recipeMap,
   categoryOptions,
+  mealStorageMaxDays,
   onReload,
   selectedWeekDayIndex,
   onWeekDayIndexChange,
@@ -111,12 +129,14 @@ export function WeekPlanner({
                 <span className="block text-[10px] font-semibold uppercase tracking-wide text-muted-foreground">
                   {WEEKDAY_SHORT[planWeekdayMon0(d)]}
                 </span>
-                <span className="flex items-baseline justify-between gap-2">
-                  <span className="text-base font-bold tabular-nums leading-none">{planDayAndMonth1(d).day}</span>
-                  {n > 0 ? (
-                    <span className="text-[10px] font-semibold tabular-nums text-muted-foreground">{n}</span>
-                  ) : null}
+                <span className="mt-0.5 block text-base font-bold tabular-nums leading-none">
+                  {planDayAndMonth1(d).day}
                 </span>
+                {n > 0 ? (
+                  <span className="mt-1 flex">
+                    <MealCountBadge count={n} emphasized={active} />
+                  </span>
+                ) : null}
               </button>
             );
           })}
@@ -178,20 +198,28 @@ export function WeekPlanner({
             {!selectedHasMeals ? (
               <p className="py-4 text-center text-sm text-muted-foreground">Ingen måltid denne dagen.</p>
             ) : (
-              selectedDayEntries.map((e, i) => (
-                <MealEntryCard
-                  key={e.id}
-                  entry={e}
-                  mealDisplayIndex={i + 1}
-                  recipe={recipeMap.get(e.recipe_sanity_id)}
-                  onRemove={() => removeMealPlanEntryAction(e.id).then(() => onReload())}
-                  onCopied={onReload}
-                  compactThumb
-                />
-              ))
+              <div className="flex flex-col gap-4">
+                {selectedDayEntries.map((e, i) => (
+                  <MealEntryCard
+                    key={e.id}
+                    entry={e}
+                    mealDisplayIndex={i + 1}
+                    recipe={recipeMap.get(e.recipe_sanity_id)}
+                    mealStorageMaxDays={mealStorageMaxDays}
+                    onRemove={() => void removeMealPlanEntryAction(e.id).then(() => onReload())}
+                    onCopied={onReload}
+                    compactThumb
+                  />
+                ))}
+              </div>
             )}
           </div>
-          <AddMealPlanButton planDate={selectedYmd} categoryOptions={categoryOptions} onAdded={onReload} />
+          <AddMealPlanButton
+            planDate={selectedYmd}
+            categoryOptions={categoryOptions}
+            mealStorageMaxDays={mealStorageMaxDays}
+            onAdded={onReload}
+          />
         </div>
       </div>
       <MealDayCopySheet
@@ -199,6 +227,7 @@ export function WeekPlanner({
         onOpenChange={setCopyDayOpen}
         sourcePlanDate={selectedYmd}
         mealCount={selectedDayEntries.length}
+        mealStorageMaxDays={mealStorageMaxDays}
         onCopied={onReload}
       />
 
@@ -219,17 +248,20 @@ export function WeekPlanner({
                   )}
                 >
                   <div className="flex items-center justify-between gap-2">
-                    <p className="text-xs font-semibold text-muted-foreground">
+                    <p className="text-xs font-semibold tabular-nums text-muted-foreground">
                       {WEEKDAY_SHORT[planWeekdayMon0(d)]} {planDayAndMonth1(d).day}.{planDayAndMonth1(d).month1}
                     </p>
-                    {hasDayMeals ? (
-                      <span className="text-[10px] font-medium tabular-nums text-muted-foreground">
-                        {dayEntries.length}
-                      </span>
-                    ) : (
-                      <span className="text-[10px] text-muted-foreground/80">—</span>
-                    )}
+                    {hasDayMeals ? <MealCountBadge count={dayEntries.length} /> : null}
                   </div>
+                  {!hasDayMeals ? (
+                    <AddMealPlanButton
+                      planDate={ymd}
+                      categoryOptions={categoryOptions}
+                      mealStorageMaxDays={mealStorageMaxDays}
+                      onAdded={onReload}
+                      inline
+                    />
+                  ) : null}
                 </div>
 
                 {hasDayMeals ? (
@@ -263,24 +295,30 @@ export function WeekPlanner({
                 ) : null}
               </div>
 
-              <div className="mt-4 flex flex-1 flex-col gap-3 overflow-y-auto">
-                {dayEntries.length === 0 ? (
-                  <p className="py-2 text-center text-[11px] text-muted-foreground">Tomt</p>
-                ) : (
-                  dayEntries.map((e, i) => (
-                    <MealEntryCard
-                      key={e.id}
-                      entry={e}
-                      mealDisplayIndex={i + 1}
-                      recipe={recipeMap.get(e.recipe_sanity_id)}
-                      onRemove={() => removeMealPlanEntryAction(e.id).then(() => onReload())}
-                      onCopied={onReload}
-                      compactThumb
-                    />
-                  ))
-                )}
-              </div>
-              <AddMealPlanButton planDate={ymd} categoryOptions={categoryOptions} onAdded={onReload} />
+              {hasDayMeals ? (
+                <>
+                  <div className="mt-4 flex flex-1 flex-col gap-3">
+                    {dayEntries.map((e, i) => (
+                      <MealEntryCard
+                        key={e.id}
+                        entry={e}
+                        mealDisplayIndex={i + 1}
+                        recipe={recipeMap.get(e.recipe_sanity_id)}
+                        mealStorageMaxDays={mealStorageMaxDays}
+                        onRemove={() => void removeMealPlanEntryAction(e.id).then(() => onReload())}
+                        onCopied={onReload}
+                        compactThumb
+                      />
+                    ))}
+                  </div>
+                  <AddMealPlanButton
+                    planDate={ymd}
+                    categoryOptions={categoryOptions}
+                    mealStorageMaxDays={mealStorageMaxDays}
+                    onAdded={onReload}
+                  />
+                </>
+              ) : null}
             </div>
           );
         })}

@@ -9,10 +9,10 @@ import type {
   RecipeFilterBounds,
   RecipeFilterOptions,
   RecipeFilterState,
+  RecipeNutritionFilterKey,
 } from "@/lib/recipes/recipe-filters";
 
-/** Kun maks-glidebrytere (én per næringsstoff). */
-export type RecipeSliderKey = "maxKcal" | "maxProtein" | "maxKarbs" | "maxFett";
+export type RecipeSliderKey = RecipeNutritionFilterKey;
 
 type FilterTabId = "category" | "prefs" | "nutrition";
 
@@ -49,14 +49,124 @@ function tabHasActivity(id: FilterTabId, committed: RecipeFilterState): boolean 
       return committed.diets.length > 0 || committed.excludeAllergens.length > 0;
     case "nutrition":
       return (
+        committed.minKcal !== null ||
         committed.maxKcal !== null ||
+        committed.minProtein !== null ||
         committed.maxProtein !== null ||
+        committed.minKarbs !== null ||
         committed.maxKarbs !== null ||
+        committed.minFett !== null ||
         committed.maxFett !== null
       );
     default:
       return false;
   }
+}
+
+export function MinSliderRow({
+  label,
+  unit,
+  lo,
+  hi,
+  step,
+  minVal,
+  minKey,
+  onSliderInput,
+  onSliderCommit,
+  dense = false,
+  showHint = true,
+  minimal = false,
+}: {
+  label: string;
+  unit: string;
+  lo: number;
+  hi: number;
+  step: number;
+  minVal: number | null;
+  minKey: RecipeSliderKey;
+  onSliderInput: (key: RecipeSliderKey, value: number) => void;
+  onSliderCommit: (key: RecipeSliderKey, raw: number) => void;
+  dense?: boolean;
+  showHint?: boolean;
+  minimal?: boolean;
+}) {
+  const shown = minVal === null ? lo : Math.max(minVal, lo);
+  const rangeClass = cn(
+    "w-full min-w-0 cursor-pointer appearance-none rounded-full bg-muted accent-primary",
+    "[&::-webkit-slider-thumb]:shrink-0 [&::-webkit-slider-thumb]:cursor-grab [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:border-background [&::-webkit-slider-thumb]:bg-primary [&::-webkit-slider-thumb]:shadow-sm active:[&::-webkit-slider-thumb]:cursor-grabbing",
+    minimal
+      ? "h-1.5 [&::-webkit-slider-thumb]:size-3 [&::-webkit-slider-thumb]:border-2"
+      : "h-2 [&::-webkit-slider-thumb]:size-4 [&::-webkit-slider-thumb]:border-2",
+  );
+
+  const finish = (el: HTMLInputElement) => {
+    onSliderCommit(minKey, Number(el.value));
+  };
+
+  const decimals = step < 1 ? 1 : 0;
+  const hint =
+    "Dra mot høyre for å sette min. Helt til venstre = ingen nedre grense.";
+  const ariaHint = minVal === null ? "ingen nedre grense" : `min ${formatNum(minVal, decimals)} ${unit}`;
+
+  return (
+    <div
+      className={cn(
+        minimal ? "min-w-0 space-y-1" : dense ? "min-w-0 space-y-1.5" : "space-y-2",
+      )}
+    >
+      <div className="flex min-w-0 items-baseline justify-between gap-1.5">
+        <p
+          className={cn(
+            "min-w-0 font-medium text-foreground",
+            minimal ? "truncate text-[11px] leading-tight" : dense ? "truncate text-xs" : "text-sm",
+          )}
+        >
+          {label}
+        </p>
+        <div className="shrink-0 text-right leading-none">
+          <span
+            className={cn(
+              "text-muted-foreground",
+              minimal ? "text-[9px]" : dense ? "text-[10px]" : "text-[11px]",
+            )}
+          >
+            Min{" "}
+          </span>
+          <span
+            className={cn(
+              "tabular-nums font-semibold text-foreground",
+              minimal ? "text-[10px]" : dense ? "text-xs" : "text-sm",
+            )}
+          >
+            {minVal === null ? (
+              <span className="font-normal text-muted-foreground">–</span>
+            ) : (
+              <>
+                {formatNum(minVal, decimals)} {unit}
+              </>
+            )}
+          </span>
+        </div>
+      </div>
+      <input
+        type="range"
+        min={lo}
+        max={hi}
+        step={step}
+        value={shown}
+        aria-label={`Min ${label}. ${ariaHint}. ${hint}`}
+        title={hint}
+        onInput={(e) => onSliderInput(minKey, Number(e.currentTarget.value))}
+        onPointerUp={(e) => finish(e.currentTarget)}
+        onPointerCancel={(e) => finish(e.currentTarget)}
+        onBlur={(e) => finish(e.currentTarget)}
+        className={cn(rangeClass, "touch-none")}
+      />
+      {showHint ? (
+        <p className="text-[11px] leading-snug text-muted-foreground">{hint}</p>
+      ) : null}
+    </div>
+  );
 }
 
 export function MaxSliderRow({
@@ -410,14 +520,25 @@ export function RecipeFilterPanel({
             aria-labelledby="filter-tab-nutrition"
             className="animate-in fade-in duration-150 space-y-6"
           >
-            <div className="space-y-2">
+            <div className="space-y-3">
               <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
                 Kalorier
               </p>
+              <MinSliderRow
+                label="Totalt (oppskrift)"
+                unit="kcal"
+                lo={bounds.kcal.min}
+                hi={bounds.kcal.max}
+                step={kcalStep}
+                minVal={displayFilters.minKcal}
+                minKey="minKcal"
+                onSliderInput={onSliderInput}
+                onSliderCommit={onSliderCommit}
+              />
               <MaxSliderRow
                 label="Totalt (oppskrift)"
                 unit="kcal"
-                lo={0}
+                lo={bounds.kcal.min}
                 hi={bounds.kcal.max}
                 step={kcalStep}
                 maxVal={displayFilters.maxKcal}
@@ -432,49 +553,94 @@ export function RecipeFilterPanel({
                   Makro (totalt)
                 </p>
                 <p className="max-w-full text-[11px] leading-snug text-muted-foreground">
-                  Høyre = ingen tak · venstre = maks
+                  Min: venstre = ingen · Maks: høyre = ingen
                 </p>
               </div>
               <div className="grid min-w-0 grid-cols-3 gap-3">
-                <MaxSliderRow
-                  label="Protein"
-                  unit="g"
-                  lo={0}
-                  hi={bounds.protein.max}
-                  step={macroStep}
-                  maxVal={displayFilters.maxProtein}
-                  maxKey="maxProtein"
-                  dense
-                  showHint={false}
-                  onSliderInput={onSliderInput}
-                  onSliderCommit={onSliderCommit}
-                />
-                <MaxSliderRow
-                  label="Karbo"
-                  unit="g"
-                  lo={0}
-                  hi={bounds.karbs.max}
-                  step={macroStep}
-                  maxVal={displayFilters.maxKarbs}
-                  maxKey="maxKarbs"
-                  dense
-                  showHint={false}
-                  onSliderInput={onSliderInput}
-                  onSliderCommit={onSliderCommit}
-                />
-                <MaxSliderRow
-                  label="Fett"
-                  unit="g"
-                  lo={0}
-                  hi={bounds.fett.max}
-                  step={macroStep}
-                  maxVal={displayFilters.maxFett}
-                  maxKey="maxFett"
-                  dense
-                  showHint={false}
-                  onSliderInput={onSliderInput}
-                  onSliderCommit={onSliderCommit}
-                />
+                <div className="min-w-0 space-y-2">
+                  <MinSliderRow
+                    label="Protein"
+                    unit="g"
+                    lo={bounds.protein.min}
+                    hi={bounds.protein.max}
+                    step={macroStep}
+                    minVal={displayFilters.minProtein}
+                    minKey="minProtein"
+                    dense
+                    showHint={false}
+                    onSliderInput={onSliderInput}
+                    onSliderCommit={onSliderCommit}
+                  />
+                  <MaxSliderRow
+                    label="Protein"
+                    unit="g"
+                    lo={bounds.protein.min}
+                    hi={bounds.protein.max}
+                    step={macroStep}
+                    maxVal={displayFilters.maxProtein}
+                    maxKey="maxProtein"
+                    dense
+                    showHint={false}
+                    onSliderInput={onSliderInput}
+                    onSliderCommit={onSliderCommit}
+                  />
+                </div>
+                <div className="min-w-0 space-y-2">
+                  <MinSliderRow
+                    label="Karbo"
+                    unit="g"
+                    lo={bounds.karbs.min}
+                    hi={bounds.karbs.max}
+                    step={macroStep}
+                    minVal={displayFilters.minKarbs}
+                    minKey="minKarbs"
+                    dense
+                    showHint={false}
+                    onSliderInput={onSliderInput}
+                    onSliderCommit={onSliderCommit}
+                  />
+                  <MaxSliderRow
+                    label="Karbo"
+                    unit="g"
+                    lo={bounds.karbs.min}
+                    hi={bounds.karbs.max}
+                    step={macroStep}
+                    maxVal={displayFilters.maxKarbs}
+                    maxKey="maxKarbs"
+                    dense
+                    showHint={false}
+                    onSliderInput={onSliderInput}
+                    onSliderCommit={onSliderCommit}
+                  />
+                </div>
+                <div className="min-w-0 space-y-2">
+                  <MinSliderRow
+                    label="Fett"
+                    unit="g"
+                    lo={bounds.fett.min}
+                    hi={bounds.fett.max}
+                    step={macroStep}
+                    minVal={displayFilters.minFett}
+                    minKey="minFett"
+                    dense
+                    showHint={false}
+                    onSliderInput={onSliderInput}
+                    onSliderCommit={onSliderCommit}
+                  />
+                  <MaxSliderRow
+                    label="Fett"
+                    unit="g"
+                    lo={bounds.fett.min}
+                    hi={bounds.fett.max}
+                    step={macroStep}
+                    maxVal={displayFilters.maxFett}
+                    maxKey="maxFett"
+                    dense
+                    showHint={false}
+                    onSliderInput={onSliderInput}
+                    onSliderCommit={onSliderCommit}
+                  />
+                </div>
               </div>
             </div>
           </div>

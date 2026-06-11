@@ -33,7 +33,11 @@ export function AuthCallbackClient() {
         return;
       }
 
-      await fetch("/api/ensure-profile", { method: "POST" });
+      try {
+        await fetch("/api/ensure-profile", { method: "POST" });
+      } catch {
+        // Best effort: brukeren er innlogget; profil kan synkes senere.
+      }
 
       const dest = new URL(next, window.location.origin);
       dest.searchParams.set("onboarding", "1");

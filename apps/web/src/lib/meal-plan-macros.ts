@@ -30,16 +30,43 @@ export function macroKcalFromGrams(totals: Pick<MacroTotals, "protein" | "karbs"
   return { protein, karbs, fett, sum };
 }
 
-export function sumMacrosFromRecipes(
-  recipes: Pick<SanityRecipe, "totalKcal" | "totalMakros">[],
-): MacroTotals {
+type RecipeNutrition = Pick<SanityRecipe, "totalKcal" | "totalMakros" | "porsjoner">;
+
+function scaleNutritionValue(value: number | undefined, divisor: number): number | undefined {
+  if (typeof value !== "number" || !Number.isFinite(value)) return undefined;
+  return value / divisor;
+}
+
+/** Én planlagt porsjon – deler totaler på antall porsjoner i oppskriften. */
+export function recipeNutritionPerPortion(recipe: RecipeNutrition): {
+  totalKcal?: number;
+  totalMakros?: SanityRecipe["totalMakros"];
+} {
+  const portions = recipe.porsjoner;
+  const divisor =
+    typeof portions === "number" && Number.isFinite(portions) && portions > 1 ? portions : 1;
+  const m = recipe.totalMakros;
+  return {
+    totalKcal: scaleNutritionValue(recipe.totalKcal, divisor),
+    totalMakros: m
+      ? {
+          protein: scaleNutritionValue(m.protein, divisor),
+          karbs: scaleNutritionValue(m.karbs, divisor),
+          fett: scaleNutritionValue(m.fett, divisor),
+        }
+      : undefined,
+  };
+}
+
+export function sumMacrosFromRecipes(recipes: RecipeNutrition[]): MacroTotals {
   const t = emptyMacroTotals();
   for (const r of recipes) {
     t.count += 1;
-    if (typeof r.totalKcal === "number" && Number.isFinite(r.totalKcal)) {
-      t.kcal += r.totalKcal;
+    const scaled = recipeNutritionPerPortion(r);
+    if (typeof scaled.totalKcal === "number" && Number.isFinite(scaled.totalKcal)) {
+      t.kcal += scaled.totalKcal;
     }
-    const m = r.totalMakros;
+    const m = scaled.totalMakros;
     if (typeof m?.protein === "number" && Number.isFinite(m.protein)) t.protein += m.protein;
     if (typeof m?.karbs === "number" && Number.isFinite(m.karbs)) t.karbs += m.karbs;
     if (typeof m?.fett === "number" && Number.isFinite(m.fett)) t.fett += m.fett;

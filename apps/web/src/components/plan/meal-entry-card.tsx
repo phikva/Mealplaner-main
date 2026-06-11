@@ -7,6 +7,7 @@ import type { MealPlanRow } from "@/app/actions/meal-plan";
 import { MealEntryCopySheet } from "@/components/plan/meal-entry-copy-sheet";
 import { planInsetCard } from "@/components/plan/plan-tokens";
 import { RecipeNutritionLine } from "@/components/plan/plan-nutrition";
+import { recipeNutritionPerPortion } from "@/lib/meal-plan-macros";
 import { recipeThumbUrl } from "@/lib/sanity/recipe-thumb";
 import { cn } from "@/lib/utils";
 import type { SanityRecipe } from "@/types/page";
@@ -16,6 +17,7 @@ type Props = {
   /** Visningsnr. for dagen (1, 2, 3 …) etter sortert rekkefølge – ikke rå `sort_order` fra DB. */
   mealDisplayIndex: number;
   recipe?: SanityRecipe;
+  mealStorageMaxDays: number | null;
   onRemove: () => void;
   onCopied: () => void;
   compactThumb?: boolean;
@@ -27,6 +29,7 @@ export function MealEntryCard({
   entry,
   mealDisplayIndex,
   recipe,
+  mealStorageMaxDays,
   onRemove,
   onCopied,
   compactThumb,
@@ -37,6 +40,7 @@ export function MealEntryCard({
   const mealNumber = mealDisplayIndex;
   const mealLabel = `Måltid ${mealNumber}`;
   const thumbSrc = recipe ? recipeThumbUrl(recipe.image) : null;
+  const nutrition = recipe ? recipeNutritionPerPortion(recipe) : null;
 
   const openCopy = () => setCopyOpen(true);
   const isDayList = Boolean(compactThumb && dayListLayout);
@@ -69,8 +73,8 @@ export function MealEntryCard({
         </>
       ) : null}
       <RecipeNutritionLine
-        totalKcal={recipe?.totalKcal}
-        totalMakros={recipe?.totalMakros}
+        totalKcal={nutrition?.totalKcal}
+        totalMakros={nutrition?.totalMakros}
         size={isDayList ? "sm" : compactThumb ? "xs" : "md"}
         className={cn("!justify-start", compactThumb && !isDayList ? "mt-0" : "mt-1")}
       />
@@ -192,6 +196,7 @@ export function MealEntryCard({
           onOpenChange={setCopyOpen}
           entry={entry}
           recipe={recipe}
+          mealStorageMaxDays={mealStorageMaxDays}
           onCopied={onCopied}
         />
       </>
@@ -201,7 +206,11 @@ export function MealEntryCard({
   return (
     <>
       <div
-        className={cn("flex flex-row items-stretch gap-2 rounded-xl text-left md:gap-1.5 md:py-1.5", planInsetCard, "p-2")}
+        className={cn(
+          "flex flex-row items-stretch gap-2 rounded-xl text-left md:gap-1.5 md:py-1.5",
+          planInsetCard,
+          "p-2",
+        )}
       >
         <button
           type="button"
@@ -229,6 +238,7 @@ export function MealEntryCard({
         onOpenChange={setCopyOpen}
         entry={entry}
         recipe={recipe}
+        mealStorageMaxDays={mealStorageMaxDays}
         onCopied={onCopied}
       />
     </>

@@ -1,9 +1,12 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { isPlanDateWithinStorageLimit } from "@/components/plan/meal-plan-dates";
 import { MEAL_PLANNER_ROUTE } from "@/lib/app-routes";
-import { createClient } from "@/lib/supabase/server";
 import { getRecipesByIds } from "@/lib/sanity/recipes";
+import { getTiers } from "@/lib/sanity/tiers";
+import { createClient } from "@/lib/supabase/server";
+import { getMealStorageRules, resolveTierForProfile } from "@/lib/tier-access";
 import type { SanityRecipe } from "@/types/page";
 
 export type MealPlanRow = {
@@ -52,15 +55,35 @@ export async function getMealPlanWithRecipesAction(
   return { ok: true, entries: bundle.entries, recipes };
 }
 
+async function getMealStorageMaxDaysForUser(
+  supabase: Awaited<ReturnType<typeof createClient>>,
+  userId: string,
+): Promise<number | null> {
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select("tier_sanity_id,tier_slug")
+    .eq("id", userId)
+    .maybeSingle();
+
+  const tiers = await getTiers();
+  const tier = resolveTierForProfile(tiers, profile?.tier_sanity_id, profile?.tier_slug);
+  return getMealStorageRules(tier).maxDays;
+}
+
 export async function addMealPlanEntryAction(input: {
   planDate: string;
   recipeSanityId: string;
-}): Promise<{ ok: true } | { ok: false; error: "not_authenticated" | "unknown" }> {
+}): Promise<{ ok: true } | { ok: false; error: "not_authenticated" | "date_out_of_range" | "unknown" }> {
   const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
   if (!user) return { ok: false, error: "not_authenticated" };
+
+  const maxDays = await getMealStorageMaxDaysForUser(supabase, user.id);
+  if (!isPlanDateWithinStorageLimit(input.planDate, maxDays)) {
+    return { ok: false, error: "date_out_of_range" };
+  }
 
   const { data: maxRow } = await supabase
     .from("meal_plan_entries")
@@ -140,7 +163,8 @@ export async function copyMealPlanEntryToDatesAction(input: {
   sourceEntryId: string;
   targetDates: string[];
 }): Promise<
-  { ok: true; added: number; skipped: number } | { ok: false; error: "not_authenticated" | "not_found" | "unknown" }
+  | { ok: true; added: number; skipped: number; skippedOutOfRange: number }
+  | { ok: false; error: "not_authenticated" | "not_found" | "unknown" }
 > {
   const supabase = await createClient();
   const {
@@ -161,14 +185,21 @@ export async function copyMealPlanEntryToDatesAction(input: {
   const sourceSort = source.sort_order as number;
   const targets = normalizeTargetDates(sourceDate, input.targetDates);
   if (targets.length === 0) {
-    return { ok: true, added: 0, skipped: 0 };
+    return { ok: true, added: 0, skipped: 0, skippedOutOfRange: 0 };
+  }
+
+  const maxDays = await getMealStorageMaxDaysForUser(supabase, user.id);
+  const allowedTargets = targets.filter((d) => isPlanDateWithinStorageLimit(d, maxDays));
+  const skippedOutOfRange = targets.length - allowedTargets.length;
+  if (allowedTargets.length === 0) {
+    return { ok: true, added: 0, skipped: 0, skippedOutOfRange };
   }
 
   const { data: existing, error: exErr } = await supabase
     .from("meal_plan_entries")
     .select("plan_date,sort_order,recipe_sanity_id")
     .eq("user_id", user.id)
-    .in("plan_date", targets);
+    .in("plan_date", allowedTargets);
 
   if (exErr) return { ok: false, error: "unknown" };
 
@@ -183,7 +214,7 @@ export async function copyMealPlanEntryToDatesAction(input: {
   const recipeSanityId = source.recipe_sanity_id as string;
   const rows: { user_id: string; plan_date: string; sort_order: number; recipe_sanity_id: string }[] = [];
   let skipped = 0;
-  for (const plan_date of targets) {
+  for (const plan_date of allowedTargets) {
     const key = `${plan_date}#${sourceSort}`;
     const occ = occupied.get(key);
     if (occ) {
@@ -200,21 +231,22 @@ export async function copyMealPlanEntryToDatesAction(input: {
   }
 
   if (rows.length === 0) {
-    return { ok: true, added: 0, skipped };
+    return { ok: true, added: 0, skipped, skippedOutOfRange };
   }
 
   const { error } = await supabase.from("meal_plan_entries").insert(rows);
   if (error) return { ok: false, error: "unknown" };
 
   revalidatePath(MEAL_PLANNER_ROUTE.path);
-  return { ok: true, added: rows.length, skipped };
+  return { ok: true, added: rows.length, skipped, skippedOutOfRange };
 }
 
 export async function copyMealPlanDayToDatesAction(input: {
   sourcePlanDate: string;
   targetDates: string[];
 }): Promise<
-  { ok: true; added: number; skipped: number } | { ok: false; error: "not_authenticated" | "unknown" }
+  | { ok: true; added: number; skipped: number; skippedOutOfRange: number }
+  | { ok: false; error: "not_authenticated" | "unknown" }
 > {
   const supabase = await createClient();
   const {
@@ -223,10 +255,17 @@ export async function copyMealPlanDayToDatesAction(input: {
   if (!user) return { ok: false, error: "not_authenticated" };
 
   const sourceDate = input.sourcePlanDate;
-  if (!ymdRe.test(sourceDate)) return { ok: true, added: 0, skipped: 0 };
+  if (!ymdRe.test(sourceDate)) return { ok: true, added: 0, skipped: 0, skippedOutOfRange: 0 };
 
   const targets = normalizeTargetDates(sourceDate, input.targetDates);
-  if (targets.length === 0) return { ok: true, added: 0, skipped: 0 };
+  if (targets.length === 0) return { ok: true, added: 0, skipped: 0, skippedOutOfRange: 0 };
+
+  const maxDays = await getMealStorageMaxDaysForUser(supabase, user.id);
+  const allowedTargets = targets.filter((d) => isPlanDateWithinStorageLimit(d, maxDays));
+  const skippedOutOfRange = targets.length - allowedTargets.length;
+  if (allowedTargets.length === 0) {
+    return { ok: true, added: 0, skipped: 0, skippedOutOfRange };
+  }
 
   const { data: sourceRows, error: srcErr } = await supabase
     .from("meal_plan_entries")
@@ -236,13 +275,15 @@ export async function copyMealPlanDayToDatesAction(input: {
     .order("sort_order", { ascending: true });
 
   if (srcErr) return { ok: false, error: "unknown" };
-  if (!sourceRows || sourceRows.length === 0) return { ok: true, added: 0, skipped: 0 };
+  if (!sourceRows || sourceRows.length === 0) {
+    return { ok: true, added: 0, skipped: 0, skippedOutOfRange };
+  }
 
   const { data: existing, error: exErr } = await supabase
     .from("meal_plan_entries")
     .select("plan_date,sort_order")
     .eq("user_id", user.id)
-    .in("plan_date", targets);
+    .in("plan_date", allowedTargets);
 
   if (exErr) return { ok: false, error: "unknown" };
 
@@ -253,7 +294,7 @@ export async function copyMealPlanDayToDatesAction(input: {
 
   const rows: { user_id: string; plan_date: string; sort_order: number; recipe_sanity_id: string }[] = [];
   let skipped = 0;
-  for (const plan_date of targets) {
+  for (const plan_date of allowedTargets) {
     for (const s of sourceRows) {
       const so = s.sort_order as number;
       const key = `${plan_date}#${so}`;
@@ -271,11 +312,11 @@ export async function copyMealPlanDayToDatesAction(input: {
     }
   }
 
-  if (rows.length === 0) return { ok: true, added: 0, skipped };
+  if (rows.length === 0) return { ok: true, added: 0, skipped, skippedOutOfRange };
 
   const { error } = await supabase.from("meal_plan_entries").insert(rows);
   if (error) return { ok: false, error: "unknown" };
 
   revalidatePath(MEAL_PLANNER_ROUTE.path);
-  return { ok: true, added: rows.length, skipped };
+  return { ok: true, added: rows.length, skipped, skippedOutOfRange };
 }

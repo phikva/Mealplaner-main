@@ -1,5 +1,6 @@
 import { HeroBlockView } from "@/components/blocks/hero-block";
 import { RecipeGridBlockView } from "@/components/blocks/recipe-grid-block";
+import type { HeroViewerState } from "@/lib/tier-access";
 import type {
   PageContentBlock,
   SanityContentIndex,
@@ -7,6 +8,7 @@ import type {
 
 export type BlockRenderContext = {
   contentIndex: SanityContentIndex;
+  heroViewer?: HeroViewerState;
 };
 
 type BlockRenderer = (
@@ -16,11 +18,10 @@ type BlockRenderer = (
 
 export const blockRegistry: Record<string, BlockRenderer> = {
   heroBlock: (block, context) => {
-    void context
     if (!isHeroBlock(block)) {
       return null;
     }
-    return <HeroBlockView block={block} />;
+    return <HeroBlockView block={block} viewer={context.heroViewer} />;
   },
   recipeGridBlock: (block, context) => {
     if (!isRecipeGridBlock(block)) {

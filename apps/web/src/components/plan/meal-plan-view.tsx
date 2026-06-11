@@ -37,9 +37,17 @@ type Props = {
   initialEntries: MealPlanRow[];
   initialRecipes: SanityRecipe[];
   categoryOptions: MealPlanCategoryOption[];
+  /** Fra Sanity tier.mealStorage – null = uendelig (Premium). */
+  mealStorageMaxDays: number | null;
 };
 
-export function MealPlanView({ initialFrom, initialEntries, initialRecipes, categoryOptions }: Props) {
+export function MealPlanView({
+  initialFrom,
+  initialEntries,
+  initialRecipes,
+  categoryOptions,
+  mealStorageMaxDays,
+}: Props) {
   const [view, setView] = useState<ViewMode>("week");
   const [anchor, setAnchor] = useState(() => parseYmd(initialFrom));
   const [entries, setEntries] = useState<MealPlanRow[]>(initialEntries);
@@ -162,6 +170,7 @@ export function MealPlanView({ initialFrom, initialEntries, initialRecipes, cate
           entriesByDate={entriesByDate}
           recipeMap={recipeMap}
           categoryOptions={categoryOptions}
+          mealStorageMaxDays={mealStorageMaxDays}
           onReload={load}
           selectedWeekDayIndex={weekDayIndex}
           onWeekDayIndexChange={setWeekDayIndex}
@@ -175,6 +184,7 @@ export function MealPlanView({ initialFrom, initialEntries, initialRecipes, cate
           entriesByDate={entriesByDate}
           recipeMap={recipeMap}
           categoryOptions={categoryOptions}
+          mealStorageMaxDays={mealStorageMaxDays}
           onReload={load}
         />
       ) : null}
@@ -186,6 +196,7 @@ export function MealPlanView({ initialFrom, initialEntries, initialRecipes, cate
           dayEntriesSorted={dayEntriesSorted}
           recipeMap={recipeMap}
           categoryOptions={categoryOptions}
+          mealStorageMaxDays={mealStorageMaxDays}
           onReload={load}
         />
       ) : null}

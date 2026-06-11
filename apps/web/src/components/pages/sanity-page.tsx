@@ -1,13 +1,15 @@
 import { PageBlockRenderer } from "@/components/blocks/page-block-renderer";
 import { PersonalizedRecipeSection } from "@/components/home/personalized-recipe-section";
+import type { HeroViewerState } from "@/lib/tier-access";
 import type { SanityContentIndex, SanityPage } from "@/types/page";
 
 type Props = {
   page: SanityPage;
   contentIndex: SanityContentIndex;
+  heroViewer?: HeroViewerState;
 };
 
-export const SanityPageView = ({ page, contentIndex }: Props) => {
+export const SanityPageView = ({ page, contentIndex, heroViewer }: Props) => {
   const blocks = page.content ?? [];
   const first = blocks[0] ? [blocks[0]] : [];
   const rest = blocks.length > 1 ? blocks.slice(1) : [];
@@ -19,7 +21,7 @@ export const SanityPageView = ({ page, contentIndex }: Props) => {
       {first.length > 0 ? (
         <PageBlockRenderer
           blocks={first}
-          context={{ contentIndex }}
+          context={{ contentIndex, heroViewer }}
         />
       ) : null}
 

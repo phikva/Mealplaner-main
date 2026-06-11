@@ -5,7 +5,12 @@ import { useEffect, useState, useTransition } from "react";
 import { Copy } from "lucide-react";
 import { copyMealPlanDayToDatesAction } from "@/app/actions/meal-plan";
 import { notifyMealDayCopyResult } from "@/components/plan/plan-copy-feedback";
-import { nextNDaysAfter, remainingWeekDatesAfter } from "@/components/plan/meal-plan-dates";
+import {
+  isPlanDateWithinStorageLimit,
+  maxForwardCopyDaysFrom,
+  nextNDaysAfter,
+  remainingWeekDatesAfter,
+} from "@/components/plan/meal-plan-dates";
 import { cn } from "@/lib/utils";
 
 type Props = {
@@ -13,11 +18,22 @@ type Props = {
   onOpenChange: (open: boolean) => void;
   sourcePlanDate: string;
   mealCount: number;
+  mealStorageMaxDays: number | null;
   onCopied: () => void;
 };
 
-export function MealDayCopySheet({ open, onOpenChange, sourcePlanDate, mealCount, onCopied }: Props) {
-  const restOfWeek = remainingWeekDatesAfter(sourcePlanDate);
+export function MealDayCopySheet({
+  open,
+  onOpenChange,
+  sourcePlanDate,
+  mealCount,
+  mealStorageMaxDays,
+  onCopied,
+}: Props) {
+  const restOfWeek = remainingWeekDatesAfter(sourcePlanDate).filter((d) =>
+    isPlanDateWithinStorageLimit(d, mealStorageMaxDays),
+  );
+  const maxForward = maxForwardCopyDaysFrom(sourcePlanDate, mealStorageMaxDays);
   const [forwardDays, setForwardDays] = useState(3);
   const [error, setError] = useState<string | null>(null);
   const [pending, startTransition] = useTransition();
@@ -40,7 +56,7 @@ export function MealDayCopySheet({ open, onOpenChange, sourcePlanDate, mealCount
         setError(res.error === "not_authenticated" ? "Logg inn på nytt." : "Kunne ikke kopiere. Prøv igjen.");
         return;
       }
-      notifyMealDayCopyResult(res.added, res.skipped);
+      notifyMealDayCopyResult(res.added, res.skipped, res.skippedOutOfRange);
       onOpenChange(false);
       onCopied();
     });
@@ -110,23 +126,29 @@ export function MealDayCopySheet({ open, onOpenChange, sourcePlanDate, mealCount
                   id="copy-day-forward-days"
                   type="number"
                   min={1}
-                  max={30}
+                  max={Math.max(1, maxForward)}
                   value={forwardDays}
                   onChange={(e) => setForwardDays(Number(e.target.value) || 1)}
+                  disabled={maxForward < 1}
                   className="h-11 w-20 rounded-xl border border-border/60 bg-background px-3 text-center text-base font-semibold tabular-nums shadow-sm md:text-sm"
                 />
                 <button
                   type="button"
-                  disabled={pending}
+                  disabled={pending || maxForward < 1}
                   onClick={() =>
-                    runCopy(nextNDaysAfter(sourcePlanDate, Math.min(30, Math.max(1, Math.floor(forwardDays)))))
+                    runCopy(
+                      nextNDaysAfter(
+                        sourcePlanDate,
+                        Math.min(maxForward, Math.max(1, Math.floor(forwardDays))),
+                      ),
+                    )
                   }
                   className={cn(
                     "min-h-11 flex-1 cursor-pointer rounded-xl border border-border/60 bg-secondary px-3 text-sm font-semibold text-secondary-foreground transition",
                     "hover:bg-secondary/90 disabled:cursor-not-allowed disabled:opacity-50",
                   )}
                 >
-                  Kopier {Math.min(30, Math.max(1, Math.floor(forwardDays)))} dager
+                  Kopier {Math.min(maxForward, Math.max(1, Math.floor(forwardDays)))} dager
                 </button>
               </div>
             </div>

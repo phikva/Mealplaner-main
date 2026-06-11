@@ -172,3 +172,42 @@ export function nextNDaysAfter(sourceYmd: string, n: number): string[] {
   }
   return out;
 }
+
+/** Kalenderdager fra `fromYmd` til `toYmd` (0 = samme dag). */
+export function daysBetweenYmd(fromYmd: string, toYmd: string): number {
+  const from = parseYmd(fromYmd);
+  const to = parseYmd(toYmd);
+  if (Number.isNaN(from.getTime()) || Number.isNaN(to.getTime())) return Number.NaN;
+  return Math.round((to.getTime() - from.getTime()) / (24 * 60 * 60 * 1000));
+}
+
+/** Sjekker om plan_date er innenfor abonnementets planleggingsvindu (fra i dag). */
+export function isPlanDateWithinStorageLimit(
+  planDate: string,
+  maxDays: number | null,
+  todayYmd: string = localYmd(new Date()),
+): boolean {
+  if (maxDays == null) return true;
+  const diff = daysBetweenYmd(todayYmd, planDate);
+  if (Number.isNaN(diff)) return false;
+  if (diff < 0) return true;
+  return diff < maxDays;
+}
+
+/** Maks antall påfølgende dager (etter sourceYmd) som fortsatt er innenfor abonnementsvinduet. */
+export function maxForwardCopyDaysFrom(
+  sourceYmd: string,
+  maxDays: number | null,
+  todayYmd: string = localYmd(new Date()),
+): number {
+  if (maxDays == null) return 30;
+  let allowed = 0;
+  const source = parseYmd(sourceYmd);
+  if (Number.isNaN(source.getTime())) return 0;
+  for (let i = 1; i <= 30; i++) {
+    const ymd = localYmd(addDays(source, i));
+    if (!isPlanDateWithinStorageLimit(ymd, maxDays, todayYmd)) break;
+    allowed = i;
+  }
+  return allowed;
+}

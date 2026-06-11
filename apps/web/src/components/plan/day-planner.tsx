@@ -26,10 +26,19 @@ type Props = {
   dayEntriesSorted: MealPlanRow[];
   recipeMap: Map<string, SanityRecipe>;
   categoryOptions: MealPlanCategoryOption[];
+  mealStorageMaxDays: number | null;
   onReload: () => void;
 };
 
-export function DayPlanner({ anchor, dayYmd, dayEntriesSorted, recipeMap, categoryOptions, onReload }: Props) {
+export function DayPlanner({
+  anchor,
+  dayYmd,
+  dayEntriesSorted,
+  recipeMap,
+  categoryOptions,
+  mealStorageMaxDays,
+  onReload,
+}: Props) {
   const [copyDayOpen, setCopyDayOpen] = useState(false);
   const dayTotals = sumMacrosFromRecipes(
     dayEntriesSorted.map((e) => recipeMap.get(e.recipe_sanity_id)).filter((r): r is SanityRecipe => Boolean(r)),
@@ -109,7 +118,8 @@ export function DayPlanner({ anchor, dayYmd, dayEntriesSorted, recipeMap, catego
               entry={e}
               mealDisplayIndex={i + 1}
               recipe={recipeMap.get(e.recipe_sanity_id)}
-              onRemove={() => removeMealPlanEntryAction(e.id).then(() => onReload())}
+              mealStorageMaxDays={mealStorageMaxDays}
+              onRemove={() => void removeMealPlanEntryAction(e.id).then(() => onReload())}
               onCopied={onReload}
               compactThumb
               dayListLayout
@@ -118,11 +128,17 @@ export function DayPlanner({ anchor, dayYmd, dayEntriesSorted, recipeMap, catego
         )}
       </div>
 
-      <AddMealPlanButton planDate={dayYmd} categoryOptions={categoryOptions} onAdded={onReload} />
+      <AddMealPlanButton
+        planDate={dayYmd}
+        categoryOptions={categoryOptions}
+        mealStorageMaxDays={mealStorageMaxDays}
+        onAdded={onReload}
+      />
       <MealDayCopySheet
         open={copyDayOpen}
         onOpenChange={setCopyDayOpen}
         sourcePlanDate={dayYmd}
+        mealStorageMaxDays={mealStorageMaxDays}
         mealCount={dayEntriesSorted.length}
         onCopied={onReload}
       />

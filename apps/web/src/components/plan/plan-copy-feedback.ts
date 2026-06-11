@@ -3,14 +3,20 @@
 import { toast } from "sonner";
 
 /** Én oppskrift kopiert til flere dager – `added` = antall nye rader (dager). */
-export function notifyMealEntryCopyResult(added: number, skipped: number) {
-  if (added === 0 && skipped === 0) {
+export function notifyMealEntryCopyResult(added: number, skipped: number, skippedOutOfRange = 0) {
+  if (added === 0 && skipped === 0 && skippedOutOfRange === 0) {
     toast.info("Ingen datoer å kopiere til.");
+    return;
+  }
+  if (added === 0 && skippedOutOfRange > 0 && skipped === 0) {
+    toast.info("Valgte datoer er utenfor det abonnementet ditt tillater.");
     return;
   }
   if (added === 0 && skipped > 0) {
     toast.info(
-      "Ingen nye måltid ble lagt til – de er allerede planlagt i de valgte dagene (samme spor).",
+      skippedOutOfRange > 0
+        ? "Ingen nye måltid ble lagt til – noen datoer er utenfor abonnementet eller allerede planlagt."
+        : "Ingen nye måltid ble lagt til – de er allerede planlagt i de valgte dagene (samme spor).",
     );
     return;
   }
@@ -22,19 +28,28 @@ export function notifyMealEntryCopyResult(added: number, skipped: number) {
     );
     return;
   }
-  toast.message(
-    `La til måltid på ${added} dag(er), hoppet over ${skipped} (allerede planlagt).`,
-  );
+  const parts = [`La til måltid på ${added} dag(er)`];
+  if (skipped > 0) parts.push(`hoppet over ${skipped} (allerede planlagt)`);
+  if (skippedOutOfRange > 0) parts.push(`${skippedOutOfRange} utenfor abonnementet`);
+  toast.message(parts.join(", ") + ".");
 }
 
 /** Hele dag kopiert – `added` = antall nye måltidsrader totalt. */
-export function notifyMealDayCopyResult(added: number, skipped: number) {
-  if (added === 0 && skipped === 0) {
+export function notifyMealDayCopyResult(added: number, skipped: number, skippedOutOfRange = 0) {
+  if (added === 0 && skipped === 0 && skippedOutOfRange === 0) {
     toast.info("Ingen datoer å kopiere til.");
     return;
   }
+  if (added === 0 && skippedOutOfRange > 0 && skipped === 0) {
+    toast.info("Valgte datoer er utenfor det abonnementet ditt tillater.");
+    return;
+  }
   if (added === 0 && skipped > 0) {
-    toast.info("Ingen nye måltid ble lagt til – måltidene finnes allerede på de valgte dagene.");
+    toast.info(
+      skippedOutOfRange > 0
+        ? "Ingen nye måltid ble lagt til – noen datoer er utenfor abonnementet eller allerede planlagt."
+        : "Ingen nye måltid ble lagt til – måltidene finnes allerede på de valgte dagene.",
+    );
     return;
   }
   if (skipped === 0) {
@@ -45,7 +60,8 @@ export function notifyMealDayCopyResult(added: number, skipped: number) {
     );
     return;
   }
-  toast.message(
-    `La til ${added} måltider i planen, hoppet over ${skipped} (allerede planlagt).`,
-  );
+  const parts = [`La til ${added} måltider i planen`];
+  if (skipped > 0) parts.push(`hoppet over ${skipped} (allerede planlagt)`);
+  if (skippedOutOfRange > 0) parts.push(`${skippedOutOfRange} dag(er) utenfor abonnementet`);
+  toast.message(parts.join(", ") + ".");
 }
