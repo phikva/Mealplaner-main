@@ -10,9 +10,16 @@ type Props = {
     allergies?: string[] | null;
     kitchen_category_ids?: string[] | null;
   } | null;
+  initialSignedIn?: boolean;
+  initialEmail?: string | null;
 };
 
-export const SiteHeader = ({ settings, initialProfile = null }: Props) => {
+export const SiteHeader = ({
+  settings,
+  initialProfile = null,
+  initialSignedIn = false,
+  initialEmail = null,
+}: Props) => {
   const navigation = settings?.header?.navigation ?? [];
   const siteName = settings?.siteName;
 
@@ -24,7 +31,12 @@ export const SiteHeader = ({ settings, initialProfile = null }: Props) => {
             {siteName}
           </Link>
         ) : <div />}
-        <HeaderRight navigation={navigation} initialProfile={initialProfile} />
+        <HeaderRight
+          navigation={navigation}
+          initialProfile={initialProfile}
+          initialSignedIn={initialSignedIn}
+          initialEmail={initialEmail}
+        />
       </div>
     </header>
   );

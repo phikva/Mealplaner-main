@@ -14,11 +14,12 @@ type ProfileRow = {
 
 type Props = {
   initialProfile: ProfileRow | null;
+  initialEmail?: string | null;
 };
 
-export function ProfileBadge({ initialProfile }: Props) {
+export function ProfileBadge({ initialProfile, initialEmail = null }: Props) {
   const [profile, setProfile] = useState<ProfileRow | null>(initialProfile);
-  const [email, setEmail] = useState<string | null>(null);
+  const [email, setEmail] = useState<string | null>(initialEmail);
   const initials = useMemo(() => {
     const base = (profile?.full_name ?? email ?? "").trim();
     if (!base) return "P";
@@ -29,42 +30,39 @@ export function ProfileBadge({ initialProfile }: Props) {
   }, [email, profile?.full_name]);
 
   useEffect(() => {
+    setProfile(initialProfile);
+  }, [initialProfile]);
+
+  useEffect(() => {
+    setEmail(initialEmail);
+  }, [initialEmail]);
+
+  useEffect(() => {
     const supabase = createClient();
-    let cancelled = false;
-
-    const sync = async () => {
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
-      if (cancelled) return;
-      setEmail(user?.email ?? null);
-      if (user) {
-        const { data } = await supabase
-          .from("profiles")
-          .select("full_name,diet_values,allergies,kitchen_category_ids")
-          .eq("id", user.id)
-          .maybeSingle();
-        if (!cancelled) setProfile(data ?? null);
-      }
-    };
-
-    sync();
-
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, session) => {
-      setEmail(session?.user?.email ?? null);
+      const user = session?.user ?? null;
+      setEmail(user?.email ?? null);
+      if (!user) {
+        setProfile(null);
+        return;
+      }
+      void supabase
+        .from("profiles")
+        .select("full_name,diet_values,allergies,kitchen_category_ids")
+        .eq("id", user.id)
+        .maybeSingle()
+        .then(({ data }) => setProfile(data ?? null));
     });
 
-    return () => {
-      cancelled = true;
-      subscription.unsubscribe();
-    };
+    return () => subscription.unsubscribe();
   }, []);
 
   return (
     <Link
       href="/profil"
+      prefetch
       className={cn(
         "inline-flex items-center gap-2 rounded-full border border-border/70 bg-background px-2 py-1 text-xs font-semibold tracking-[0.02em] text-foreground transition-colors hover:bg-muted",
       )}
@@ -77,4 +75,3 @@ export function ProfileBadge({ initialProfile }: Props) {
     </Link>
   );
 }
-

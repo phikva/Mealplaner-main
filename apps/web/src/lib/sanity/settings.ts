@@ -1,3 +1,4 @@
+import { cache } from "react";
 import { sanityClient } from "@/lib/sanity/client";
 import { siteSettingsQuery } from "@/lib/sanity/queries";
 import type { SiteSettings } from "@/types/page";
@@ -68,10 +69,10 @@ const normalizeSiteSettings = (settings: SiteSettings | null): SiteSettings | nu
   };
 };
 
-export const getSiteSettings = async () => {
+export const getSiteSettings = cache(async () => {
   const settings = await sanityClient.fetch<SiteSettings | null>(siteSettingsQuery, {}, {
     next: { revalidate: SANITY_REVALIDATE_SECONDS, tags: ["sanity:settings"] },
   });
 
   return normalizeSiteSettings(settings);
-};
+});

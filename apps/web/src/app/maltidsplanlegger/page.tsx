@@ -6,6 +6,7 @@ import { MEAL_PLANNER_ROUTE } from "@/lib/app-routes";
 import { getCategories } from "@/lib/sanity/categories";
 import { getTiers } from "@/lib/sanity/tiers";
 import { createClient } from "@/lib/supabase/server";
+import { getAuthUser } from "@/lib/supabase/session";
 import { getMealStorageRules, resolveTierForProfile } from "@/lib/tier-access";
 
 export const metadata = {
@@ -16,11 +17,10 @@ export const metadata = {
 const loginNext = `/logg-inn?next=${encodeURIComponent(MEAL_PLANNER_ROUTE.path)}`;
 
 export default async function MaltidsplanleggerPage() {
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const user = await getAuthUser();
   if (!user) redirect(loginNext);
+
+  const supabase = await createClient();
 
   const today = new Date();
   const mon = mondayOfWeek(today);
@@ -59,6 +59,7 @@ export default async function MaltidsplanleggerPage() {
       </header>
       <MealPlanView
         initialFrom={from}
+        initialTo={to}
         initialEntries={bundle.entries}
         initialRecipes={bundle.recipes}
         categoryOptions={categoryOptions}

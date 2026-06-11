@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { AuthStatus } from "@/components/auth/auth-status";
 import { MobileNavDrawer } from "@/components/layout/mobile-nav-drawer";
 import { ProfileBadge } from "@/components/profile/profile-badge";
@@ -15,14 +15,26 @@ type Props = {
     allergies?: string[] | null;
     kitchen_category_ids?: string[] | null;
   } | null;
+  initialSignedIn: boolean;
+  initialEmail: string | null;
 };
 
-export function HeaderRight({ navigation, initialProfile }: Props) {
-  const [signedIn, setSignedIn] = useState(false);
+export function HeaderRight({
+  navigation,
+  initialProfile,
+  initialSignedIn,
+  initialEmail,
+}: Props) {
+  const [signedIn, setSignedIn] = useState(initialSignedIn);
 
   const onAuthStateChange = useCallback((state: { status: string }) => {
     setSignedIn(state.status === "signed_in");
   }, []);
+
+  // Keep header in sync after client-side login/logout without waiting on AuthStatus mount.
+  useEffect(() => {
+    setSignedIn(initialSignedIn);
+  }, [initialSignedIn]);
 
   const filteredNavigation = signedIn
     ? navigation.filter((item) => item.href !== "/registrering" && item.href !== "/logg-inn")
@@ -50,7 +62,7 @@ export function HeaderRight({ navigation, initialProfile }: Props) {
         </nav>
       ) : null}
       {signedIn ? (
-        <ProfileBadge initialProfile={initialProfile} />
+        <ProfileBadge initialProfile={initialProfile} initialEmail={initialEmail} />
       ) : (
         <AuthStatus onAuthStateChange={onAuthStateChange} />
       )}

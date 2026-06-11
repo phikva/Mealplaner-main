@@ -10,7 +10,7 @@ import { getBrukerprofilSettings } from "@/lib/sanity/brukerprofil";
 import { getActiveOnboarding } from "@/lib/sanity/onboarding";
 import { urlFor } from "@/lib/sanity/image";
 import { getSiteSettings } from "@/lib/sanity/settings";
-import { createClient } from "@/lib/supabase/server";
+import { getAuthUser, getLayoutProfile } from "@/lib/supabase/session";
 import "./globals.css";
 
 const manrope = Manrope({
@@ -69,23 +69,13 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const settings = await getSiteSettings();
-  const [onboarding, brukerprofilSettings, supabase] = await Promise.all([
+  const [settings, onboarding, brukerprofilSettings, user] = await Promise.all([
+    getSiteSettings(),
     getActiveOnboarding(),
     getBrukerprofilSettings(),
-    createClient(),
+    getAuthUser(),
   ]);
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  const { data: profile } = user
-    ? await supabase
-        .from("profiles")
-        .select("full_name,diet_values,allergies,kitchen_category_ids,onboarding_completed")
-        .eq("id", user.id)
-        .maybeSingle()
-    : { data: null };
+  const profile = user ? await getLayoutProfile(user.id) : null;
 
   return (
     <html
@@ -93,7 +83,12 @@ export default async function RootLayout({
         className={`${manrope.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <SiteHeader settings={settings} initialProfile={profile} />
+        <SiteHeader
+          settings={settings}
+          initialProfile={profile}
+          initialSignedIn={Boolean(user)}
+          initialEmail={user?.email ?? null}
+        />
         {children}
         <SiteFooter settings={settings} />
         <SonnerToaster />

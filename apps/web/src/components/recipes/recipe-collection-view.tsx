@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Dialog } from "radix-ui";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import { Search, X } from "lucide-react";
 import { getCategoryHref, getCategoryTagClassName } from "@/lib/category-tags";
 import {
@@ -80,7 +80,6 @@ export function RecipeCollectionView({
   const [filterPanelOpen, setFilterPanelOpen] = useState(false);
   const [sliding, setSliding] = useState<Partial<Record<RecipeSliderKey, number>>>({});
   const pathname = usePathname();
-  const router = useRouter();
   const searchParams = useSearchParams();
 
   const filterOptions: RecipeFilterOptions = useMemo(
@@ -90,7 +89,25 @@ export function RecipeCollectionView({
 
   const bounds = useMemo(() => computeRecipeFilterBounds(recipes), [recipes]);
 
-  const filters = useMemo(() => parseRecipeFilters(searchParams), [searchParams]);
+  const [filters, setFilters] = useState(() => parseRecipeFilters(searchParams));
+
+  const syncFiltersToUrl = useCallback(
+    (next: RecipeFilterState) => {
+      const p = filtersToSearchParams(next);
+      const q = p.toString();
+      const url = q ? `${pathname}?${q}` : pathname;
+      window.history.replaceState(window.history.state, "", url);
+    },
+    [pathname],
+  );
+
+  useEffect(() => {
+    const onPopState = () => {
+      setFilters(parseRecipeFilters(new URLSearchParams(window.location.search)));
+    };
+    window.addEventListener("popstate", onPopState);
+    return () => window.removeEventListener("popstate", onPopState);
+  }, []);
 
   const [qDraft, setQDraft] = useState(filters.q);
   const filtersRef = useRef(filters);
@@ -104,12 +121,11 @@ export function RecipeCollectionView({
     if (qDraft === filtersRef.current.q) return;
     const id = window.setTimeout(() => {
       const next = clampRecipeFilterState({ ...filtersRef.current, q: qDraft });
-      const p = filtersToSearchParams(next);
-      const q = p.toString();
-      router.replace(q ? `${pathname}?${q}` : pathname, { scroll: false });
+      setFilters(next);
+      syncFiltersToUrl(next);
     }, Q_DEBOUNCE_MS);
     return () => window.clearTimeout(id);
-  }, [qDraft, router, pathname]);
+  }, [qDraft, syncFiltersToUrl]);
 
   const displayFilters = useMemo(
     () =>
@@ -136,11 +152,10 @@ export function RecipeCollectionView({
   const replaceFilters = useCallback(
     (raw: RecipeFilterState) => {
       const next = clampRecipeFilterState(raw);
-      const p = filtersToSearchParams(next);
-      const q = p.toString();
-      router.replace(q ? `${pathname}?${q}` : pathname, { scroll: false });
+      setFilters(next);
+      syncFiltersToUrl(next);
     },
-    [router, pathname],
+    [syncFiltersToUrl],
   );
 
   useEffect(() => {

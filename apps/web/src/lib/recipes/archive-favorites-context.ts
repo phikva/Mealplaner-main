@@ -1,6 +1,7 @@
 import { getTiers } from "@/lib/sanity/tiers";
 import { getFavoriteRules, resolveTierForProfile } from "@/lib/tier-access";
 import { createClient } from "@/lib/supabase/server";
+import { getAuthUser } from "@/lib/supabase/session";
 
 export type ArchiveFavoritesContext = {
   isAuthenticated: boolean;
@@ -11,11 +12,7 @@ export type ArchiveFavoritesContext = {
 };
 
 export async function getArchiveFavoritesContext(recipeSanityIds: string[]): Promise<ArchiveFavoritesContext> {
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
+  const user = await getAuthUser();
   if (!user) {
     return {
       isAuthenticated: false,
@@ -26,6 +23,7 @@ export async function getArchiveFavoritesContext(recipeSanityIds: string[]): Pro
     };
   }
 
+  const supabase = await createClient();
   const { data: profile } = await supabase
     .from("profiles")
     .select("tier_sanity_id,tier_slug")

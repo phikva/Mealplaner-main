@@ -5,7 +5,7 @@
  */
 "use client";
 
-import { useCallback, useEffect, useMemo, useState, useTransition } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState, useTransition } from "react";
 import {
   getMealPlanWithRecipesAction,
   type MealPlanRow,
@@ -34,6 +34,7 @@ import type { SanityRecipe } from "@/types/page";
 
 type Props = {
   initialFrom: string;
+  initialTo: string;
   initialEntries: MealPlanRow[];
   initialRecipes: SanityRecipe[];
   categoryOptions: MealPlanCategoryOption[];
@@ -43,6 +44,7 @@ type Props = {
 
 export function MealPlanView({
   initialFrom,
+  initialTo,
   initialEntries,
   initialRecipes,
   categoryOptions,
@@ -76,7 +78,12 @@ export function MealPlanView({
     return { from: localYmd(a), to: localYmd(b) };
   }, [anchor, view]);
 
+  const initialRangeKey = useMemo(() => `${initialFrom}:${initialTo}`, [initialFrom, initialTo]);
+  const loadedRangeKeyRef = useRef<string | null>(null);
+  const skippedInitialLoadRef = useRef(false);
+
   const load = useCallback(() => {
+    const rangeKey = `${range.from}:${range.to}`;
     startTransition(async () => {
       const res = await getMealPlanWithRecipesAction(range.from, range.to);
       if (!res.ok) {
@@ -85,14 +92,22 @@ export function MealPlanView({
         }
         return;
       }
+      loadedRangeKeyRef.current = rangeKey;
       setEntries(res.entries);
       setRecipes(res.recipes);
     });
   }, [range.from, range.to]);
 
   useEffect(() => {
+    const rangeKey = `${range.from}:${range.to}`;
+    if (loadedRangeKeyRef.current === rangeKey) return;
+    if (!skippedInitialLoadRef.current && rangeKey === initialRangeKey) {
+      skippedInitialLoadRef.current = true;
+      loadedRangeKeyRef.current = rangeKey;
+      return;
+    }
     load();
-  }, [load]);
+  }, [initialRangeKey, load, range.from, range.to]);
 
   const totals = useMemo(() => {
     const list = entries
