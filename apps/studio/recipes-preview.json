@@ -1,0 +1,1790 @@
+[
+  {
+    "_type": "oppskrift",
+    "tittel": "Proteinhavregrøt med banan og peanøttsmør",
+    "slug": {
+      "_type": "slug",
+      "current": "em-bf-000001-proteinhavregrot-med-banan-og-peanottsmor"
+    },
+    "porsjoner": 1,
+    "ingrediens": [
+      {
+        "_key": "ing-01",
+        "name": "Havregryn",
+        "measurement": {
+          "unit": "gram",
+          "unitQuantity": 60
+        },
+        "mengde": "60 g"
+      },
+      {
+        "_key": "ing-02",
+        "name": "Mager Kesam",
+        "measurement": {
+          "unit": "gram",
+          "unitQuantity": 250
+        },
+        "mengde": "250 g"
+      },
+      {
+        "_key": "ing-03",
+        "name": "Eggehvite",
+        "measurement": {
+          "unit": "gram",
+          "unitQuantity": 150
+        },
+        "mengde": "150 g"
+      },
+      {
+        "_key": "ing-04",
+        "name": "Banan",
+        "measurement": {
+          "unit": "gram",
+          "unitQuantity": 60
+        },
+        "mengde": "60 g"
+      },
+      {
+        "_key": "ing-05",
+        "name": "Peanøttsmør",
+        "measurement": {
+          "unit": "gram",
+          "unitQuantity": 15
+        },
+        "mengde": "15 g"
+      }
+    ],
+    "instruksjoner": [
+      "Kok havregryn med vann til en tykk grøt, cirka 4–5 minutter.",
+      "Rør inn eggehvite på lav varme til grøten blir kremet og gjennomvarm.",
+      "Ta gryten av varmen og rør inn mager Kesam.",
+      "Topp med skivet banan og peanøttsmør rett før servering."
+    ],
+    "kategori": [
+      {
+        "_type": "reference",
+        "_ref": "sunn",
+        "_key": "cat-01"
+      },
+      {
+        "_type": "reference",
+        "_ref": "hoy-protein",
+        "_key": "cat-02"
+      }
+    ],
+    "notater": "Frokost. 1 porsjon. Kalorier og makroer beregnet fra Matvaretabellen 2026.",
+    "totalKcal": 595.4,
+    "totalMakros": {
+      "protein": 52.8,
+      "karbs": 59.5,
+      "fett": 14.4
+    },
+    "allergens": [
+      "Nøtter",
+      "Egg",
+      "Melk",
+      "Gluten"
+    ]
+  },
+  {
+    "_type": "oppskrift",
+    "tittel": "Skyrbolle med cottage cheese, havre og jordbær",
+    "slug": {
+      "_type": "slug",
+      "current": "em-bf-000002-skyrbolle-med-cottage-cheese-havre-og-jordbaer"
+    },
+    "porsjoner": 1,
+    "ingrediens": [
+      {
+        "_key": "ing-01",
+        "name": "Skyr",
+        "measurement": {
+          "unit": "gram",
+          "unitQuantity": 300
+        },
+        "mengde": "300 g"
+      },
+      {
+        "_key": "ing-02",
+        "name": "Cottage cheese",
+        "measurement": {
+          "unit": "gram",
+          "unitQuantity": 150
+        },
+        "mengde": "150 g"
+      },
+      {
+        "_key": "ing-03",
+        "name": "Havregryn",
+        "measurement": {
+          "unit": "gram",
+          "unitQuantity": 50
+        },
+        "mengde": "50 g"
+      },
+      {
+        "_key": "ing-04",
+        "name": "Jordbær",
+        "measurement": {
+          "unit": "gram",
+          "unitQuantity": 100
+        },
+        "mengde": "100 g"
+      },
+      {
+        "_key": "ing-05",
+        "name": "Banan",
+        "measurement": {
+          "unit": "gram",
+          "unitQuantity": 40
+        },
+        "mengde": "40 g"
+      },
+      {
+        "_key": "ing-06",
+        "name": "Mandler",
+        "measurement": {
+          "unit": "gram",
+          "unitQuantity": 5
+        },
+        "mengde": "5 g"
+      }
+    ],
+    "instruksjoner": [
+      "Rør sammen Skyr og cottage cheese i en bolle.",
+      "Vend inn havregryn og la blandingen stå i 3–5 minutter hvis du ønsker mykere konsistens.",
+      "Topp med jordbær, banan i skiver og hakkede mandler."
+    ],
+    "kategori": [
+      {
+        "_type": "reference",
+        "_ref": "sunn",
+        "_key": "cat-01"
+      },
+      {
+        "_type": "reference",
+        "_ref": "hoy-protein",
+        "_key": "cat-02"
+      },
+      {
+        "_type": "reference",
+        "_ref": "quick-and-easy",
+        "_key": "cat-03"
+      }
+    ],
+    "notater": "Frokost. 1 porsjon. Kalorier og makroer beregnet fra Matvaretabellen 2026.",
+    "totalKcal": 603.2,
+    "totalMakros": {
+      "protein": 58.5,
+      "karbs": 57.7,
+      "fett": 13.3
+    },
+    "allergens": [
+      "Nøtter",
+      "Melk",
+      "Gluten"
+    ]
+  },
+  {
+    "_type": "oppskrift",
+    "tittel": "Proteinomelett med grovbrød og spinat",
+    "slug": {
+      "_type": "slug",
+      "current": "em-bf-000003-proteinomelett-med-grovbrod-og-spinat"
+    },
+    "porsjoner": 1,
+    "ingrediens": [
+      {
+        "_key": "ing-01",
+        "name": "Egg",
+        "measurement": {
+          "unit": "gram",
+          "unitQuantity": 100
+        },
+        "mengde": "100 g"
+      },
+      {
+        "_key": "ing-02",
+        "name": "Eggehvite",
+        "measurement": {
+          "unit": "gram",
+          "unitQuantity": 200
+        },
+        "mengde": "200 g"
+      },
+      {
+        "_key": "ing-03",
+        "name": "Grovt brød",
+        "measurement": {
+          "unit": "gram",
+          "unitQuantity": 120
+        },
+        "mengde": "120 g"
+      },
+      {
+        "_key": "ing-04",
+        "name": "Magerost",
+        "measurement": {
+          "unit": "gram",
+          "unitQuantity": 50
+        },
+        "mengde": "50 g"
+      },
+      {
+        "_key": "ing-05",
+        "name": "Babyspinat",
+        "measurement": {
+          "unit": "gram",
+          "unitQuantity": 50
+        },
+        "mengde": "50 g"
+      }
+    ],
+    "instruksjoner": [
+      "Visp egg og eggehvite lett sammen.",
+      "Stek omeletten i en varm non-stick-panne på middels varme til den setter seg, cirka 4–6 minutter.",
+      "Vend inn babyspinat mot slutten.",
+      "Server med grovt brød smurt med magerost."
+    ],
+    "kategori": [
+      {
+        "_type": "reference",
+        "_ref": "sunn",
+        "_key": "cat-01"
+      },
+      {
+        "_type": "reference",
+        "_ref": "hoy-protein",
+        "_key": "cat-02"
+      }
+    ],
+    "notater": "Frokost. 1 porsjon. Kalorier og makroer beregnet fra Matvaretabellen 2026.",
+    "totalKcal": 595.5,
+    "totalMakros": {
+      "protein": 56.3,
+      "karbs": 51.9,
+      "fett": 14
+    },
+    "allergens": [
+      "Egg",
+      "Melk",
+      "Gluten"
+    ]
+  },
+  {
+    "_type": "oppskrift",
+    "tittel": "Kjøleskapsgrøt med gresk yoghurt, chia og mango",
+    "slug": {
+      "_type": "slug",
+      "current": "em-bf-000004-kjoleskapsgrot-med-gresk-yoghurt-chia-og-mango"
+    },
+    "porsjoner": 1,
+    "ingrediens": [
+      {
+        "_key": "ing-01",
+        "name": "Gresk yoghurt 2 %",
+        "measurement": {
+          "unit": "gram",
+          "unitQuantity": 250
+        },
+        "mengde": "250 g"
+      },
+      {
+        "_key": "ing-02",
+        "name": "Skyr",
+        "measurement": {
+          "unit": "gram",
+          "unitQuantity": 250
+        },
+        "mengde": "250 g"
+      },
+      {
+        "_key": "ing-03",
+        "name": "Havregryn",
+        "measurement": {
+          "unit": "gram",
+          "unitQuantity": 50
+        },
+        "mengde": "50 g"
+      },
+      {
+        "_key": "ing-04",
+        "name": "Chiafrø",
+        "measurement": {
+          "unit": "gram",
+          "unitQuantity": 15
+        },
+        "mengde": "15 g"
+      },
+      {
+        "_key": "ing-05",
+        "name": "Mango",
+        "measurement": {
+          "unit": "gram",
+          "unitQuantity": 70
+        },
+        "mengde": "70 g"
+      }
+    ],
+    "instruksjoner": [
+      "Rør sammen yoghurt, Skyr, havregryn og chiafrø i et glass eller en bolle.",
+      "La stå kaldt i minst 2 timer, gjerne over natten.",
+      "Topp med mango rett før servering."
+    ],
+    "kategori": [
+      {
+        "_type": "reference",
+        "_ref": "sunn",
+        "_key": "cat-01"
+      },
+      {
+        "_type": "reference",
+        "_ref": "hoy-protein",
+        "_key": "cat-02"
+      },
+      {
+        "_type": "reference",
+        "_ref": "quick-and-easy",
+        "_key": "cat-03"
+      }
+    ],
+    "notater": "Frokost. 1 porsjon. Kalorier og makroer beregnet fra Matvaretabellen 2026.",
+    "totalKcal": 609.3,
+    "totalMakros": {
+      "protein": 58.4,
+      "karbs": 54.8,
+      "fett": 14.4
+    },
+    "allergens": [
+      "Melk",
+      "Gluten"
+    ]
+  },
+  {
+    "_type": "oppskrift",
+    "tittel": "Cottage cheese-pannekaker med banan",
+    "slug": {
+      "_type": "slug",
+      "current": "em-bf-000005-cottage-cheese-pannekaker-med-banan"
+    },
+    "porsjoner": 1,
+    "ingrediens": [
+      {
+        "_key": "ing-01",
+        "name": "Cottage cheese",
+        "measurement": {
+          "unit": "gram",
+          "unitQuantity": 200
+        },
+        "mengde": "200 g"
+      },
+      {
+        "_key": "ing-02",
+        "name": "Havregryn",
+        "measurement": {
+          "unit": "gram",
+          "unitQuantity": 60
+        },
+        "mengde": "60 g"
+      },
+      {
+        "_key": "ing-03",
+        "name": "Egg",
+        "measurement": {
+          "unit": "gram",
+          "unitQuantity": 60
+        },
+        "mengde": "60 g"
+      },
+      {
+        "_key": "ing-04",
+        "name": "Eggehvite",
+        "measurement": {
+          "unit": "gram",
+          "unitQuantity": 100
+        },
+        "mengde": "100 g"
+      },
+      {
+        "_key": "ing-05",
+        "name": "Banan",
+        "measurement": {
+          "unit": "gram",
+          "unitQuantity": 50
+        },
+        "mengde": "50 g"
+      }
+    ],
+    "instruksjoner": [
+      "Kjør cottage cheese, havregryn, egg, eggehvite og banan raskt sammen med stavmikser.",
+      "Stek små pannekaker i non-stick-panne på middels varme, cirka 2–3 minutter per side.",
+      "La pannekakene hvile ett minutt før servering."
+    ],
+    "kategori": [
+      {
+        "_type": "reference",
+        "_ref": "sunn",
+        "_key": "cat-01"
+      },
+      {
+        "_type": "reference",
+        "_ref": "hoy-protein",
+        "_key": "cat-02"
+      }
+    ],
+    "notater": "Frokost. 1 porsjon. Kalorier og makroer beregnet fra Matvaretabellen 2026.",
+    "totalKcal": 590.8,
+    "totalMakros": {
+      "protein": 53,
+      "karbs": 47.8,
+      "fett": 19.1
+    },
+    "allergens": [
+      "Egg",
+      "Melk",
+      "Gluten"
+    ]
+  },
+  {
+    "_type": "oppskrift",
+    "tittel": "Kyllingwrap med avokado og lett rømme",
+    "slug": {
+      "_type": "slug",
+      "current": "em-lu-000006-kyllingwrap-med-avokado-og-lett-romme"
+    },
+    "porsjoner": 1,
+    "ingrediens": [
+      {
+        "_key": "ing-01",
+        "name": "Kyllingfilet",
+        "measurement": {
+          "unit": "gram",
+          "unitQuantity": 175
+        },
+        "mengde": "175 g"
+      },
+      {
+        "_key": "ing-02",
+        "name": "Tortilla",
+        "measurement": {
+          "unit": "gram",
+          "unitQuantity": 100
+        },
+        "mengde": "100 g"
+      },
+      {
+        "_key": "ing-03",
+        "name": "Avokado",
+        "measurement": {
+          "unit": "gram",
+          "unitQuantity": 50
+        },
+        "mengde": "50 g"
+      },
+      {
+        "_key": "ing-04",
+        "name": "Tomat",
+        "measurement": {
+          "unit": "gram",
+          "unitQuantity": 100
+        },
+        "mengde": "100 g"
+      },
+      {
+        "_key": "ing-05",
+        "name": "Lettrømme",
+        "measurement": {
+          "unit": "gram",
+          "unitQuantity": 25
+        },
+        "mengde": "25 g"
+      }
+    ],
+    "instruksjoner": [
+      "Skjær kyllingfilet i strimler og stek den i en varm panne til gjennomstekt, cirka 6–8 minutter.",
+      "Varm tortillaen raskt i tørr panne eller mikrobølgeovn.",
+      "Fyll tortillaen med kylling, avokado, tomat og lettrømme.",
+      "Rull sammen og server."
+    ],
+    "kategori": [
+      {
+        "_type": "reference",
+        "_ref": "kylling",
+        "_key": "cat-01"
+      },
+      {
+        "_type": "reference",
+        "_ref": "hoy-protein",
+        "_key": "cat-02"
+      },
+      {
+        "_type": "reference",
+        "_ref": "quick-and-easy",
+        "_key": "cat-03"
+      }
+    ],
+    "notater": "Lunsj. 1 porsjon. Kalorier og makroer beregnet fra Matvaretabellen 2026.",
+    "totalKcal": 591.2,
+    "totalMakros": {
+      "protein": 50.8,
+      "karbs": 48.1,
+      "fett": 20.8
+    },
+    "allergens": [
+      "Melk",
+      "Gluten"
+    ]
+  },
+  {
+    "_type": "oppskrift",
+    "tittel": "Tunfisk- og fullkornspastasalat",
+    "slug": {
+      "_type": "slug",
+      "current": "em-lu-000007-tunfisk-og-fullkornspastasalat"
+    },
+    "porsjoner": 1,
+    "ingrediens": [
+      {
+        "_key": "ing-01",
+        "name": "Tunfisk",
+        "measurement": {
+          "unit": "gram",
+          "unitQuantity": 150
+        },
+        "mengde": "150 g"
+      },
+      {
+        "_key": "ing-02",
+        "name": "Fullkornspasta",
+        "measurement": {
+          "unit": "gram",
+          "unitQuantity": 90
+        },
+        "mengde": "90 g"
+      },
+      {
+        "_key": "ing-03",
+        "name": "Rapsolje",
+        "measurement": {
+          "unit": "gram",
+          "unitQuantity": 10
+        },
+        "mengde": "10 g"
+      },
+      {
+        "_key": "ing-04",
+        "name": "Rød paprika",
+        "measurement": {
+          "unit": "gram",
+          "unitQuantity": 100
+        },
+        "mengde": "100 g"
+      },
+      {
+        "_key": "ing-05",
+        "name": "Tomat",
+        "measurement": {
+          "unit": "gram",
+          "unitQuantity": 75
+        },
+        "mengde": "75 g"
+      }
+    ],
+    "instruksjoner": [
+      "Kok fullkornspasta etter anvisning på pakken og avkjøl lett.",
+      "Bland pasta med tunfisk, rapsolje, paprika og tomat.",
+      "Smak til med ønsket krydder, for eksempel pepper, sitron og urter."
+    ],
+    "kategori": [
+      {
+        "_type": "reference",
+        "_ref": "fisk",
+        "_key": "cat-01"
+      },
+      {
+        "_type": "reference",
+        "_ref": "hoy-protein",
+        "_key": "cat-02"
+      },
+      {
+        "_type": "reference",
+        "_ref": "quick-and-easy",
+        "_key": "cat-03"
+      }
+    ],
+    "notater": "Lunsj. 1 porsjon. Kalorier og makroer beregnet fra Matvaretabellen 2026.",
+    "totalKcal": 607.5,
+    "totalMakros": {
+      "protein": 48.6,
+      "karbs": 67.2,
+      "fett": 13.8
+    },
+    "dietTags": [
+      "Laktosefri"
+    ],
+    "allergens": [
+      "Fisk",
+      "Gluten"
+    ]
+  },
+  {
+    "_type": "oppskrift",
+    "tittel": "Karbonadedeig-bulgur med paprika og tacosaus",
+    "slug": {
+      "_type": "slug",
+      "current": "em-lu-000008-karbonadedeig-bulgur-med-paprika-og-tacosaus"
+    },
+    "porsjoner": 1,
+    "ingrediens": [
+      {
+        "_key": "ing-01",
+        "name": "Karbonadedeig",
+        "measurement": {
+          "unit": "gram",
+          "unitQuantity": 200
+        },
+        "mengde": "200 g"
+      },
+      {
+        "_key": "ing-02",
+        "name": "Bulgur",
+        "measurement": {
+          "unit": "gram",
+          "unitQuantity": 90
+        },
+        "mengde": "90 g"
+      },
+      {
+        "_key": "ing-03",
+        "name": "Rød paprika",
+        "measurement": {
+          "unit": "gram",
+          "unitQuantity": 100
+        },
+        "mengde": "100 g"
+      },
+      {
+        "_key": "ing-04",
+        "name": "Tomat",
+        "measurement": {
+          "unit": "gram",
+          "unitQuantity": 100
+        },
+        "mengde": "100 g"
+      },
+      {
+        "_key": "ing-05",
+        "name": "Rapsolje",
+        "measurement": {
+          "unit": "gram",
+          "unitQuantity": 5
+        },
+        "mengde": "5 g"
+      },
+      {
+        "_key": "ing-06",
+        "name": "Tacosaus",
+        "measurement": {
+          "unit": "gram",
+          "unitQuantity": 50
+        },
+        "mengde": "50 g"
+      }
+    ],
+    "instruksjoner": [
+      "Kok bulgur etter anvisning på pakken.",
+      "Stek karbonadedeig i rapsolje til den er gjennomstekt.",
+      "Vend inn paprika, tomat og tacosaus og varm alt i 2–3 minutter.",
+      "Server karbonadedeigen over bulgur."
+    ],
+    "kategori": [
+      {
+        "_type": "reference",
+        "_ref": "storfe",
+        "_key": "cat-01"
+      },
+      {
+        "_type": "reference",
+        "_ref": "hoy-protein",
+        "_key": "cat-02"
+      },
+      {
+        "_type": "reference",
+        "_ref": "meksikansk",
+        "_key": "cat-03"
+      }
+    ],
+    "notater": "Lunsj. 1 porsjon. Kalorier og makroer beregnet fra Matvaretabellen 2026.",
+    "totalKcal": 601.3,
+    "totalMakros": {
+      "protein": 54.2,
+      "karbs": 54.1,
+      "fett": 15.9
+    },
+    "dietTags": [
+      "Laktosefri"
+    ],
+    "allergens": [
+      "Gluten"
+    ]
+  },
+  {
+    "_type": "oppskrift",
+    "tittel": "Reke- og eggesmørbrød med cottage cheese",
+    "slug": {
+      "_type": "slug",
+      "current": "em-lu-000009-reke-og-eggesmorbrod-med-cottage-cheese"
+    },
+    "porsjoner": 1,
+    "ingrediens": [
+      {
+        "_key": "ing-01",
+        "name": "Reker",
+        "measurement": {
+          "unit": "gram",
+          "unitQuantity": 200
+        },
+        "mengde": "200 g"
+      },
+      {
+        "_key": "ing-02",
+        "name": "Grovt rugbrød",
+        "measurement": {
+          "unit": "gram",
+          "unitQuantity": 120
+        },
+        "mengde": "120 g"
+      },
+      {
+        "_key": "ing-03",
+        "name": "Egg",
+        "measurement": {
+          "unit": "gram",
+          "unitQuantity": 60
+        },
+        "mengde": "60 g"
+      },
+      {
+        "_key": "ing-04",
+        "name": "Magerost",
+        "measurement": {
+          "unit": "gram",
+          "unitQuantity": 50
+        },
+        "mengde": "50 g"
+      },
+      {
+        "_key": "ing-05",
+        "name": "Agurk",
+        "measurement": {
+          "unit": "gram",
+          "unitQuantity": 50
+        },
+        "mengde": "50 g"
+      }
+    ],
+    "instruksjoner": [
+      "Kok egget i cirka 8–10 minutter, avkjøl og skjær i skiver.",
+      "Smør rugbrødet med magerost.",
+      "Topp med reker, egg og agurk.",
+      "Server som åpne smørbrød."
+    ],
+    "kategori": [
+      {
+        "_type": "reference",
+        "_ref": "quick-and-easy",
+        "_key": "cat-01"
+      },
+      {
+        "_type": "reference",
+        "_ref": "hoy-protein",
+        "_key": "cat-02"
+      }
+    ],
+    "notater": "Lunsj. 1 porsjon. Kalorier og makroer beregnet fra Matvaretabellen 2026.",
+    "totalKcal": 593.9,
+    "totalMakros": {
+      "protein": 54.3,
+      "karbs": 57.7,
+      "fett": 13
+    },
+    "allergens": [
+      "Skalldyr",
+      "Egg",
+      "Melk",
+      "Gluten"
+    ]
+  },
+  {
+    "_type": "oppskrift",
+    "tittel": "Kyllingcouscous med spinat og tomat",
+    "slug": {
+      "_type": "slug",
+      "current": "em-lu-000010-kyllingcouscous-med-spinat-og-tomat"
+    },
+    "porsjoner": 1,
+    "ingrediens": [
+      {
+        "_key": "ing-01",
+        "name": "Kyllingfilet",
+        "measurement": {
+          "unit": "gram",
+          "unitQuantity": 175
+        },
+        "mengde": "175 g"
+      },
+      {
+        "_key": "ing-02",
+        "name": "Couscous",
+        "measurement": {
+          "unit": "gram",
+          "unitQuantity": 72
+        },
+        "mengde": "72 g"
+      },
+      {
+        "_key": "ing-03",
+        "name": "Olivenolje",
+        "measurement": {
+          "unit": "gram",
+          "unitQuantity": 10
+        },
+        "mengde": "10 g"
+      },
+      {
+        "_key": "ing-04",
+        "name": "Babyspinat",
+        "measurement": {
+          "unit": "gram",
+          "unitQuantity": 50
+        },
+        "mengde": "50 g"
+      },
+      {
+        "_key": "ing-05",
+        "name": "Tomat",
+        "measurement": {
+          "unit": "gram",
+          "unitQuantity": 100
+        },
+        "mengde": "100 g"
+      }
+    ],
+    "instruksjoner": [
+      "Tilbered couscous etter anvisning på pakken.",
+      "Skjær kylling i biter og stek til gjennomstekt, cirka 6–8 minutter.",
+      "Vend couscous med olivenolje, spinat og tomat.",
+      "Legg kyllingen over og server."
+    ],
+    "kategori": [
+      {
+        "_type": "reference",
+        "_ref": "kylling",
+        "_key": "cat-01"
+      },
+      {
+        "_type": "reference",
+        "_ref": "hoy-protein",
+        "_key": "cat-02"
+      },
+      {
+        "_type": "reference",
+        "_ref": "quick-and-easy",
+        "_key": "cat-03"
+      }
+    ],
+    "notater": "Lunsj. 1 porsjon. Kalorier og makroer beregnet fra Matvaretabellen 2026.",
+    "totalKcal": 595.5,
+    "totalMakros": {
+      "protein": 50.6,
+      "karbs": 59.1,
+      "fett": 15.1
+    },
+    "dietTags": [
+      "Laktosefri"
+    ],
+    "allergens": [
+      "Gluten"
+    ]
+  },
+  {
+    "_type": "oppskrift",
+    "tittel": "Laks med potet, brokkoli og kesamdressing",
+    "slug": {
+      "_type": "slug",
+      "current": "em-di-000011-laks-med-potet-brokkoli-og-kesamdressing"
+    },
+    "porsjoner": 1,
+    "ingrediens": [
+      {
+        "_key": "ing-01",
+        "name": "Laks",
+        "measurement": {
+          "unit": "gram",
+          "unitQuantity": 125
+        },
+        "mengde": "125 g"
+      },
+      {
+        "_key": "ing-02",
+        "name": "Potet",
+        "measurement": {
+          "unit": "gram",
+          "unitQuantity": 250
+        },
+        "mengde": "250 g"
+      },
+      {
+        "_key": "ing-03",
+        "name": "Brokkoli",
+        "measurement": {
+          "unit": "gram",
+          "unitQuantity": 150
+        },
+        "mengde": "150 g"
+      },
+      {
+        "_key": "ing-04",
+        "name": "Mager Kesam",
+        "measurement": {
+          "unit": "gram",
+          "unitQuantity": 150
+        },
+        "mengde": "150 g"
+      }
+    ],
+    "instruksjoner": [
+      "Kok potetene møre, cirka 18–22 minutter.",
+      "Bak eller stek laksen til den flaker seg lett, cirka 10–12 minutter ved 200 °C.",
+      "Damp eller kok brokkoli i 3–4 minutter.",
+      "Rør Kesam med ønsket krydder og server som dressing til laks, potet og brokkoli."
+    ],
+    "kategori": [
+      {
+        "_type": "reference",
+        "_ref": "fisk",
+        "_key": "cat-01"
+      },
+      {
+        "_type": "reference",
+        "_ref": "sunn",
+        "_key": "cat-02"
+      },
+      {
+        "_type": "reference",
+        "_ref": "hoy-protein",
+        "_key": "cat-03"
+      }
+    ],
+    "notater": "Middag. 1 porsjon. Kalorier og makroer beregnet fra Matvaretabellen 2026.",
+    "totalKcal": 593.8,
+    "totalMakros": {
+      "protein": 48.5,
+      "karbs": 47.7,
+      "fett": 21.6
+    },
+    "dietTags": [
+      "Glutenfri"
+    ],
+    "allergens": [
+      "Fisk",
+      "Melk"
+    ]
+  },
+  {
+    "_type": "oppskrift",
+    "tittel": "Torsk med basmatiris og brokkoli",
+    "slug": {
+      "_type": "slug",
+      "current": "em-di-000012-torsk-med-basmatiris-og-brokkoli"
+    },
+    "porsjoner": 1,
+    "ingrediens": [
+      {
+        "_key": "ing-01",
+        "name": "Torsk",
+        "measurement": {
+          "unit": "gram",
+          "unitQuantity": 200
+        },
+        "mengde": "200 g"
+      },
+      {
+        "_key": "ing-02",
+        "name": "Basmatiris",
+        "measurement": {
+          "unit": "gram",
+          "unitQuantity": 88
+        },
+        "mengde": "88 g"
+      },
+      {
+        "_key": "ing-03",
+        "name": "Olivenolje",
+        "measurement": {
+          "unit": "gram",
+          "unitQuantity": 10
+        },
+        "mengde": "10 g"
+      },
+      {
+        "_key": "ing-04",
+        "name": "Brokkoli",
+        "measurement": {
+          "unit": "gram",
+          "unitQuantity": 100
+        },
+        "mengde": "100 g"
+      }
+    ],
+    "instruksjoner": [
+      "Kok basmatiris etter anvisning på pakken.",
+      "Bak torsken i ovn på 180–200 °C i cirka 10–12 minutter, eller til den flaker seg.",
+      "Damp brokkoli i 3–4 minutter.",
+      "Ringle olivenolje over ris og grønnsaker ved servering."
+    ],
+    "kategori": [
+      {
+        "_type": "reference",
+        "_ref": "fisk",
+        "_key": "cat-01"
+      },
+      {
+        "_type": "reference",
+        "_ref": "sunn",
+        "_key": "cat-02"
+      },
+      {
+        "_type": "reference",
+        "_ref": "hoy-protein",
+        "_key": "cat-03"
+      },
+      {
+        "_type": "reference",
+        "_ref": "glutenfritt",
+        "_key": "cat-04"
+      }
+    ],
+    "notater": "Middag. 1 porsjon. Kalorier og makroer beregnet fra Matvaretabellen 2026.",
+    "totalKcal": 594.7,
+    "totalMakros": {
+      "protein": 51,
+      "karbs": 69.6,
+      "fett": 11.9
+    },
+    "dietTags": [
+      "Glutenfri",
+      "Laktosefri"
+    ],
+    "allergens": [
+      "Fisk"
+    ]
+  },
+  {
+    "_type": "oppskrift",
+    "tittel": "Kyllingpasta i tomatsaus",
+    "slug": {
+      "_type": "slug",
+      "current": "em-di-000013-kyllingpasta-i-tomatsaus"
+    },
+    "porsjoner": 1,
+    "ingrediens": [
+      {
+        "_key": "ing-01",
+        "name": "Kyllingfilet",
+        "measurement": {
+          "unit": "gram",
+          "unitQuantity": 175
+        },
+        "mengde": "175 g"
+      },
+      {
+        "_key": "ing-02",
+        "name": "Fullkornspasta",
+        "measurement": {
+          "unit": "gram",
+          "unitQuantity": 90
+        },
+        "mengde": "90 g"
+      },
+      {
+        "_key": "ing-03",
+        "name": "Hakket tomat",
+        "measurement": {
+          "unit": "gram",
+          "unitQuantity": 150
+        },
+        "mengde": "150 g"
+      },
+      {
+        "_key": "ing-04",
+        "name": "Rapsolje",
+        "measurement": {
+          "unit": "gram",
+          "unitQuantity": 5
+        },
+        "mengde": "5 g"
+      }
+    ],
+    "instruksjoner": [
+      "Kok fullkornspasta etter anvisning på pakken.",
+      "Skjær kyllingfilet i biter og stek i rapsolje til gjennomstekt.",
+      "Tilsett hakket tomat og la småkoke i 4–5 minutter.",
+      "Vend inn pastaen og server."
+    ],
+    "kategori": [
+      {
+        "_type": "reference",
+        "_ref": "kylling",
+        "_key": "cat-01"
+      },
+      {
+        "_type": "reference",
+        "_ref": "hoy-protein",
+        "_key": "cat-02"
+      },
+      {
+        "_type": "reference",
+        "_ref": "sunn",
+        "_key": "cat-03"
+      }
+    ],
+    "notater": "Middag. 1 porsjon. Kalorier og makroer beregnet fra Matvaretabellen 2026.",
+    "totalKcal": 600.6,
+    "totalMakros": {
+      "protein": 52.8,
+      "karbs": 67.5,
+      "fett": 11.2
+    },
+    "dietTags": [
+      "Laktosefri"
+    ],
+    "allergens": [
+      "Gluten"
+    ]
+  },
+  {
+    "_type": "oppskrift",
+    "tittel": "Taco-bowl med karbonadedeig og jasminris",
+    "slug": {
+      "_type": "slug",
+      "current": "em-di-000014-taco-bowl-med-karbonadedeig-og-jasminris"
+    },
+    "porsjoner": 1,
+    "ingrediens": [
+      {
+        "_key": "ing-01",
+        "name": "Karbonadedeig",
+        "measurement": {
+          "unit": "gram",
+          "unitQuantity": 200
+        },
+        "mengde": "200 g"
+      },
+      {
+        "_key": "ing-02",
+        "name": "Jasminris",
+        "measurement": {
+          "unit": "gram",
+          "unitQuantity": 75
+        },
+        "mengde": "75 g"
+      },
+      {
+        "_key": "ing-03",
+        "name": "Tacosaus",
+        "measurement": {
+          "unit": "gram",
+          "unitQuantity": 75
+        },
+        "mengde": "75 g"
+      },
+      {
+        "_key": "ing-04",
+        "name": "Rød paprika",
+        "measurement": {
+          "unit": "gram",
+          "unitQuantity": 100
+        },
+        "mengde": "100 g"
+      },
+      {
+        "_key": "ing-05",
+        "name": "Mais",
+        "measurement": {
+          "unit": "gram",
+          "unitQuantity": 50
+        },
+        "mengde": "50 g"
+      }
+    ],
+    "instruksjoner": [
+      "Kok jasminris etter anvisning på pakken.",
+      "Stek karbonadedeig til gjennomstekt.",
+      "Vend inn tacosaus, paprika og mais og varm i 2–3 minutter.",
+      "Server karbonadeblandingen over risen."
+    ],
+    "kategori": [
+      {
+        "_type": "reference",
+        "_ref": "storfe",
+        "_key": "cat-01"
+      },
+      {
+        "_type": "reference",
+        "_ref": "meksikansk",
+        "_key": "cat-02"
+      },
+      {
+        "_type": "reference",
+        "_ref": "hoy-protein",
+        "_key": "cat-03"
+      },
+      {
+        "_type": "reference",
+        "_ref": "glutenfritt",
+        "_key": "cat-04"
+      }
+    ],
+    "notater": "Middag. 1 porsjon. Kalorier og makroer beregnet fra Matvaretabellen 2026.",
+    "totalKcal": 602.5,
+    "totalMakros": {
+      "protein": 50.5,
+      "karbs": 74.6,
+      "fett": 10.3
+    },
+    "dietTags": [
+      "Glutenfri",
+      "Laktosefri"
+    ]
+  },
+  {
+    "_type": "oppskrift",
+    "tittel": "Svin ytrefilet med couscous og paprika",
+    "slug": {
+      "_type": "slug",
+      "current": "em-di-000015-svin-ytrefilet-med-couscous-og-paprika"
+    },
+    "porsjoner": 1,
+    "ingrediens": [
+      {
+        "_key": "ing-01",
+        "name": "Svin ytrefilet",
+        "measurement": {
+          "unit": "gram",
+          "unitQuantity": 200
+        },
+        "mengde": "200 g"
+      },
+      {
+        "_key": "ing-02",
+        "name": "Couscous",
+        "measurement": {
+          "unit": "gram",
+          "unitQuantity": 75
+        },
+        "mengde": "75 g"
+      },
+      {
+        "_key": "ing-03",
+        "name": "Rød paprika",
+        "measurement": {
+          "unit": "gram",
+          "unitQuantity": 100
+        },
+        "mengde": "100 g"
+      },
+      {
+        "_key": "ing-04",
+        "name": "Tomat",
+        "measurement": {
+          "unit": "gram",
+          "unitQuantity": 50
+        },
+        "mengde": "50 g"
+      },
+      {
+        "_key": "ing-05",
+        "name": "Olivenolje",
+        "measurement": {
+          "unit": "gram",
+          "unitQuantity": 5
+        },
+        "mengde": "5 g"
+      }
+    ],
+    "instruksjoner": [
+      "Tilbered couscous etter anvisning på pakken.",
+      "Skjær svin ytrefilet i skiver og stek til gjennomstekt, cirka 4–6 minutter.",
+      "Vend paprika, tomat og olivenolje inn i couscousen.",
+      "Server svinet oppå couscousblandingen."
+    ],
+    "kategori": [
+      {
+        "_type": "reference",
+        "_ref": "svin",
+        "_key": "cat-01"
+      },
+      {
+        "_type": "reference",
+        "_ref": "hoy-protein",
+        "_key": "cat-02"
+      },
+      {
+        "_type": "reference",
+        "_ref": "sunn",
+        "_key": "cat-03"
+      }
+    ],
+    "notater": "Middag. 1 porsjon. Kalorier og makroer beregnet fra Matvaretabellen 2026.",
+    "totalKcal": 609.9,
+    "totalMakros": {
+      "protein": 56.8,
+      "karbs": 65.2,
+      "fett": 12.5
+    },
+    "dietTags": [
+      "Laktosefri"
+    ],
+    "allergens": [
+      "Gluten",
+      "Svin"
+    ]
+  },
+  {
+    "_type": "oppskrift",
+    "tittel": "Superenkel skyrbolle med havre og peanøttsmør",
+    "slug": {
+      "_type": "slug",
+      "current": "em-sn-000016-superenkel-skyrbolle-med-havre-og-peanottsmor"
+    },
+    "porsjoner": 1,
+    "ingrediens": [
+      {
+        "_key": "ing-01",
+        "name": "Skyr",
+        "measurement": {
+          "unit": "gram",
+          "unitQuantity": 300
+        },
+        "mengde": "300 g"
+      },
+      {
+        "_key": "ing-02",
+        "name": "Cottage cheese",
+        "measurement": {
+          "unit": "gram",
+          "unitQuantity": 150
+        },
+        "mengde": "150 g"
+      },
+      {
+        "_key": "ing-03",
+        "name": "Havregryn",
+        "measurement": {
+          "unit": "gram",
+          "unitQuantity": 55
+        },
+        "mengde": "55 g"
+      },
+      {
+        "_key": "ing-04",
+        "name": "Banan",
+        "measurement": {
+          "unit": "gram",
+          "unitQuantity": 60
+        },
+        "mengde": "60 g"
+      },
+      {
+        "_key": "ing-05",
+        "name": "Peanøttsmør",
+        "measurement": {
+          "unit": "gram",
+          "unitQuantity": 5
+        },
+        "mengde": "5 g"
+      }
+    ],
+    "instruksjoner": [
+      "Ha Skyr og cottage cheese i en bolle.",
+      "Rør inn havregryn.",
+      "Topp med banan og peanøttsmør."
+    ],
+    "kategori": [
+      {
+        "_type": "reference",
+        "_ref": "snacks",
+        "_key": "cat-01"
+      },
+      {
+        "_type": "reference",
+        "_ref": "quick-and-easy",
+        "_key": "cat-02"
+      },
+      {
+        "_type": "reference",
+        "_ref": "hoy-protein",
+        "_key": "cat-03"
+      }
+    ],
+    "notater": "Superenkel. 1 porsjon. Kalorier og makroer beregnet fra Matvaretabellen 2026.",
+    "totalKcal": 606.3,
+    "totalMakros": {
+      "protein": 59.1,
+      "karbs": 58.2,
+      "fett": 13.4
+    },
+    "allergens": [
+      "Nøtter",
+      "Melk",
+      "Gluten"
+    ]
+  },
+  {
+    "_type": "oppskrift",
+    "tittel": "Tunfisk- og knekkebrødtallerken med avokado",
+    "slug": {
+      "_type": "slug",
+      "current": "em-sn-000017-tunfisk-og-knekkebrodtallerken-med-avokado"
+    },
+    "porsjoner": 1,
+    "ingrediens": [
+      {
+        "_key": "ing-01",
+        "name": "Tunfisk",
+        "measurement": {
+          "unit": "gram",
+          "unitQuantity": 150
+        },
+        "mengde": "150 g"
+      },
+      {
+        "_key": "ing-02",
+        "name": "Grovt knekkebrød",
+        "measurement": {
+          "unit": "gram",
+          "unitQuantity": 100
+        },
+        "mengde": "100 g"
+      },
+      {
+        "_key": "ing-03",
+        "name": "Cottage cheese",
+        "measurement": {
+          "unit": "gram",
+          "unitQuantity": 100
+        },
+        "mengde": "100 g"
+      },
+      {
+        "_key": "ing-04",
+        "name": "Avokado",
+        "measurement": {
+          "unit": "gram",
+          "unitQuantity": 20
+        },
+        "mengde": "20 g"
+      }
+    ],
+    "instruksjoner": [
+      "Legg knekkebrødene på en tallerken.",
+      "Topp med tunfisk, cottage cheese og skivet avokado.",
+      "Spis med en gang for sprø konsistens."
+    ],
+    "kategori": [
+      {
+        "_type": "reference",
+        "_ref": "snacks",
+        "_key": "cat-01"
+      },
+      {
+        "_type": "reference",
+        "_ref": "quick-and-easy",
+        "_key": "cat-02"
+      },
+      {
+        "_type": "reference",
+        "_ref": "fisk",
+        "_key": "cat-03"
+      },
+      {
+        "_type": "reference",
+        "_ref": "hoy-protein",
+        "_key": "cat-04"
+      }
+    ],
+    "notater": "Superenkel. 1 porsjon. Kalorier og makroer beregnet fra Matvaretabellen 2026.",
+    "totalKcal": 600.7,
+    "totalMakros": {
+      "protein": 58.5,
+      "karbs": 57,
+      "fett": 11.2
+    },
+    "allergens": [
+      "Fisk",
+      "Melk",
+      "Gluten"
+    ]
+  },
+  {
+    "_type": "oppskrift",
+    "tittel": "Egg og cottage cheese på rugbrød",
+    "slug": {
+      "_type": "slug",
+      "current": "em-sn-000018-egg-og-cottage-cheese-pa-rugbrod"
+    },
+    "porsjoner": 1,
+    "ingrediens": [
+      {
+        "_key": "ing-01",
+        "name": "Grovt rugbrød",
+        "measurement": {
+          "unit": "gram",
+          "unitQuantity": 90
+        },
+        "mengde": "90 g"
+      },
+      {
+        "_key": "ing-02",
+        "name": "Cottage cheese",
+        "measurement": {
+          "unit": "gram",
+          "unitQuantity": 200
+        },
+        "mengde": "200 g"
+      },
+      {
+        "_key": "ing-03",
+        "name": "Egg",
+        "measurement": {
+          "unit": "gram",
+          "unitQuantity": 100
+        },
+        "mengde": "100 g"
+      },
+      {
+        "_key": "ing-04",
+        "name": "Gulrot",
+        "measurement": {
+          "unit": "gram",
+          "unitQuantity": 100
+        },
+        "mengde": "100 g"
+      }
+    ],
+    "instruksjoner": [
+      "Kok eggene i 8–10 minutter, avkjøl og skjær i skiver.",
+      "Legg cottage cheese og egg på rugbrød.",
+      "Spis gulrot ved siden av."
+    ],
+    "kategori": [
+      {
+        "_type": "reference",
+        "_ref": "snacks",
+        "_key": "cat-01"
+      },
+      {
+        "_type": "reference",
+        "_ref": "quick-and-easy",
+        "_key": "cat-02"
+      },
+      {
+        "_type": "reference",
+        "_ref": "hoy-protein",
+        "_key": "cat-03"
+      }
+    ],
+    "notater": "Superenkel. 1 porsjon. Kalorier og makroer beregnet fra Matvaretabellen 2026.",
+    "totalKcal": 597.5,
+    "totalMakros": {
+      "protein": 45,
+      "karbs": 51.3,
+      "fett": 21
+    },
+    "allergens": [
+      "Egg",
+      "Melk",
+      "Gluten"
+    ]
+  },
+  {
+    "_type": "oppskrift",
+    "tittel": "Rekewrap med cottage cheese og avokado",
+    "slug": {
+      "_type": "slug",
+      "current": "em-sn-000019-rekewrap-med-cottage-cheese-og-avokado"
+    },
+    "porsjoner": 1,
+    "ingrediens": [
+      {
+        "_key": "ing-01",
+        "name": "Reker",
+        "measurement": {
+          "unit": "gram",
+          "unitQuantity": 200
+        },
+        "mengde": "200 g"
+      },
+      {
+        "_key": "ing-02",
+        "name": "Tortilla",
+        "measurement": {
+          "unit": "gram",
+          "unitQuantity": 100
+        },
+        "mengde": "100 g"
+      },
+      {
+        "_key": "ing-03",
+        "name": "Cottage cheese",
+        "measurement": {
+          "unit": "gram",
+          "unitQuantity": 150
+        },
+        "mengde": "150 g"
+      },
+      {
+        "_key": "ing-04",
+        "name": "Avokado",
+        "measurement": {
+          "unit": "gram",
+          "unitQuantity": 25
+        },
+        "mengde": "25 g"
+      },
+      {
+        "_key": "ing-05",
+        "name": "Tomat",
+        "measurement": {
+          "unit": "gram",
+          "unitQuantity": 50
+        },
+        "mengde": "50 g"
+      }
+    ],
+    "instruksjoner": [
+      "Varm tortillaen raskt hvis ønskelig.",
+      "Fyll med cottage cheese, reker, avokado og tomat.",
+      "Rull sammen og server."
+    ],
+    "kategori": [
+      {
+        "_type": "reference",
+        "_ref": "snacks",
+        "_key": "cat-01"
+      },
+      {
+        "_type": "reference",
+        "_ref": "quick-and-easy",
+        "_key": "cat-02"
+      },
+      {
+        "_type": "reference",
+        "_ref": "hoy-protein",
+        "_key": "cat-03"
+      }
+    ],
+    "notater": "Superenkel. 1 porsjon. Kalorier og makroer beregnet fra Matvaretabellen 2026.",
+    "totalKcal": 603.2,
+    "totalMakros": {
+      "protein": 58.3,
+      "karbs": 48.2,
+      "fett": 19
+    },
+    "allergens": [
+      "Skalldyr",
+      "Melk",
+      "Gluten"
+    ]
+  },
+  {
+    "_type": "oppskrift",
+    "tittel": "Mango-skyr med havre og chia",
+    "slug": {
+      "_type": "slug",
+      "current": "em-sn-000020-mango-skyr-med-havre-og-chia"
+    },
+    "porsjoner": 1,
+    "ingrediens": [
+      {
+        "_key": "ing-01",
+        "name": "Skyr",
+        "measurement": {
+          "unit": "gram",
+          "unitQuantity": 225
+        },
+        "mengde": "225 g"
+      },
+      {
+        "_key": "ing-02",
+        "name": "Mager Kesam",
+        "measurement": {
+          "unit": "gram",
+          "unitQuantity": 250
+        },
+        "mengde": "250 g"
+      },
+      {
+        "_key": "ing-03",
+        "name": "Havregryn",
+        "measurement": {
+          "unit": "gram",
+          "unitQuantity": 60
+        },
+        "mengde": "60 g"
+      },
+      {
+        "_key": "ing-04",
+        "name": "Chiafrø",
+        "measurement": {
+          "unit": "gram",
+          "unitQuantity": 15
+        },
+        "mengde": "15 g"
+      },
+      {
+        "_key": "ing-05",
+        "name": "Mango",
+        "measurement": {
+          "unit": "gram",
+          "unitQuantity": 35
+        },
+        "mengde": "35 g"
+      }
+    ],
+    "instruksjoner": [
+      "Rør sammen Skyr og mager Kesam.",
+      "Vend inn havregryn og chiafrø.",
+      "Topp med mango og spis med en gang, eller la stå 10 minutter for mykere konsistens."
+    ],
+    "kategori": [
+      {
+        "_type": "reference",
+        "_ref": "snacks",
+        "_key": "cat-01"
+      },
+      {
+        "_type": "reference",
+        "_ref": "quick-and-easy",
+        "_key": "cat-02"
+      },
+      {
+        "_type": "reference",
+        "_ref": "hoy-protein",
+        "_key": "cat-03"
+      }
+    ],
+    "notater": "Superenkel. 1 porsjon. Kalorier og makroer beregnet fra Matvaretabellen 2026.",
+    "totalKcal": 606.7,
+    "totalMakros": {
+      "protein": 59.2,
+      "karbs": 58.1,
+      "fett": 12.2
+    },
+    "allergens": [
+      "Melk",
+      "Gluten"
+    ]
+  }
+]

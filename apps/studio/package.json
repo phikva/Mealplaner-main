@@ -10,7 +10,8 @@
     "build": "sanity build",
     "deploy": "sanity deploy",
     "deploy-graphql": "sanity graphql deploy",
-    "import-recipes": "ts-node scripts/importRecipes.ts",
+    "import-recipes": "tsx scripts/importRecipes.ts",
+    "import-recipes-excel": "tsx scripts/importRecipesFromExcel.ts",
     "import-recipe": "node scripts/importRecipe.js",
     "backup-recipes": "node scripts/backupRecipes.js",
     "migrate-recipe-totals": "node scripts/migrateRecipeTotals.js"
@@ -36,7 +37,9 @@
     "eslint": "^8.56.0",
     "prettier": "^3.1.1",
     "ts-node": "^10.9.2",
-    "typescript": "^5.3.3"
+    "tsx": "^4.22.4",
+    "typescript": "^5.3.3",
+    "xlsx": "^0.18.5"
   },
   "prettier": {
     "semi": false,

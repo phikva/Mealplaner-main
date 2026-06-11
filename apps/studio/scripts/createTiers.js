@@ -8,19 +8,19 @@ const client = getCliClient();
 const tiers = [
   {
     _type: 'tier',
-    name: 'Gratis',
-    slug: { _type: 'slug', current: 'gratis' },
-    description: 'Perfekt for å komme i gang med måltidsplanlegging',
+    name: 'Trial',
+    slug: { _type: 'slug', current: 'trial' },
+    description: 'Kom i gang med måltidsplanlegging',
     price: 0,
     features: [
-      'Tilgang til 10 oppskrifter',
+      'Tilgang til 20 oppskrifter',
       'Lagre opptil 5 favoritter',
-      'Ukentlig måltidsplan (7 dager)',
+      'Måltidsplan (7 dager)',
     ],
     isDefault: true,
     recipeAccess: {
       accessType: 'limited',
-      maxRecipes: 10,
+      maxRecipes: 20,
     },
     mealStorage: {
       storageDuration: '7',
@@ -39,7 +39,7 @@ const tiers = [
     price: 49,
     features: [
       'Tilgang til 50 oppskrifter',
-      'Lagre opptil 10 favoritter',
+      'Lagre opptil 20 favoritter',
       'Måltidsplan (30 dager)',
       'Handleliste-funksjon',
     ],
@@ -53,7 +53,7 @@ const tiers = [
     },
     favoriteRecipes: {
       canFavorite: true,
-      maxFavorites: '10',
+      maxFavorites: '20',
     },
     expertMealPlanning: false,
   },
@@ -91,7 +91,6 @@ async function createTiers() {
 
   for (const tier of tiers) {
     try {
-      // Check if tier with same slug already exists
       const existing = await client.fetch(
         `*[_type == "tier" && slug.current == $slug][0]`,
         { slug: tier.slug.current }
