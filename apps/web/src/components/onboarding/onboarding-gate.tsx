@@ -2,6 +2,7 @@
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
+import { useSession } from "@/components/auth/session-provider";
 import { createClient } from "@/lib/supabase/client";
 import type { ActiveOnboardingDocument, BrukerprofilSettings } from "@/types/page";
 import { OnboardingModal } from "./onboarding-modal";
@@ -10,57 +11,28 @@ const storageKey = (userId: string) => `mealplaner:onboarding:${userId}`;
 
 type OnboardingGateProps = {
   onboarding: ActiveOnboardingDocument | null;
-  initialUserId: string | null;
   profileSettings: BrukerprofilSettings | null;
-  initialProfile: {
-    full_name?: string | null;
-    diet_values?: string[] | null;
-    allergies?: string[] | null;
-    kitchen_category_ids?: string[] | null;
-    onboarding_completed?: boolean | null;
-  } | null;
 };
 
-export function OnboardingGate({
-  onboarding,
-  initialUserId,
-  profileSettings,
-  initialProfile,
-}: OnboardingGateProps) {
+export function OnboardingGate({ onboarding, profileSettings }: OnboardingGateProps) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const [userId, setUserId] = useState<string | null>(initialUserId);
+  const { userId, profile } = useSession();
   const [hydrated, setHydrated] = useState(false);
   const [dismissed, setDismissed] = useState(false);
-  const [completed, setCompleted] = useState(Boolean(initialProfile?.onboarding_completed));
+  const [completed, setCompleted] = useState(Boolean(profile?.onboarding_completed));
 
   useEffect(() => {
     setHydrated(true);
-    if (initialUserId) {
-      setDismissed(!!localStorage.getItem(storageKey(initialUserId)));
+    if (userId) {
+      setDismissed(!!localStorage.getItem(storageKey(userId)));
     }
-  }, [initialUserId]);
+  }, [userId]);
 
   useEffect(() => {
-    setCompleted(Boolean(initialProfile?.onboarding_completed));
-  }, [initialProfile?.onboarding_completed]);
-
-  useEffect(() => {
-    const supabase = createClient();
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
-      const uid = session?.user?.id ?? null;
-      setUserId(uid);
-      if (uid) {
-        setDismissed(!!localStorage.getItem(storageKey(uid)));
-      } else {
-        setDismissed(false);
-      }
-    });
-    return () => subscription.unsubscribe();
-  }, []);
+    setCompleted(Boolean(profile?.onboarding_completed));
+  }, [profile?.onboarding_completed]);
 
   const welcome = searchParams.get("onboarding") === "1";
   const preview = searchParams.get("previewOnboarding") === "1";
@@ -102,7 +74,7 @@ export function OnboardingGate({
       onOpenChange={handleOpenChange}
       document={onboarding}
       profileSettings={profileSettings}
-      initialProfile={initialProfile}
+      initialProfile={profile}
       onCompleted={() => setCompleted(true)}
     />
   );

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist_Mono, Manrope } from "next/font/google";
 import { Suspense } from "react";
+import { SessionProvider } from "@/components/auth/session-provider";
 import { OnboardingGate } from "@/components/onboarding/onboarding-gate";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
@@ -10,7 +11,6 @@ import { getBrukerprofilSettings } from "@/lib/sanity/brukerprofil";
 import { getActiveOnboarding } from "@/lib/sanity/onboarding";
 import { urlFor } from "@/lib/sanity/image";
 import { getSiteSettings } from "@/lib/sanity/settings";
-import { getAuthUser, getLayoutProfile } from "@/lib/supabase/session";
 import "./globals.css";
 
 const manrope = Manrope({
@@ -69,37 +69,27 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const [settings, onboarding, brukerprofilSettings, user] = await Promise.all([
+  const [settings, onboarding, brukerprofilSettings] = await Promise.all([
     getSiteSettings(),
     getActiveOnboarding(),
     getBrukerprofilSettings(),
-    getAuthUser(),
   ]);
-  const profile = user ? await getLayoutProfile(user.id) : null;
 
   return (
     <html
       lang="en"
-        className={`${manrope.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${manrope.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <SiteHeader
-          settings={settings}
-          initialProfile={profile}
-          initialSignedIn={Boolean(user)}
-          initialEmail={user?.email ?? null}
-        />
-        {children}
-        <SiteFooter settings={settings} />
-        <SonnerToaster />
-        <Suspense fallback={null}>
-          <OnboardingGate
-            onboarding={onboarding}
-            initialUserId={user?.id ?? null}
-            profileSettings={brukerprofilSettings}
-            initialProfile={profile}
-          />
-        </Suspense>
+        <SessionProvider>
+          <SiteHeader settings={settings} />
+          {children}
+          <SiteFooter settings={settings} />
+          <SonnerToaster />
+          <Suspense fallback={null}>
+            <OnboardingGate onboarding={onboarding} profileSettings={brukerprofilSettings} />
+          </Suspense>
+        </SessionProvider>
       </body>
     </html>
   );
