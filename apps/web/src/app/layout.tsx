@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { Geist_Mono, Manrope } from "next/font/google";
 import { Suspense } from "react";
+import { AuthenticatedPrefetch } from "@/components/auth/authenticated-prefetch";
 import { SessionProvider } from "@/components/auth/session-provider";
+import { QueryProvider } from "@/components/providers/query-provider";
 import { OnboardingGate } from "@/components/onboarding/onboarding-gate";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
@@ -81,15 +83,18 @@ export default async function RootLayout({
       className={`${manrope.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <SessionProvider>
-          <SiteHeader settings={settings} />
-          {children}
-          <SiteFooter settings={settings} />
-          <SonnerToaster />
-          <Suspense fallback={null}>
-            <OnboardingGate onboarding={onboarding} profileSettings={brukerprofilSettings} />
-          </Suspense>
-        </SessionProvider>
+        <QueryProvider>
+          <SessionProvider>
+            <AuthenticatedPrefetch />
+            <SiteHeader settings={settings} />
+            {children}
+            <SiteFooter settings={settings} />
+            <SonnerToaster />
+            <Suspense fallback={null}>
+              <OnboardingGate onboarding={onboarding} profileSettings={brukerprofilSettings} />
+            </Suspense>
+          </SessionProvider>
+        </QueryProvider>
       </body>
     </html>
   );

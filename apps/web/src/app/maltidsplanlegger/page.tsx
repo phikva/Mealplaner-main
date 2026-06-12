@@ -1,7 +1,8 @@
 import { redirect } from "next/navigation";
 import { getMealPlanWithRecipesAction } from "@/app/actions/meal-plan";
-import { addDays, localYmd, mondayOfWeek } from "@/components/plan/meal-plan-dates";
-import { MealPlanView } from "@/components/plan/meal-plan-view";
+import { MealPlanClient } from "@/components/plan/meal-plan-client";
+import { monthRangeForAnchor } from "@/components/plan/meal-plan-cache";
+import { localYmd, mondayOfWeek } from "@/components/plan/meal-plan-dates";
 import { MEAL_PLANNER_ROUTE } from "@/lib/app-routes";
 import { getCategories } from "@/lib/sanity/categories";
 import { getTiers } from "@/lib/sanity/tiers";
@@ -20,20 +21,17 @@ export default async function MaltidsplanleggerPage() {
   const user = await getAuthUser();
   if (!user) redirect(loginNext);
 
-  const supabase = await createClient();
-
   const today = new Date();
-  const mon = mondayOfWeek(today);
-  const sun = addDays(mon, 6);
-  const from = localYmd(mon);
-  const to = localYmd(sun);
+  const month = monthRangeForAnchor(today);
 
+  const supabase = await createClient();
   const [bundle, categories, tiers, profileRes] = await Promise.all([
-    getMealPlanWithRecipesAction(from, to),
+    getMealPlanWithRecipesAction(month.from, month.to),
     getCategories(),
     getTiers(),
     supabase.from("profiles").select("tier_sanity_id,tier_slug").eq("id", user.id).maybeSingle(),
   ]);
+
   if (!bundle.ok) {
     if (bundle.error === "not_authenticated") redirect(loginNext);
     throw new Error("Kunne ikke laste måltidsplan fra databasen.");
@@ -57,13 +55,16 @@ export default async function MaltidsplanleggerPage() {
           </ul>
         </div>
       </header>
-      <MealPlanView
-        initialFrom={from}
-        initialTo={to}
-        initialEntries={bundle.entries}
-        initialRecipes={bundle.recipes}
+      <MealPlanClient
         categoryOptions={categoryOptions}
         mealStorageMaxDays={mealStorageMaxDays}
+        initialAnchorYmd={localYmd(mondayOfWeek(today))}
+        initialMonth={{
+          from: month.from,
+          to: month.to,
+          entries: bundle.entries,
+          recipes: bundle.recipes,
+        }}
       />
     </main>
   );

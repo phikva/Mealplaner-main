@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { Dialog, VisuallyHidden } from "radix-ui";
+import { Dialog } from "radix-ui";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { ChevronDown, Plus } from "lucide-react";
 import { toast } from "sonner";
@@ -267,13 +267,11 @@ export function AddMealPlanButton({
               "md:left-1/2 md:top-1/2 md:max-h-[min(85vh,720px)] md:w-[calc(100%-2rem)] md:-translate-x-1/2 md:-translate-y-1/2 md:rounded-2xl md:shadow-[0_25px_50px_-12px_rgba(0,0,0,0.2)] md:data-[state=open]:zoom-in-95 md:data-[state=closed]:zoom-out-95",
             )}
           >
-            <VisuallyHidden.Root>
-              <Dialog.Title id="add-meal-title">Legg til måltid</Dialog.Title>
-              <Dialog.Description>
-                Velg kategori, søk eventuelt, filtrer på næring, og trykk på en oppskrift for å legge den til{" "}
-                {planDate}.
-              </Dialog.Description>
-            </VisuallyHidden.Root>
+            <Dialog.Title className="sr-only">Legg til måltid</Dialog.Title>
+            <Dialog.Description className="sr-only">
+              Velg kategori, søk eventuelt, filtrer på næring, og trykk på en oppskrift for å legge den til{" "}
+              {planDate}.
+            </Dialog.Description>
             <div className="flex max-h-[min(90dvh,900px)] min-h-0 flex-col md:max-h-[min(85vh,720px)]">
               <div className="flex shrink-0 justify-center bg-gradient-to-b from-muted/35 to-background pt-1 md:rounded-t-2xl md:pt-0.5">
                 <div className="h-1 w-9 shrink-0 rounded-full bg-muted-foreground/25 md:hidden" aria-hidden />

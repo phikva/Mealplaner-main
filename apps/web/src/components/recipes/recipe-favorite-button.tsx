@@ -1,7 +1,8 @@
 "use client";
 
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { useCallback, useState, useTransition } from "react";
+import { useInvalidateFavorites } from "@/lib/query/favorites";
 import { Heart } from "lucide-react";
 import Link from "next/link";
 import { toast } from "sonner";
@@ -29,8 +30,8 @@ export function RecipeFavoriteButton({
   variant = "full",
   className,
 }: Props) {
-  const router = useRouter();
   const pathname = usePathname();
+  const invalidateFavorites = useInvalidateFavorites();
   const loginHref = `/logg-inn?next=${encodeURIComponent(pathname || "/")}`;
   const [favorited, setFavorited] = useState(initialFavorited);
   const [pending, startTransition] = useTransition();
@@ -52,7 +53,7 @@ export function RecipeFavoriteButton({
         } else {
           toast.error("Kunne ikke oppdatere favoritt. Prøv igjen.");
         }
-        router.refresh();
+        invalidateFavorites();
         return;
       }
       if (res.favorited) {
@@ -61,9 +62,9 @@ export function RecipeFavoriteButton({
         toast.success("Fjernet fra favoritter");
       }
       setFavorited(res.favorited);
-      router.refresh();
+      invalidateFavorites();
     });
-  }, [blockAdd, favorited, recipeSanityId, router]);
+  }, [blockAdd, favorited, invalidateFavorites, recipeSanityId]);
 
   const iconButtonClass = cn(
     "inline-flex size-10 shrink-0 items-center justify-center rounded-full border shadow-md backdrop-blur-md transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",

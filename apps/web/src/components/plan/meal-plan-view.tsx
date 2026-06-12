@@ -1,16 +1,9 @@
 /**
- * Måltidsplanlegger – orkestrering.
- *
- * Mulige forbedringer (UX): sort_order etter sletting; dra/sorter; toast; URL-state; skeleton.
+ * Måltidsplanlegger – orkestrering (TanStack Query for måltidsdata).
  */
 "use client";
 
-import { useCallback, useEffect, useMemo, useRef, useState, useTransition } from "react";
-import {
-  getMealPlanWithRecipesAction,
-  type MealPlanRow,
-} from "@/app/actions/meal-plan";
-import { toast } from "sonner";
+import { useEffect, useMemo, useState } from "react";
 import {
   MEAL_PLAN_TIMEZONE,
   addDays,
@@ -23,6 +16,8 @@ import {
   planMonthIndex0,
   startOfMonth,
 } from "@/components/plan/meal-plan-dates";
+import { monthRangeForAnchor } from "@/components/plan/meal-plan-cache";
+import type { MealPlanBundle } from "@/components/plan/meal-plan-cache";
 import { DayPlanner } from "@/components/plan/day-planner";
 import { MonthPlanner } from "@/components/plan/month-planner";
 import { MealPlanSummary } from "@/components/plan/meal-plan-summary";
@@ -30,38 +25,34 @@ import { MealPlanToolbar } from "@/components/plan/meal-plan-toolbar";
 import type { MealPlanCategoryOption, ViewMode } from "@/components/plan/meal-plan-types";
 import { WeekPlanner } from "@/components/plan/week-planner";
 import { sumMacrosFromRecipes } from "@/lib/meal-plan-macros";
+import {
+  useInvalidateMealPlan,
+  useMealPlanMonth,
+  useMealPlanRange,
+  usePrefetchAdjacentMealPlanMonths,
+  useVisibleMealPlanBundle,
+} from "@/lib/query/meal-plan";
 import type { SanityRecipe } from "@/types/page";
+import type { MealPlanRow } from "@/app/actions/meal-plan";
 
 type Props = {
-  initialFrom: string;
-  initialTo: string;
-  initialEntries: MealPlanRow[];
-  initialRecipes: SanityRecipe[];
+  initialAnchorYmd: string;
+  initialMonth?: MealPlanBundle & { from: string; to: string };
   categoryOptions: MealPlanCategoryOption[];
-  /** Fra Sanity tier.mealStorage – null = uendelig (Premium). */
   mealStorageMaxDays: number | null;
 };
 
 export function MealPlanView({
-  initialFrom,
-  initialTo,
-  initialEntries,
-  initialRecipes,
+  initialAnchorYmd,
+  initialMonth,
   categoryOptions,
   mealStorageMaxDays,
 }: Props) {
   const [view, setView] = useState<ViewMode>("week");
-  const [anchor, setAnchor] = useState(() => parseYmd(initialFrom));
-  const [entries, setEntries] = useState<MealPlanRow[]>(initialEntries);
-  const [recipes, setRecipes] = useState<SanityRecipe[]>(initialRecipes);
-  const [pending, startTransition] = useTransition();
+  const [anchor, setAnchor] = useState(() => parseYmd(initialAnchorYmd));
   const [weekDayIndex, setWeekDayIndex] = useState(0);
 
-  const recipeMap = useMemo(() => {
-    const m = new Map<string, SanityRecipe>();
-    for (const r of recipes) m.set(r._id, r);
-    return m;
-  }, [recipes]);
+  const monthBounds = useMemo(() => monthRangeForAnchor(anchor), [anchor]);
 
   const range = useMemo(() => {
     if (view === "day") {
@@ -78,36 +69,22 @@ export function MealPlanView({
     return { from: localYmd(a), to: localYmd(b) };
   }, [anchor, view]);
 
-  const initialRangeKey = useMemo(() => `${initialFrom}:${initialTo}`, [initialFrom, initialTo]);
-  const loadedRangeKeyRef = useRef<string | null>(null);
-  const skippedInitialLoadRef = useRef(false);
+  const monthQuery = useMealPlanMonth(anchor, initialMonth);
+  const rangeQuery = useMealPlanRange(range, monthBounds);
+  usePrefetchAdjacentMealPlanMonths(anchor);
+  const invalidateMealPlan = useInvalidateMealPlan();
 
-  const load = useCallback(() => {
-    const rangeKey = `${range.from}:${range.to}`;
-    startTransition(async () => {
-      const res = await getMealPlanWithRecipesAction(range.from, range.to);
-      if (!res.ok) {
-        if (res.error === "query_failed") {
-          toast.error("Kunne ikke laste måltidsplan. Prøv igjen.");
-        }
-        return;
-      }
-      loadedRangeKeyRef.current = rangeKey;
-      setEntries(res.entries);
-      setRecipes(res.recipes);
-    });
-  }, [range.from, range.to]);
+  const bundle = useVisibleMealPlanBundle(range, monthBounds, monthQuery.data, rangeQuery.data);
+  const { entries, recipes } = bundle;
 
-  useEffect(() => {
-    const rangeKey = `${range.from}:${range.to}`;
-    if (loadedRangeKeyRef.current === rangeKey) return;
-    if (!skippedInitialLoadRef.current && rangeKey === initialRangeKey) {
-      skippedInitialLoadRef.current = true;
-      loadedRangeKeyRef.current = rangeKey;
-      return;
-    }
-    load();
-  }, [initialRangeKey, load, range.from, range.to]);
+  const pending =
+    (monthQuery.isFetching && !monthQuery.data) || (rangeQuery.isFetching && !rangeQuery.data);
+
+  const recipeMap = useMemo(() => {
+    const m = new Map<string, SanityRecipe>();
+    for (const r of recipes) m.set(r._id, r);
+    return m;
+  }, [recipes]);
 
   const totals = useMemo(() => {
     const list = entries
@@ -186,7 +163,7 @@ export function MealPlanView({
           recipeMap={recipeMap}
           categoryOptions={categoryOptions}
           mealStorageMaxDays={mealStorageMaxDays}
-          onReload={load}
+          onReload={invalidateMealPlan}
           selectedWeekDayIndex={weekDayIndex}
           onWeekDayIndexChange={setWeekDayIndex}
         />
@@ -200,7 +177,7 @@ export function MealPlanView({
           recipeMap={recipeMap}
           categoryOptions={categoryOptions}
           mealStorageMaxDays={mealStorageMaxDays}
-          onReload={load}
+          onReload={invalidateMealPlan}
         />
       ) : null}
 
@@ -212,7 +189,7 @@ export function MealPlanView({
           recipeMap={recipeMap}
           categoryOptions={categoryOptions}
           mealStorageMaxDays={mealStorageMaxDays}
-          onReload={load}
+          onReload={invalidateMealPlan}
         />
       ) : null}
     </div>

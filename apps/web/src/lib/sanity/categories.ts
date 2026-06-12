@@ -1,3 +1,4 @@
+import { cache } from "react";
 import { sanityClient } from "@/lib/sanity/client";
 import {
   categoriesQuery,
@@ -40,13 +41,13 @@ export const getCategoryByPath = async (path: string) => {
   return byIdCategory ? withCategoryPath(byIdCategory) : null;
 };
 
-export const getCategories = async () => {
+export const getCategories = cache(async () => {
   const categories = await sanityClient.fetch<SanityCategory[]>(categoriesQuery, {}, {
     next: { revalidate: SANITY_REVALIDATE_SECONDS, tags: ["sanity:categories"] },
   });
 
   return categories.map(withCategoryPath);
-};
+});
 
 export const getCategoryPaths = async () => {
   const categories = await sanityClient.fetch<Array<{ _id: string; name: string; slug?: { current?: string } }>>(
